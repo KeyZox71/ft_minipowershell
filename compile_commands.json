@@ -1,0 +1,21 @@
+[
+ {
+  "directory": "/nfs/homes/adjoly/Documents/ft_minipowershell",
+  "arguments": [
+   "cc",
+   "-I",
+   "include/",
+   "-I",
+   "libft/",
+   "-Werror",
+   "-Wall",
+   "-Wextra",
+   "-g",
+   "src/main.c",
+   "-c",
+   "-o",
+   "obj/src/main.o"
+  ],
+  "file": "src/main.c"
+ }
+]

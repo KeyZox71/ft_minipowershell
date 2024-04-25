@@ -6,7 +6,7 @@
 #    By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 10:49:52 by adjoly            #+#    #+#              #
-#    Updated: 2024/04/24 10:50:53 by adjoly           ###   ########.fr        #
+#    Updated: 2024/04/25 10:59:23 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,13 @@ CC = cc
 
 OBJSDIR = obj/
 
-SRCDIR = src/
-
-SRC =	$(find src -name '*.c')
+SRC = $(shell find src -name '*.c')
 
 I_DIR = include/
 
 LIBFT_DIR = libft/
 	   
-INCLUDE = -I $(I_DIR) -I $(LIBFT_DIR)
+INCLUDE = -I $(I_DIR) -I $(LIBFT_DIR) 
 
 OBJS = $(addprefix $(OBJSDIR), $(SRC:.c=.o))
 
@@ -34,7 +32,7 @@ LIB = libft/libft.a \
 
 $(NAME): $(OBJS)
 	@make -s -C libft
-	@$(CC) $(FLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(FLAGS) -lreadline $(OBJS) $(LIB) -o $(NAME)
 	@echo "[✔] Compiled"
 
 $(OBJSDIR)%.o: %.c
@@ -57,4 +55,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean all re fclean
-
