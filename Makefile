@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+         #
+#    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 10:49:52 by adjoly            #+#    #+#              #
-#    Updated: 2024/04/25 10:59:23 by adjoly           ###   ########.fr        #
+#    Updated: 2024/04/26 13:56:50 by mmoussou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ FLAGS = -Werror -Wall -Wextra -g
 LIB = libft/libft.a \
 
 $(NAME): $(OBJS)
-	@make -s -C libft
+	@make -sj$(nproc) -C libft
 	@$(CC) $(FLAGS) -lreadline $(OBJS) $(LIB) -o $(NAME)
 	@echo "[✔] Compiled"
 
