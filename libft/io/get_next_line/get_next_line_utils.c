@@ -6,11 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:12:02 by adjoly            #+#    #+#             */
-/*   Updated: 2024/03/16 21:45:27 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/04/27 17:25:44 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../libft.h"
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {

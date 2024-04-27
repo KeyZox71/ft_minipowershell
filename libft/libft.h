@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:06:03 by adjoly            #+#    #+#             */
-/*   Updated: 2024/03/16 21:45:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/04/27 17:27:45 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-# include "print/printf/ft_printf.h"
-# include "io/get_next_line/get_next_line.h"
+# include <stdarg.h>
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 typedef struct s_list
 {
@@ -36,6 +38,7 @@ typedef enum s_boolean
 	TRUE,
 }	t_boolean;
 
+char		*ft_strjoinvaarg(char *src, ...);
 long long	ft_atoll(const char	*nptr);
 int			ft_atoi(const char	*nptr);
 void		*ft_calloc(size_t nmemb, size_t size);
@@ -84,6 +87,10 @@ void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
+char		*get_next_line(int fd);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+void		*ft_calloc(size_t nmemb, size_t size);
+
 void		ft_putchar(char c);
 void		ft_putstr(char *s);
 void		ft_putnbrbase_fd(int n, char *base, int fd);
@@ -95,10 +102,12 @@ int			ft_printconversion(char conversion, va_list args);
 int			ft_putnbrulong(unsigned int n);
 int			ft_putaddr(void *ptr);
 int			ft_putstr_p(char *s);
-int			ft_putnbrbase_p(unsigned long int n, char *base);
+int			ft_putnbrbasep(unsigned long int n, char *base);
 int			ft_putnbrbase_pf(unsigned int n, char *base);
 int			ft_putchar_p(char c);
 int			ft_putnbr_p(int n);
 size_t		ft_strlen(const char *s);
+
+void		ft_freearr(void **arr);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 11:03:22 by adjoly            #+#    #+#              #
-#    Updated: 2024/03/18 14:33:40 by adjoly           ###   ########.fr        #
+#    Updated: 2024/04/27 17:17:00 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = is/ft_isalnum.c \
 		mem/ft_memcpy.c \
 		mem/ft_memmove.c \
 		mem/ft_memset.c \
+		mem/ft_freetab.c \
 		print/ft_putchar.c \
 		print/ft_putchar_fd.c \
 		print/ft_putendl_fd.c \
@@ -70,16 +71,16 @@ SRCS = is/ft_isalnum.c \
 		print/printf/ft_putnbrbase.c \
 		print/printf/ft_putnbr.c \
 		print/printf/ft_putstr.c \
+		io/get_next_line/get_next_line.c \
+		io/get_next_line/get_next_line_utils.c \
 
 OBJS = $(addprefix $(OBJSDIR),$(SRCS:.c=.o))
 
 FLAGS = -Werror -Wall -Wextra -g
 
-LIB = io/get_next_line/get_next_line.a
 
 $(NAME): $(OBJS)
-	@make -s -C io/get_next_line/
-	@ar -rcs	$(NAME) $(OBJS) $(LIB)
+	@ar -rcs $(NAME) $(OBJS) 
 	@echo "[✔] Libft compiled"
 
 $(OBJSDIR)%.o: %.c
@@ -89,11 +90,9 @@ $(OBJSDIR)%.o: %.c
 all: $(NAME)
 
 clean:
-	@make -s -C io/get_next_line/ clean
 	@rm -f $(OBJS)
 
 fclean: clean
-	@make -s -C io/get_next_line/ fclean
 	@rm -f $(NAME)
 	@echo "[X] Libft cleaned"
 

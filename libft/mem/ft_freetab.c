@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_freetab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 11:45:55 by adjoly            #+#    #+#             */
-/*   Updated: 2024/04/27 17:24:56 by adjoly           ###   ########.fr       */
+/*   Created: 2024/04/27 15:33:20 by adjoly            #+#    #+#             */
+/*   Updated: 2024/04/27 17:20:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include <stdlib.h>
 
-int	ft_putstr_p(char *s)
+void	ft_freearr(void **arr)
 {
-	if (s == NULL)
+	void	**tmp;
+
+	tmp = arr;
+	while (*tmp)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		free(*tmp);
+		tmp++;
 	}
-	return (write(1, s, ft_strlen(s)));
+	free(arr);
 }

@@ -6,11 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:52:46 by adjoly            #+#    #+#             */
-/*   Updated: 2024/02/04 15:20:26 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/04/27 17:24:27 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../libft.h"
 
 int	ft_putnbr_p(int n)
 {

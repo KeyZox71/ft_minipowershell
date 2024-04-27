@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 09:14:19 by adjoly            #+#    #+#             */
-/*   Updated: 2024/02/04 14:43:50 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/04/27 17:21:29 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_countletter(char const *s, char sep)
 	return (i);
 }
 
-static void	*ft_freearr(char **arr)
+static void	*ft_freearr_s(char **arr)
 {
 	int	i;
 
@@ -67,7 +67,7 @@ char	**ft_split_to_result(char **tab, char const *s, char c)
 			k = 0;
 			tab[j] = ft_calloc(ft_countletter(&s[i], c) + 1, sizeof(char));
 			if (!tab[j])
-				return (ft_freearr(tab));
+				return (ft_freearr_s(tab));
 			while (s[i] && s[i] != c)
 				tab[j][k++] = s [i++];
 			tab[j][k] = '\0';

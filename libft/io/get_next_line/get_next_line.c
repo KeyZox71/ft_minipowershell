@@ -6,11 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:11:59 by adjoly            #+#    #+#             */
-/*   Updated: 2024/02/04 14:23:07 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/04/27 17:25:28 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../libft.h"
 
 char	check_line(char *res, char *buf)
 {

@@ -6,11 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:48:37 by adjoly            #+#    #+#             */
-/*   Updated: 2024/03/16 21:46:36 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/04/27 17:27:13 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../libft.h"
 
 int	ft_putaddr(void *ptr)
 {
@@ -19,7 +19,7 @@ int	ft_putaddr(void *ptr)
 	if (ptr == NULL)
 		return (write(1, "(nil)", 5));
 	write(1, "0x", 2);
-	r = ft_putnbrbase_p((long unsigned int)ptr, "0123456789abcdef");
+	r = ft_putnbrbasep((long unsigned int)ptr, "0123456789abcdef");
 	return (2 + r);
 }
 
@@ -56,9 +56,9 @@ int	ft_printconversion(char conversion, va_list args)
 	else if (conversion == 'p')
 		count = ft_putaddr(va_arg(args, void *));
 	else if (conversion == 'x')
-		count = ft_pputnbrbase(va_arg(args, unsigned long), "0123456789abcdef");
+		count = ft_putnbrbasep(va_arg(args, unsigned long), "0123456789abcdef");
 	else if (conversion == 'X')
-		count = ft_pputnbrbase(va_arg(args, unsigned long), "0123456789ABCDEF");
+		count = ft_putnbrbasep(va_arg(args, unsigned long), "0123456789ABCDEF");
 	return (count);
 }
 
