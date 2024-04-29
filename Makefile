@@ -6,7 +6,7 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 10:49:52 by adjoly            #+#    #+#              #
-#    Updated: 2024/04/26 13:56:50 by mmoussou         ###   ########.fr        #
+#    Updated: 2024/04/29 13:29:12 by mmoussou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ I_DIR = include/
 
 LIBFT_DIR = libft/
 	   
-INCLUDE = -I $(I_DIR) -I $(LIBFT_DIR) 
+INCLUDE = -I $(I_DIR) -I $(LIBFT_DIR)/$(I_DIR)
 
 OBJS = $(addprefix $(OBJSDIR), $(SRC:.c=.o))
 
