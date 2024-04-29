@@ -3,99 +3,113 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+         #
+#    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/01 11:03:22 by adjoly            #+#    #+#              #
-#    Updated: 2024/04/27 17:17:00 by adjoly           ###   ########.fr        #
+#    Created: 2024/01/22 07:21:18 by mmoussou          #+#    #+#              #
+#    Updated: 2024/04/10 10:58:10 by mmoussou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+SHELL = bash
+
+CC = gcc
+
+CFLAGS = -Wall -Werror -Wextra
+
+INCLUDE = ./include
+
 NAME = libft.a
 
-CC = cc
+#find -type f -name "*.c" | sed "s/\.\///g" | xargs -Iname echo "`printf '\t\t\t'`" name "\\"
+SRCS = 		 src/io/ft_putnbr_fd.c \
+			 src/io/ft_putuhex_fd.c \
+			 src/io/ft_putendl_fd.c \
+			 src/io/ft_putstr_fd.c \
+			 src/io/ft_printf.c \
+			 src/io/ft_printf_fd.c \
+			 src/io/ft_putchar_fd.c \
+			 \
+			 src/int/ft_min.c \
+			 src/int/ft_max.c \
+			 src/int/ft_abs.c \
+			 \
+			 src/mem/ft_memchr.c \
+			 src/mem/ft_calloc.c \
+			 src/mem/ft_memcpy.c \
+			 src/mem/ft_free.c \
+			 src/mem/ft_memset.c \
+			 src/mem/ft_memcmp.c \
+			 src/mem/ft_memmove.c \
+			 src/mem/ft_bzero.c \
+			 \
+			 src/str/XtoX/ft_atol.c \
+			 src/str/XtoX/ft_itoa.c \
+			 src/str/XtoX/ft_atoi.c \
+			 src/str/XtoX/ft_ltoa.c \
+			 \
+			 src/str/ft_strchr.c \
+			 src/str/ft_strtrim.c \
+			 src/str/ft_strcmp.c \
+			 src/str/ft_striteri.c \
+			 src/str/ft_strmapi.c \
+			 src/str/ft_substr.c \
+			 src/str/ft_strdup.c \
+			 src/str/ft_strnstr.c \
+			 src/str/ft_tolower.c \
+			 src/str/ft_strlcpy.c \
+			 src/str/ft_strlen.c \
+			 src/str/ft_strjoin.c \
+			 src/str/ft_strncmp.c \
+			 src/str/ft_strrchr.c \
+			 src/str/ft_split.c \
+			 src/str/ft_strlcat.c \
+			 src/str/ft_toupper.c \
+			 \
+			 src/char/ft_isdigit.c \
+			 src/char/ft_isalnum.c \
+			 src/char/ft_isprint.c \
+			 src/char/ft_isalpha.c \
+			 src/char/ft_isascii.c \
+			 \
+			 src/stack/ft_stackadd_front.c \
+			 src/stack/ft_stackadd_back.c \
+			 src/stack/ft_stacksize.c \
+			 src/stack/ft_stacknew.c \
+			 src/stack/ft_stacklast.c \
+			 \
+			 src/linked_lists/ft_lstmap.c \
+			 src/linked_lists/ft_lstnew.c \
+			 src/linked_lists/ft_lstclear.c \
+			 src/linked_lists/ft_lstsize.c \
+			 src/linked_lists/ft_lstadd_front.c \
+			 src/linked_lists/ft_lstadd_back.c \
+			 src/linked_lists/ft_lstiter.c \
+			 src/linked_lists/ft_lstlast.c \
+			 src/linked_lists/ft_lstdelone.c
 
-OBJSDIR = obj/
+OBJS = $(SRCS:.c=.o)
 
-SRCS = is/ft_isalnum.c \
-		is/ft_isalpha.c \
-		is/ft_isascii.c \
-		is/ft_isdigit.c \
-		is/ft_isprint.c \
-		lst/ft_lstadd_back.c \
-		lst/ft_lstadd_front.c \
-		lst/ft_lstclear.c \
-		lst/ft_lstdelone.c \
-		lst/ft_lstiter.c \
-		lst/ft_lstlast.c \
-		lst/ft_lstmap.c \
-		lst/ft_lstnew.c \
-		lst/ft_lstsize.c \
-		mem/ft_bzero.c \
-		mem/ft_calloc.c \
-		mem/ft_memchr.c \
-		mem/ft_memcmp.c \
-		mem/ft_memcpy.c \
-		mem/ft_memmove.c \
-		mem/ft_memset.c \
-		mem/ft_freetab.c \
-		print/ft_putchar.c \
-		print/ft_putchar_fd.c \
-		print/ft_putendl_fd.c \
-		print/ft_putnbrbase.c \
-		print/ft_putnbrbase_fd.c \
-		print/ft_putnbr.c \
-		print/ft_putnbr_fd.c \
-		print/ft_putstr.c \
-		print/ft_putstr_fd.c \
-		str/ft_atoi.c \
-		str/ft_atoll.c \
-		str/ft_itoa.c \
-		str/ft_split.c \
-		str/ft_strchr.c \
-		str/ft_strdup.c \
-		str/ft_striteri.c \
-		str/ft_strjoin.c \
-		str/ft_strlcat.c \
-		str/ft_strlcpy.c \
-		str/ft_strlen.c \
-		str/ft_strmapi.c \
-		str/ft_strncmp.c \
-		str/ft_strnstr.c \
-		str/ft_strrchr.c \
-		str/ft_strtrim.c \
-		str/ft_substr.c \
-		str/ft_tolower.c \
-		str/ft_toupper.c \
-		print/printf/ft_printf.c \
-		print/printf/ft_putchar.c \
-		print/printf/ft_putnbrbase.c \
-		print/printf/ft_putnbr.c \
-		print/printf/ft_putstr.c \
-		io/get_next_line/get_next_line.c \
-		io/get_next_line/get_next_line_utils.c \
-
-OBJS = $(addprefix $(OBJSDIR),$(SRCS:.c=.o))
-
-FLAGS = -Werror -Wall -Wextra -g
-
-
-$(NAME): $(OBJS)
-	@ar -rcs $(NAME) $(OBJS) 
-	@echo "[✔] Libft compiled"
-
-$(OBJSDIR)%.o: %.c
-	@mkdir -p $(@D)
-	@$(CC) $(FLAGS) $< -c -o $@
 
 all: $(NAME)
 
-clean:
+%.o: %.c
+	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m Compiling Libft Objects... : $<"
+	@$(CC) $(CFLAGS) -I$(INCLUDE) $< -c -o $@
+
+$(NAME): $(OBJS)
+	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m Libft Objects Compiled."
+	@printf "\n \x1B[1;33m[ 󱉟 ]\x1B[0m Creating Libft Archive..."
+	@ar rcs $(NAME) $(OBJS)
+	@printf "\x1B[2K\r \x1B[1;33m[ 󱉟 ]\x1B[0m Libft Archive Created.\n"
+
+clean: 
 	@rm -f $(OBJS)
+	@printf " \x1B[1;31m[  ]\x1B[0m Deleted Libft Objects.\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "[X] Libft cleaned"
+	@printf " \x1B[1;31m[  ]\x1B[0m Deleted Libft Archive.\n"
 
 re: fclean all
 
-.PHONY: clean all re fclean
+.PHONY: all server client clean fclean re
