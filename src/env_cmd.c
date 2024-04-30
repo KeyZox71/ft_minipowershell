@@ -6,11 +6,17 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:53:11 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/04/29 13:51:08 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:54:48 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+size_t	ft_envsize(t_env	*env)
+{
+	(void)env;
+	return (0);
+}
 
 char	**get_env(t_env *env)
 {
@@ -32,8 +38,8 @@ char	**get_env(t_env *env)
 		}
 		ft_strlcpy(exec_env[i], env->name, ft_strlen(env->name));
 		exec_env[i][ft_strlen(env->name)] = '=';
-		ft_strlcpy(exec_env[i] + ft_strlen(env->name) + 1,
-			env->content, ft_strlen(env->content))
+		ft_strlcpy(exec_env[i] + ft_strlen(env->name) + 1, \
+			env->content, ft_strlen(env->content));
 		env = env->next;
 		i++;
 	}
