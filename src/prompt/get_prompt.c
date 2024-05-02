@@ -6,49 +6,22 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:25:42 by adjoly            #+#    #+#             */
-/*   Updated: 2024/04/30 13:27:03 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:50:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*char	*get_hostname(void)
-{
-	char	*hostname;
-	char	*tmp;
-	int		host_file;
-
-	//host_file = open();
-	tmp = hostname;
-	while (*tmp)
-		tmp++;
-	return
-}*/
+#include "libft.h"
+#include "minishell.h"
 
 char	*get_prompt(void)
 {
-	char	**prompt;
-	char	*ret = NULL;
-	char	*home;
-	char	**tmp;
+	char	*prompt;
 
-	prompt = malloc(1000);
-	prompt[0] = getenv("USER");
-	prompt[1] = "@";
-	//prompt[2] = get_hostname();
-	home = getenv("HOME");
-	prompt[3] = getenv("PWD");
-	prompt[4] = ">";
-	//ret = ft_calloc(1000, sizeof(char));
-
-	if (!ft_strncmp(prompt[3], home, ft_strlen(home)))
-		prompt[3] += ft_strlen(home);
-	tmp = prompt;
-	while (*tmp)
-	{
-		ft_strlcat(ret, *tmp, ft_strlen(ret) + ft_strlen(*tmp) + 1);
-		tmp++;
-	}
-	free(prompt);
-	return (ret);
+	prompt = getenv("USER");
+	prompt = ft_strjoin(prompt, "@");
+	prompt = ft_strjoin_free(prompt, get_hostname());
+	prompt = ft_strjoin_free_s1(prompt, ":");
+	prompt = ft_strjoin_free(prompt, get_pwd());
+	prompt = ft_strjoin_free_s1(prompt, "$ ");
+	return (prompt);
 }
-
-
