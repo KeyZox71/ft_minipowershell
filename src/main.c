@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/02 15:47:34 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:53:21 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int ac, char **av, char **env)
 	{
 		prompt = get_prompt();
 		test = readline(prompt);
+		free(prompt);
 		add_history(test);
 		lll = ft_split(test, ' ');
 		if (!*lll)
