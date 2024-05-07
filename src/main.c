@@ -6,28 +6,25 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/02 15:53:21 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/04 15:33:54 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <fcntl.h>
 #include "minishell.h"
 
-bool	is_str(char *src, char *dst)
+void	print_cmd(t_cmd cmd)
 {
-	while (*src && *dst && *src == *dst)
+	ft_putendl_fd(cmd.cmd, 1);	
+	while (*(cmd.argv))
 	{
-		src++;
-		dst++;
+		ft_putendl_fd(*(cmd.argv), 1);
+		(cmd.argv)++;
 	}
-	if (*dst)
-		return (false);
-	return (true);
 }
 
 int	main(int ac, char **av, char **env)
@@ -35,6 +32,7 @@ int	main(int ac, char **av, char **env)
 	char	*test;
 	char	**lll;
 	char	*prompt;
+	t_cmd	*cmd;
 
 	(void)ac;
 	(void)av;
@@ -50,7 +48,11 @@ int	main(int ac, char **av, char **env)
 			continue;
 		if (is_str(test, "exit"))
 			break;
+		cmd = ft_calloc(sizeof(t_cmd), 1);
+		*cmd = split_cmd(test);
+		print_cmd(*cmd);
+		ft_free("a", &lll);
 	}
-	//ft_free("a", &lll);
+	ft_free("a", &lll);
 	return (0);
 }

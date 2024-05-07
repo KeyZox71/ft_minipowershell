@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   is_str.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/04 13:54:02 by adjoly           ###   ########.fr       */
+/*   Created: 2024/05/03 10:23:40 by adjoly            #+#    #+#             */
+/*   Updated: 2024/05/03 10:23:55 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include <stdbool.h>
 
-typedef struct s_cmd
+bool	is_str(char *src, char *dst)
 {
-	char	*cmd;
-	char	**argv;
-}	t_cmd;
-
-typedef struct s_parsing
-{
-	
-}	t_parsing;
-
-t_cmd	split_cmd(char *cmd_av);
-
-#endif
+	while (*src && *dst && *src == *dst)
+	{
+		src++;
+		dst++;
+	}
+	if (*dst)
+		return (false);
+	return (true);
+}
