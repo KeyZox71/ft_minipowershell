@@ -6,11 +6,8 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:38:51 by mmoussou          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/05/06 20:30:42 by mmoussou         ###   ########.fr       */
-=======
 /*   Updated: 2024/05/03 10:24:15 by adjoly           ###   ########.fr       */
->>>>>>> e1ba625 (「🏗️」 wip: testing things, might broke.)
 /*                                                                            */
 /* ************************************************************************** */
 
