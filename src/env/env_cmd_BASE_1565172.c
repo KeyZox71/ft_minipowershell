@@ -6,8 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:09:50 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/09 15:54:22 by adjoly           ###   ########.fr       */
-/*   Updated: 2024/05/07 13:58:48 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/06 20:27:45 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +138,7 @@ int	env_edit(char *name, char *content, t_env *env)
 
 int	env_delete(char *name, t_env *env)
 {
-//	char	*new_content;
+	char	*new_content;
 	t_env	*tmp;
 
 	while (env && env->next && ft_strcmp(env->next->name, name))

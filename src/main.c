@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/04 15:33:54 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:11:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <fcntl.h>
+#include "libft.h"
 #include "minishell.h"
+#include "parsing.h"
 
 void	print_cmd(t_cmd cmd)
 {
@@ -27,12 +29,29 @@ void	print_cmd(t_cmd cmd)
 	}
 }
 
+void	print_pipe(t_list *pipe)
+{
+	t_list	*tmp;
+
+	tmp = pipe;
+	if (!pipe->next)
+	{
+		print_cmd(*(t_cmd*)tmp->content);
+		return;
+	}
+	while (tmp) 
+	{
+		print_cmd(*(t_cmd*)tmp->content);
+		tmp = tmp->next;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*test;
 	char	**lll;
 	char	*prompt;
-	t_cmd	*cmd;
+	t_list	*cmd;
 
 	(void)ac;
 	(void)av;
@@ -48,9 +67,8 @@ int	main(int ac, char **av, char **env)
 			continue;
 		if (is_str(test, "exit"))
 			break;
-		cmd = ft_calloc(sizeof(t_cmd), 1);
-		*cmd = split_cmd(test);
-		print_cmd(*cmd);
+		cmd = split_pipe(test);
+		//print_pipe(cmd);
 		ft_free("a", &lll);
 	}
 	ft_free("a", &lll);

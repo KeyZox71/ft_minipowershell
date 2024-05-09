@@ -6,7 +6,6 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:09:50 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/09 15:54:22 by adjoly           ###   ########.fr       */
 /*   Updated: 2024/05/07 13:58:48 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -44,7 +43,7 @@ char	**env_get(t_env *env)
 
 int	env_create_first_el(char *env_line, t_env *env)
 {
-	t_env	*new;
+//	t_env	*new;
 	char	*name;
 	char	*content;
 

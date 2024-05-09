@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   split_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/07 14:07:10 by adjoly           ###   ########.fr       */
+/*   Created: 2024/05/07 13:26:40 by adjoly            #+#    #+#             */
+/*   Updated: 2024/05/08 14:38:33 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
-
 #include "libft.h"
+#include "parsing.h"
 
-typedef struct s_cmd
+t_list	*split_pipe(char *readline)
 {
-	char	*cmd;
-	char	**argv;
-}	t_cmd;
+	//char	*tmp;
+	char	*av;
+	//char	*cmd_start;
+	t_list	*list;
 
-typedef struct s_parsing
-{
-	
-}	t_parsing;
-
-t_cmd	*split_cmd(char *cmd_av);
-t_list	*split_pipe(char *readline);
-
-#endif
+	list = NULL;
+	if (!list)
+	{
+		av = ft_calloc(sizeof(readline), sizeof(char));
+		ft_strlcpy(av, readline, ft_strlen(readline));
+		ft_lstadd_back(&list, ft_lstnew((void*)split_cmd(av)));
+	}
+	return (list);
+}
