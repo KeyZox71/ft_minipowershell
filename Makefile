@@ -6,7 +6,7 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 10:49:52 by adjoly            #+#    #+#              #
-#    Updated: 2024/04/29 13:29:12 by mmoussou         ###   ########.fr        #
+#    Updated: 2024/05/09 16:05:08 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIB = libft/libft.a \
 
 $(NAME): $(OBJS)
 	@make -sj$(nproc) -C libft
-	@$(CC) $(FLAGS) -lreadline $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) $(LIB) -o $(NAME) -lreadline
 	@echo "[✔] Compiled"
 
 $(OBJSDIR)%.o: %.c
