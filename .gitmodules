@@ -1,0 +1,3 @@
+[submodule "libft"]
+	path = libft
+	url = https://codeberg.org/27/libft
