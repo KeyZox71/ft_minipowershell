@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/07 14:11:35 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/09 18:05:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **env)
 		if (is_str(test, "exit"))
 			break;
 		cmd = split_pipe(test);
-		//print_pipe(cmd);
+		print_pipe(cmd);
 		ft_free("a", &lll);
 	}
 	ft_free("a", &lll);

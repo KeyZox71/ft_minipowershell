@@ -44,7 +44,7 @@ char	**env_get(t_env *env)
 
 int	env_create_first_el(char *env_line, t_env *env)
 {
-	t_env	*new;
+//	t_env	*new;
 	char	*name;
 	char	*content;
 
