@@ -12,7 +12,7 @@
 
 NAME = minishell
 
-CC = cc
+CC = clang
 
 OBJSDIR = obj/
 

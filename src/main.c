@@ -6,10 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/09 18:05:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/13 17:26:21 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>

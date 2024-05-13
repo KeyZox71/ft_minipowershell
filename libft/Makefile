@@ -6,15 +6,15 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 07:21:18 by mmoussou          #+#    #+#              #
-#    Updated: 2024/04/30 10:59:10 by mmoussou         ###   ########.fr        #
+#    Updated: 2024/05/13 17:33:16 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL = bash
 
-CC = gcc
+CC = clang 
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -pipe -fPIE
 
 INCLUDE = ./include
 
