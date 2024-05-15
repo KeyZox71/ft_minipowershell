@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 10:36:31 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/03 10:32:07 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:29:19 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ char	*get_hostname(void)
 	delimiter = ft_strchr(buf, '.');
 	if (!delimiter)
 	{
+		hostname = ft_strdup(buf);
 		free(buf);
-		return (buf);
+		delimiter = ft_strchr(hostname, '\n');
+		if (delimiter)
+			hostname[delimiter - hostname] = '\0';
+		return (hostname);
 	}
 	hostname = ft_calloc(delimiter - buf + 1, sizeof(char));
 	ft_strlcpy(hostname, buf, delimiter - buf + 1);
