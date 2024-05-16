@@ -1,0 +1,7 @@
+obj/
+minishell
+.direnv
+.envrc
+flake.nix
+compile_commands.json
+.cache
