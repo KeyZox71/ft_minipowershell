@@ -5,3 +5,5 @@ minishell
 flake.nix
 compile_commands.json
 .cache
+libft/**/*.o
+libft/**/*.a
