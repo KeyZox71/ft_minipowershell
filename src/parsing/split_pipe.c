@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:26:40 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/08 14:38:33 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/18 17:12:42 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 
 t_list	*split_pipe(char *readline)
 {
-	//char	*tmp;
-	char	*av;
-	//char	*cmd_start;
+	char	**split;
+	char	**tmp;
 	t_list	*list;
 
+	split = ft_split(readline, '|');
+	tmp = split;
+	if (!*(split+1))
+		return (ft_lstnew((void *)readline));
 	list = NULL;
-	if (!list)
+	while (tmp && *tmp)
 	{
-		av = ft_calloc(sizeof(readline), sizeof(char));
-		ft_strlcpy(av, readline, ft_strlen(readline));
-		ft_lstadd_back(&list, ft_lstnew((void*)split_cmd(av)));
+		ft_lstadd_back(&list, ft_lstnew((void *)(*tmp)));
+		tmp++;
 	}
+	free(split);
 	return (list);
 }
