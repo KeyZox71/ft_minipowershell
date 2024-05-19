@@ -18,6 +18,10 @@
 # include <readline/readline.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <dirent.h>
 # include "libft.h"
 
 # include "parsing.h"
