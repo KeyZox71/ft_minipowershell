@@ -140,6 +140,14 @@ int	env_delete(char *name, t_env *env)
 {
 	t_env	*tmp;
 
+	if (!ft_strcmp(env->name, name)
+	{
+		ft_free("cc", &env->name, &env->content);
+		env->name = env->next->name;
+		env->content = env->next->content;
+		env->next = env->next->next;
+		return (0);
+	}
 	while (env && env->next && ft_strcmp(env->next->name, name))
 		env = env->next;
 	if (!env || !env->next)
