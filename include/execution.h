@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/19 04:27:24 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/05/20 10:57:33 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct s_env
 	char			*content;
 	struct s_env	*next;
 }	t_env;
+
+int		ft_heredoc(char *delimiter);
 
 int		env_init(char **env_d, t_env *env);
 void	env_print(t_env *env);
