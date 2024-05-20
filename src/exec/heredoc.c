@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/20 11:07:21 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/05/21 00:34:48 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_heredoc(char *delimiter)
 	int		status;
 	char	*line;
 
-	tmp_fd = open("/tmp/.minishell-heredoc", O_RDWR | O_CREAT, 0644);
+	tmp_fd = open("/tmp/.minishell-heredoc", O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (tmp_fd == -1)
 		return (-1);
 	fork_pid = fork();
@@ -38,6 +38,7 @@ int	ft_heredoc(char *delimiter)
 			free(line);
 			line = readline("heredoc> ");
 		}
+		free(line);
 		status = write(tmp_fd, "\0", 1);
 		if (status == -1)
 		{
