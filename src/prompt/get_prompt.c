@@ -6,12 +6,12 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:25:42 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/17 14:25:57 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/21 20:48:02 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
+#include "prompt.h"
 
 char	*get_prompt(void)
 {
