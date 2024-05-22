@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/13 17:26:21 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/21 00:28:39 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	print_pipe(t_list *pipe)
 	}
 }
 
-int	main(int ac, char **av, char **env)
+int	main(void)//(int ac, char **av, char **env)
 {
-	char	*test;
+	ft_heredoc("EOF");
+	/*char	*test;
 	char	**lll;
 	char	*prompt;
 	t_list	*cmd;
@@ -73,5 +74,5 @@ int	main(int ac, char **av, char **env)
 		ft_free("a", &lll);
 	}
 	ft_free("a", &lll);
-	return (0);
+	return (0);*/
 }
