@@ -6,20 +6,19 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/19 14:02:58 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/23 12:11:42 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	TOKENIZER_H
+#ifndef TOKENIZER_H
 # define TOKENIZER_H
 
 # include "libft.h"
-# include <stdbool.h>
 
-typedef	enum s_redirection_sign
+typedef enum s_redirection_sign
 {
-	HEREDOC,
 	INFILE,
+	HEREDOC,
 	OUTFILE,
 	OUT_APPEND,
 }	t_redirection_sign;
@@ -37,7 +36,8 @@ typedef struct s_token
 }	t_token;
 
 /**
- * @brief				Convert the raw command into a t_token that contains the argv of the command an a linked list of redirection
+ * @brief				Convert the raw command into a t_token that contains 
+ *						the argv of the command an a linked list of redirection
  *
  * @param cmd			A string that containt the command to tokenize
  *
@@ -47,16 +47,18 @@ typedef struct s_token
 t_token	*__to_token(char *cmd);
 
 /**
- * @brief				**
+ * @brief				
  *
- * @param 
+ * @param				The readline output
  *
- * @return ()
+ * @return (t_list *)	A linked lst of all the command splited
  *
  */
+t_list	*__split_pipe(char *readline);
 
 /**
- * @brief				Convert the readline output, split all command and put it in linked list of t_token (given by t_token function)
+ * @brief				Convert the readline output, split all command and put
+ *						it in linked list of t_token (given by t_token function)
  *
  * @param	readline	The readline output
  *

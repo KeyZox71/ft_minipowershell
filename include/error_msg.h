@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_pipe.c                                       :+:      :+:    :+:   */
+/*   error_msg.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 13:26:40 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/18 17:12:42 by adjoly           ###   ########.fr       */
+/*   Created: 2024/05/20 20:25:06 by adjoly            #+#    #+#             */
+/*   Updated: 2024/05/20 21:00:45 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "parsing.h"
+#ifndef ERROR_MSG_H
+# define ERROR_MSG_H
+/**
+ * Here we define all the error message
+ */
 
-t_list	*split_pipe(char *readline)
-{
-	char	**split;
-	char	**tmp;
-	t_list	*list;
-
-	split = ft_split(readline, '|');
-	tmp = split;
-	if (!*(split+1))
-		return (ft_lstnew((void *)readline));
-	list = NULL;
-	while (tmp && *tmp)
-	{
-		ft_lstadd_back(&list, ft_lstnew((void *)(*tmp)));
-		tmp++;
-	}
-	free(split);
-	return (list);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/19 13:45:01 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/23 19:56:20 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,52 @@ typedef struct s_cmd
 	int		outfile;
 }	t_cmd;
 
+typedef enum s_quote
+{
+	NOT_CLOSED = -1,
+	FALSE,
+	SINGLE,
+	DOUBLE
+}	t_quote;
+
 /**
- * @brief				Take the argv of a command a split the argv and the command it self
+ * @brief				Take the argv of a command a split the argv and the
+ *						command it self
  *
- * @param				The full argv of the command
+ * @param cmd_av		The full argv of the command
  *
  * @return (t_cmd *)	cmd and argv splited into a struct
  */
 t_cmd	*split_cmd(char *cmd_av);
 
-/*
- *	@deprecated
+/**
+ * @brief				Take a string and an index and check if the character 
+ *						at the index is in quote
+ *
+ * @param s				The string to search in
+ * @param i				The index of the character to check
+ *
+ * @return (t_quote)	The type of quote if between, if not return FALSE or 
+ *						NOT_CLOSED if the quote is not closed
  */
-t_list	*split_pipe(char *readline);
+t_quote	is_inquote(char	*s, size_t i);
+
+/**
+ * @brief				Take a character and check if it is a quote and return the 
+ *						type of quote
+ *
+ * @param c				The character to check
+ *
+ * @return (t_quote)	The type of quote or FALSE
+ */
+t_quote	__is_quote(char c);
+
+/*
+ *						ONLY FOR DEBUG TO BE REMOVED 
+ */
+void	print_quote_type(t_quote type);
+void	print_redir_sign(t_redirection_sign redir_sign);
+void	print_token(t_token *token);
+void	print_redir(t_redirection *redir);
 
 #endif
