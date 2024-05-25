@@ -27,7 +27,8 @@ void	print_redir_sign(t_redirection_sign redir_sign)
 void	print_redir(t_redirection *redir)
 {
 	ft_putstr_fd("file_name : ", STDOUT_FILENO);
-	ft_putendl_fd(redir->file_name, STDOUT_FILENO);
+	if (redir->file_name)
+		ft_putendl_fd(redir->file_name, STDOUT_FILENO);
 	ft_putstr_fd("", STDOUT_FILENO);
 	print_redir_sign(redir->sign);
 }

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/23 12:11:42 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:00:52 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,27 @@ typedef struct s_token
 }	t_token;
 
 /**
+ * @brief				Take a string and tell what type of redirect it is
+ *
+ * @param				A string that contain a redirection sign
+ *
+ * @return (t_redirection_sign)	The sign of the redirecition
+ */
+t_redirection_sign	__to_redir_sign(char *redir_sign);
+
+/**
+ * @brief				Take a string and split the filename and the redirect sign 
+ * @param redir_s		A string that contain a redirection
+ *
+ * @return (t_redirection)	The splited redirection
+ */
+t_redirection	*__to_redir(char *redir_s);
+
+/**
  * @brief				Convert the raw command into a t_token that contains 
  *						the argv of the command an a linked list of redirection
  *
- * @param cmd			A string that containt the command to tokenize
+ * @param cmd			A string that contain the command to tokenize
  *
  * @return (t_token *)	The tokenized version of the command
  *						

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/23 20:06:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:01:05 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av, char **env)
 	char	*prompt;
 	char	**lll;
 	t_list	*piped;
-	t_token	*token;
+	//t_token	*token;
 
 	(void)ac;
 	(void)av;
@@ -66,9 +66,8 @@ int	main(int ac, char **av, char **env)
 		if (is_str(test, "exit"))
 			break;
 		piped = __split_pipe(test);
-		token = __to_token(piped->content);
-		print_token(token);
-		free(token);
+		print_redir(__to_redir(piped->content));
+		//free(token);
 		free(test);
 		ft_lstclear(&piped, &free);
 	}
