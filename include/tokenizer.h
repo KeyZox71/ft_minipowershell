@@ -6,20 +6,19 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/19 14:02:58 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:00:52 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	TOKENIZER_H
+#ifndef TOKENIZER_H
 # define TOKENIZER_H
 
 # include "libft.h"
-# include <stdbool.h>
 
-typedef	enum s_redirection_sign
+typedef enum s_redirection_sign
 {
-	HEREDOC,
 	INFILE,
+	HEREDOC,
 	OUTFILE,
 	OUT_APPEND,
 }	t_redirection_sign;
@@ -37,9 +36,27 @@ typedef struct s_token
 }	t_token;
 
 /**
- * @brief				Convert the raw command into a t_token that contains the argv of the command an a linked list of redirection
+ * @brief				Take a string and tell what type of redirect it is
  *
- * @param cmd			A string that containt the command to tokenize
+ * @param				A string that contain a redirection sign
+ *
+ * @return (t_redirection_sign)	The sign of the redirecition
+ */
+t_redirection_sign	__to_redir_sign(char *redir_sign);
+
+/**
+ * @brief				Take a string and split the filename and the redirect sign 
+ * @param redir_s		A string that contain a redirection
+ *
+ * @return (t_redirection)	The splited redirection
+ */
+t_redirection	*__to_redir(char *redir_s);
+
+/**
+ * @brief				Convert the raw command into a t_token that contains 
+ *						the argv of the command an a linked list of redirection
+ *
+ * @param cmd			A string that contain the command to tokenize
  *
  * @return (t_token *)	The tokenized version of the command
  *						
@@ -47,16 +64,18 @@ typedef struct s_token
 t_token	*__to_token(char *cmd);
 
 /**
- * @brief				**
+ * @brief				
  *
- * @param 
+ * @param				The readline output
  *
- * @return ()
+ * @return (t_list *)	A linked lst of all the command splited
  *
  */
+t_list	*__split_pipe(char *readline);
 
 /**
- * @brief				Convert the readline output, split all command and put it in linked list of t_token (given by t_token function)
+ * @brief				Convert the readline output, split all command and put
+ *						it in linked list of t_token (given by t_token function)
  *
  * @param	readline	The readline output
  *

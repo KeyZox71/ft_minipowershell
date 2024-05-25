@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmoussou <mmoussou@student.42angoulem      +#+  +:+       +#+        */
+/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 21:44:04 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/22 11:35:58 by adjoly           ###   ########.fr       */
+/*   Created: 2024/05/18 20:13:50 by adjoly            #+#    #+#             */
+/*   Updated: 2024/05/20 22:51:45 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tokenizer.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+/*t_list	*tokenizer(char *readline)
 {
-	t_list	*tmp;
-
-	if (!lst || !del)
-		return ;
-	while (*lst && lst && del)
+	t_list	*token;
+	t_list	*piped;
+	
+	piped = __split_pipe(readline);
+	while (piped && *piped)
 	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
+
 	}
-}
+}*/

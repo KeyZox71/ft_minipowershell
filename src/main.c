@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/22 15:38:22 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:01:05 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 #include "libft.h"
 #include "minishell.h"
 #include "parsing.h"
+#include "prompt.h"
 
-void	print_cmd(t_cmd cmd)
+/*void	print_cmd(t_cmd cmd)
 {
 	ft_putendl_fd(cmd.cmd, 1);	
 	while (*(cmd.argv))
@@ -28,21 +29,16 @@ void	print_cmd(t_cmd cmd)
 		ft_putendl_fd(*(cmd.argv), 1);
 		(cmd.argv)++;
 	}
-}
+}*/
 
 void	print_pipe(t_list *pipe)
 {
 	t_list	*tmp;
 
 	tmp = pipe;
-	if (!pipe->next)
+	while (tmp)
 	{
-		print_cmd(*(t_cmd*)tmp->content);
-		return;
-	}
-	while (tmp) 
-	{
-		print_cmd(*(t_cmd*)tmp->content);
+		ft_putendl_fd(tmp->content, STDOUT_FILENO);
 		tmp = tmp->next;
 	}
 }
@@ -51,9 +47,10 @@ int	main(int ac, char **av, char **env)
 {
 	//ft_heredoc("EOF");
 	char	*test;
-	char	**lll;
 	char	*prompt;
-	t_list	*cmd;
+	char	**lll;
+	t_list	*piped;
+	//t_token	*token;
 
 	(void)ac;
 	(void)av;
@@ -68,11 +65,24 @@ int	main(int ac, char **av, char **env)
 		if (!*lll)
 			continue ;
 		if (is_str(test, "exit"))
-			break ;
-		cmd = split_pipe(test);
-		print_pipe(cmd);
+			break;
+		piped = __split_pipe(test);
+		print_redir(__to_redir(piped->content));
+		//free(token);
+		free(test);
+		ft_lstclear(&piped, &free);
 		ft_free("a", &lll);
 	}
 	ft_free("a", &lll);
 	return (0);
 }
+
+/*int	main()
+{
+	char	*ll = "asdf\"xf\"asfffd";
+	t_quote	d;
+
+	d = is_inquote(ll, 6);
+	ft_printf("%c\n", *(ll+6));
+	print_quote_type(d);
+}*/
