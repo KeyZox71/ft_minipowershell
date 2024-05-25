@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
 /*   Updated: 2024/05/24 15:01:05 by adjoly           ###   ########.fr       */
@@ -45,6 +45,7 @@ void	print_pipe(t_list *pipe)
 
 int	main(int ac, char **av, char **env)
 {
+	//ft_heredoc("EOF");
 	char	*test;
 	char	*prompt;
 	char	**lll;
@@ -62,7 +63,7 @@ int	main(int ac, char **av, char **env)
 		add_history(test);
 		lll = ft_split(test, ' ');
 		if (!*lll)
-			continue;
+			continue ;
 		if (is_str(test, "exit"))
 			break;
 		piped = __split_pipe(test);
@@ -70,6 +71,7 @@ int	main(int ac, char **av, char **env)
 		//free(token);
 		free(test);
 		ft_lstclear(&piped, &free);
+		ft_free("a", &lll);
 	}
 	ft_free("a", &lll);
 	return (0);
