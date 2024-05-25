@@ -6,7 +6,7 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 07:21:18 by mmoussou          #+#    #+#              #
-#    Updated: 2024/05/13 17:33:16 by adjoly           ###   ########.fr        #
+#    Updated: 2024/05/25 14:22:48 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = 		 src/io/ft_putnbr_fd.c \
 			 src/io/ft_printf.c \
 			 src/io/ft_printf_fd.c \
 			 src/io/ft_putchar_fd.c \
+			 src/io/get_next_line/get_next_line.c \
 			 \
 			 src/int/ft_min.c \
 			 src/int/ft_max.c \

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 23:06:24 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/04/30 11:03:55 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:24:29 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,12 @@ uint		ft_stacksize(t_stack *stack);
 t_stack		*ft_stacklast(t_stack *stack);
 void		ft_stackadd_back(t_stack **stack, t_stack *new);
 void		ft_stackadd_front(t_stack **stack, t_stack *new);
+
+/* ----- GET_NEXT_LINE ------ */
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
+char		*get_next_line(int fd);
 
 #endif
