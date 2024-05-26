@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/24 15:00:52 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/26 16:32:00 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_redirection_sign	__to_redir_sign(char *redir_sign);
  *
  * @return (t_redirection)	The splited redirection
  */
-t_redirection	*__to_redir(char *redir_s);
+t_redirection		*__to_redir(char *redir_s);
 
 /**
  * @brief				Convert the raw command into a t_token that contains 
@@ -61,7 +61,7 @@ t_redirection	*__to_redir(char *redir_s);
  * @return (t_token *)	The tokenized version of the command
  *						
  */
-t_token	*__to_token(char *cmd);
+t_token				*__to_token(char *cmd);
 
 /**
  * @brief				
@@ -71,7 +71,7 @@ t_token	*__to_token(char *cmd);
  * @return (t_list *)	A linked lst of all the command splited
  *
  */
-t_list	*__split_pipe(char *readline);
+t_list				*__split_pipe(char *readline);
 
 /**
  * @brief				Convert the readline output, split all command and put
@@ -82,6 +82,6 @@ t_list	*__split_pipe(char *readline);
  * @return	(t_list	*)	Linked list of t_token
  *						
  */
-t_list	*tokenizer(char	*readline);	
+t_list				*tokenizer(char	*readline);	
 
 #endif
