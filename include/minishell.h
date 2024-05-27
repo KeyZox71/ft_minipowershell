@@ -26,6 +26,7 @@
 # include <dirent.h>
 # include "libft.h"
 
+# include "env.h"
 # include "parsing.h"
 # include "execution.h"
 
