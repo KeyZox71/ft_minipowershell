@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/22 14:50:03 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:11:07 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,15 @@ int	env_delete(char *name, t_env *env)
 	env->next = env->next->next;
 	free(tmp);
 	return (0);
+}
+
+char	*env_get_value(char *name, t_env *env)
+{
+	while (env && ft_strcmp(env->name, name))
+		env = env->next;
+	if (env)
+		return (env->content);
+	return (NULL);
 }
 
 void	env_print(t_env *env)

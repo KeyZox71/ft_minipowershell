@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/21 00:20:49 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:13:11 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@ int		env_init(char **env_d, t_env *env);
  * @return (void)
  */
 void	env_print(t_env *env);
+
+/**
+ * @brief				get value of an env
+ *
+ * @param name			name of the variable you want
+ * @param env			the env struct
+ *
+ * @return (char *)		content of the variable, NULL if doesn't exist
+ */
+char	*env_get_value(char *name, t_env *env)
 
 /**
  * @brief				get an array from the env struct
