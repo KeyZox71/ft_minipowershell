@@ -6,18 +6,19 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:25:42 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/21 21:02:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/27 19:01:17 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "prompt.h"
+#include "env.h"
 
-char	*get_prompt(void)
+char	*get_prompt(t_env env)
 {
 	char	*prompt;
 
-	prompt = getenv("USER");
+	prompt = env_get_value("USER", &env);//getenv("USER");
 	if (!prompt)
 		prompt = ft_strdup("nixos");
 	prompt = ft_strjoin(prompt, "@");
@@ -29,7 +30,7 @@ char	*get_prompt(void)
 	prompt = ft_strjoin_free_s1(prompt, ":");
 	if (!prompt)
 		return (NULL);
-	prompt = ft_strjoin_free(prompt, get_pwd());
+	prompt = ft_strjoin_free(prompt, get_pwd(env));
 	if (!prompt)
 		return (NULL);
 	prompt = ft_strjoin_free_s1(prompt, "$ ");

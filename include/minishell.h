@@ -31,9 +31,6 @@
 # include "execution.h"
 
 char	set_env(char **env, const char *name, char *content);
-char	*get_hostname(void);
-char	*get_prompt(void);
-char	*get_pwd(void);
 bool	is_str(char *src, char *dst);
 
 #endif
