@@ -6,11 +6,12 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/26 17:39:37 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:28:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "libft.h"
 #include "parsing.h"
 
 size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
@@ -29,9 +30,7 @@ size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 	if (!redir->file_name)
 		return (i);
 	tmp = redir_s;
-	if (!i)
-		i++;
-	if (*tmp && *tmp == ' ')
+	while (*++tmp && *tmp == ' ')
 		i++;
 	i += ft_strlen(redir->file_name);
 	return (i);
@@ -44,7 +43,7 @@ t_token	*__to_token(char *cmd)
 	char			*tmp;
 
 	token = ft_calloc(sizeof(t_token), 1);
-	token->argv = ft_calloc(sizeof(t_token), 1);
+	token->argv = NULL;
 	tmp = cmd;
 	while (*tmp)
 	{
@@ -55,7 +54,7 @@ t_token	*__to_token(char *cmd)
 			tmp += __get_sizeof_redir(tmp, tmp_redir);
 		}
 		else
-			token->argv = ft_strjoin(token->argv, ft_substr(tmp, 0, 1));
+			token->argv = ft_strjoin_free(token->argv, ft_substr(tmp, 0, 1));
 		tmp++;
 	}
 	return (token);

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:13:50 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/26 17:59:27 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/28 14:25:18 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_list	*tokenizer(char *readline)
 		ft_lstadd_back(&token, ft_lstnew((void*)__to_token(tmp->content)));
 		tmp = tmp->next;
 	}
+	ft_lstclear(&piped, free);
 	return (token);
 }
