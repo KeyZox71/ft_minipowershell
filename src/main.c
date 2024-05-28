@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/24 15:01:05 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:58:13 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,19 @@ int	main(int ac, char **av, char **env)
 	char	*prompt;
 	char	**lll;
 	t_list	*piped;
+	t_env	env_l;
 	//t_token	*token;
 
 	(void)ac;
 	(void)av;
 	(void)env;
+	if (!env_init(env, &env_l))
+	{
+
+	}
 	while (1)
 	{
-		prompt = get_prompt();
+		prompt = get_prompt(env_l);
 		test = readline(prompt);
 		free(prompt);
 		add_history(test);
