@@ -45,3 +45,17 @@ void	print_token(t_token *token)
 	}
 	ft_putendl_fd(token->argv, STDOUT_FILENO);
 }
+
+void	print_cmd(t_cmd *cmd)
+{
+	ft_putstr_fd("INFILE fd : ", STDOUT_FILENO);
+	ft_putnbr_fd(cmd->infile, STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	ft_putstr_fd("OUTFILE fd : ", STDOUT_FILENO);
+	ft_putnbr_fd(cmd->outfile, STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	ft_putstr_fd("cmd : ", STDOUT_FILENO);
+	ft_putendl_fd(cmd->cmd, STDOUT_FILENO);
+	ft_putstr_fd("argv : ", STDOUT_FILENO);
+	ft_putendl_fd(cmd->argv, STDOUT_FILENO);
+}

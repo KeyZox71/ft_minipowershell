@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/28 16:28:24 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/30 16:37:16 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 
 	if (!redir_s || !redir)
 		return (0);
-	if (redir->sign == HEREDOC)
-		return (1);
-	else if (redir->sign == OUT_APPEND)
+	else if (redir->sign == OUT_APPEND || redir->sign == HEREDOC)
 		i = 1;
 	else
 		i = 0;
@@ -33,6 +31,8 @@ size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 	while (*++tmp && *tmp == ' ')
 		i++;
 	i += ft_strlen(redir->file_name);
+	//if (redir->sign == OUT_APPEND || redir->sign == HEREDOC)
+		//i++;
 	return (i);
 }
 
@@ -50,7 +50,7 @@ t_token	*__to_token(char *cmd)
 		if (*tmp == '<' || *tmp == '>')
 		{
 			tmp_redir = __to_redir(tmp);
-			ft_lstadd_back(&(token->redirection), ft_lstnew((void*)tmp_redir));
+			ft_lstadd_back(&(token->redirection), ft_lstnew((void *)tmp_redir));
 			tmp += __get_sizeof_redir(tmp, tmp_redir);
 		}
 		else

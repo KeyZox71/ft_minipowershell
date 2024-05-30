@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_msg.h                                        :+:      :+:    :+:   */
+/*   send_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 20:25:06 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/30 12:53:09 by adjoly           ###   ########.fr       */
+/*   Created: 2024/05/28 18:09:49 by adjoly            #+#    #+#             */
+/*   Updated: 2024/05/28 18:15:09 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_MSG_H
-# define ERROR_MSG_H
+#include "libft.h"
 
-/**
- * Here we define all the error message
- */
-
-#define ERROR_SYNTAX ": syntax error" 
-#define ERROR_NO_REDIR ": need redirection file" 
-#define ERROR_NO_EOF ": need delimiter to heredoc" 
-
-#endif
+void	send_error(char *msg, char **argv)
+{
+	ft_putstr_fd(argv[0], STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}

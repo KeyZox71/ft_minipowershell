@@ -32,5 +32,6 @@
 
 char	set_env(char **env, const char *name, char *content);
 bool	is_str(char *src, char *dst);
+void	print_cmd(t_cmd *cmd);
 
 #endif

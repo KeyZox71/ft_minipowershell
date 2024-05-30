@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/23 19:56:20 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/30 16:31:48 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct s_cmd
 {
 	char	*cmd;
-	char	**argv;
+	char	*argv;
 	int		infile;
 	int		outfile;
 }	t_cmd;
@@ -32,6 +32,10 @@ typedef enum s_quote
 	DOUBLE
 }	t_quote;
 
+void	check_syntax(char *readline, char **argv);
+void	send_error(char *msg, char **argv);
+void	check_redir(t_list *redir, char **argv);
+t_cmd	*get_redir_fd(void *content);
 /**
  * @brief				Take the argv of a command a split the argv and the
  *						command it self
