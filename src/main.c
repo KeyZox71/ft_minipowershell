@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/30 16:37:57 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:29:26 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,16 @@ void	print_pipe(t_list *pipe)
 
 int	main(int ac, char **av, char **env)
 {
-	//ft_heredoc("EOF");
 	char	*test;
 	char	*prompt;
 	char	**lll;
 	t_list	*piped;
 	t_env	env_l;
 	t_cmd	*cmd;
-	//t_token	*token;
+	t_list	*cmd_list;
 
 	(void)ac;
 	(void)av;
-	(void)env;
 	piped = NULL;
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
@@ -90,13 +88,13 @@ int	main(int ac, char **av, char **env)
 		if (is_str(test, "exit"))
 			break ;
 		piped = tokenizer(test);
-//		check_redir(((t_token *)(piped->content))->redirection, av);
-/*		while (piped)
+		check_redir(((t_token *)(piped->content))->redirection, av);
+		cmd_list = get_cmd_list(piped);
+		while (cmd_list)
 		{
-			print_token(piped->content);
-			piped = piped->next;
-		}*/
-		cmd = get_redir_fd(piped->content);
+			cmd = cmd_list->content;
+			cmd_list = cmd_list->next;
+		}
 		print_cmd(cmd);
 		free(test);
 		ft_lstclear(&piped, free_token);

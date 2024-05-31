@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd.c                                        :+:      :+:    :+:   */
+/*   get_cmd_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 15:00:32 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/31 12:57:18 by adjoly           ###   ########.fr       */
+/*   Created: 2024/05/31 12:47:13 by adjoly            #+#    #+#             */
+/*   Updated: 2024/05/31 13:29:46 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "libft.h"
+#include "parsing.h"
 
-t_cmd	*split_cmd(char *cmd_av, t_cmd *cmd)
+t_list	*get_cmd_list(t_list *list)
 {
-	char	*tmp;
-	char	**split;
+	t_list	*tmp;
+	t_list	*cmd_list;
 
-	tmp = cmd_av;
-	split = ft_split(cmd_av, ' ');
-	cmd->cmd = ft_strdup(*split);
-	ft_free("a", &split);
-	while (*tmp && *tmp == ' ')
-		tmp++;
-	cmd->argv = ft_strdup(tmp);
-	return (cmd);
+	tmp = list;
+	cmd_list = NULL;
+	while (tmp)
+	{
+		ft_lstadd_back(&cmd_list, ft_lstnew(get_redir_fd(tmp->content)));
+		tmp = tmp->next;
+	}
+	return (cmd_list);
 }
