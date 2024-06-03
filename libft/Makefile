@@ -6,13 +6,13 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 07:21:18 by mmoussou          #+#    #+#              #
-#    Updated: 2024/05/25 14:22:48 by adjoly           ###   ########.fr        #
+#    Updated: 2024/06/03 15:42:56 by mmoussou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL = bash
 
-CC = clang 
+CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -pipe -fPIE
 
@@ -94,23 +94,23 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m Compiling Libft Objects... : $<"
+	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m compiling libft objects... : $<"
 	@$(CC) $(CFLAGS) -I$(INCLUDE) $< -c -o $@
 
 $(NAME): $(OBJS)
-	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m Libft Objects Compiled."
-	@printf "\n \x1B[1;33m[ 󱉟 ]\x1B[0m Creating Libft Archive..."
+	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m libft objects compiled."
+	@printf "\n \x1B[1;33m[ 󱉟 ]\x1B[0m creating libft archive..."
 	@ar rcs $(NAME) $(OBJS)
-	@printf "\x1B[2K\r \x1B[1;33m[ 󱉟 ]\x1B[0m Libft Archive Created.\n"
+	@printf "\x1B[2K\r \x1B[1;33m[ 󱉟 ]\x1B[0m libft archive created.\n"
 
 clean: 
 	@rm -f $(OBJS)
-	@printf " \x1B[1;31m[  ]\x1B[0m Deleted Libft Objects.\n"
+	@printf " \x1B[1;31m[  ]\x1B[0m deleted libft objects.\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf " \x1B[1;31m[  ]\x1B[0m Deleted Libft Archive.\n"
+	@printf " \x1B[1;31m[  ]\x1B[0m deleted libft archive.\n"
 
 re: fclean all
 
-.PHONY: all server client clean fclean re
+.PHONY: all clean fclean re

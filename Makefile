@@ -6,13 +6,15 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 10:49:52 by adjoly            #+#    #+#              #
-#    Updated: 2024/05/21 20:56:16 by adjoly           ###   ########.fr        #
+#    Updated: 2024/06/03 15:44:04 by mmoussou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+SHELL = bash
+
 NAME = minishell
 
-CC = clang
+CC = cc
 
 OBJSDIR = obj/
 
@@ -28,29 +30,36 @@ OBJS = $(addprefix $(OBJSDIR), $(SRC:.c=.o))
 
 FLAGS = -Werror -Wall -Wextra -g
 
-LIB = libft/libft.a \
+LIB = libft/libft.a
 
-$(NAME): $(OBJS)
-	@make -sj$(nproc) -C libft
+# --------------------------------
+
+all: $(NAME)
+
+$(LIB):
+	@make -sj$(nproc) -C $(LIBFT_DIR)
+
+$(NAME): $(LIB) $(OBJS)
+	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m objects compiled."
+	@printf "\n \x1B[1;33m[  ]\x1B[0m compiling $(NAME)..."
 	@$(CC) $(FLAGS) $(OBJS) $(LIB) -o $(NAME) -lreadline
-	@echo "[✔] Compiled"
+	@printf "\x1B[2K\r \x1B[1;33m[  ]\x1B[0m $(NAME) compiled.\n"
 
 $(OBJSDIR)%.o: %.c
 	@mkdir -p $(@D)
 	@$(CC) $(INCLUDE) $(FLAGS) $< -c -o $@
-	@echo "[✔] $< compiled"
-
-all: $(NAME)
+	@printf "\x1B[2K\r \x1B[1;32m[ 󱌣 ]\x1B[0m compiling objects... : $<"
 
 clean:
 	@make -s -C libft clean
 	@rm -f $(OBJS)
+	@printf " \x1B[1;31m[  ]\x1B[0m deleted $(NAME).\n"
 
 fclean: clean
 	@make -s -C libft fclean
 	@rm -f $(NAME)
 	@rm -Rf $(OBJSDIR)
-	@echo "[X] Cleaned"
+	@printf " \x1B[1;31m[  ]\x1B[0m deleted objects.\n"
 
 re: fclean all
 
