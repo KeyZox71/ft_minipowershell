@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 01:42:17 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/02 21:05:25 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:53:30 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	**get_path(char *path)
 	t_list	*list_entry;
 	int		i;
 
+	if (!path)
+		return (NULL);
 	list_entry = ft_lstnew(NULL);
 	path_dir = ft_split(path, ':');
 	if (!path_dir)

@@ -6,14 +6,17 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/03 15:26:03 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:43:34 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
+# include "env.h"
+
 char	**get_path(char *path);
+int	exec_split_cmd(t_list *list_cmd, t_env *env);
 
 /**
  * @brief				spawn a heredoc

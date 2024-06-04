@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/31 13:29:26 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/04 21:42:55 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	main(int ac, char **av, char **env)
 	char	**lll;
 	t_list	*piped;
 	t_env	env_l;
-	t_cmd	*cmd;
 	t_list	*cmd_list;
 
 	(void)ac;
@@ -90,12 +89,13 @@ int	main(int ac, char **av, char **env)
 		piped = tokenizer(test);
 		check_redir(((t_token *)(piped->content))->redirection, av);
 		cmd_list = get_cmd_list(piped);
-		while (cmd_list)
+		exec_split_cmd(cmd_list, &env_l);
+		/*while (cmd_list)
 		{
 			cmd = cmd_list->content;
 			cmd_list = cmd_list->next;
 		}
-		print_cmd(cmd);
+		print_cmd(cmd);*/
 		free(test);
 		ft_lstclear(&piped, free_token);
 		ft_free("a", &lll);
