@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/31 13:17:38 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:15:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct s_cmd
 {
 	char	*cmd;
-	char	*argv;
+	char	**argv;
 	int		infile;
 	int		outfile;
 }	t_cmd;
