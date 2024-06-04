@@ -6,13 +6,13 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/04 22:03:56 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:08:00 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_cmd_path(char *cmd, t_env *env)
+char	*get_cmd_global_path(char *cmd, t_env *env)
 {
 	int		i;
 	char	*path;
@@ -36,6 +36,25 @@ char	*get_cmd_path(char *cmd, t_env *env)
 	return (path);
 }
 
+char	*get_cmd_local_path(char *cmd, t_env *env)
+{
+	(void) cmd;
+	(void) env;
+	// TODO : get pwd, append cmd, done.
+	return (NULL);
+}
+
+int	switch_cmd_path(t_cmd *cmd, t_env *env)
+{
+	if (cmd->cmd[0] != '/')
+		cmd->cmd = get_cmd_global_path(cmd->cmd, env);
+	else if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')
+		cmd->cmd = get_cmd_local_path(cmd->cmd, env);
+	if (!(cmd->cmd))
+		return (-1);
+	return (0);
+}
+
 int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 {
 	int	fork_pid;
@@ -50,22 +69,18 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 		status = dup2(STDOUT_FILENO, STDIN_FILENO);
 	if (status == -1)
 		return (-1);
-	if (cmd->cmd[0] != '/')
-		cmd->cmd = get_cmd_path(cmd->cmd, env_t);
-	if (!(cmd->cmd))
+	status = switch_cmd_path(cmd, env_t);
+	if (!status)
 		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
 		return (-1);
 	if (!fork_pid)
-	{
 		status = execve(cmd->cmd, cmd->argv, env);
+	if (!fork_pid)
 		exit(-1);
-	}
 	else
 		waitpid(fork_pid, NULL, 0);
-	if (status == -1)
-		return (-1);
 	return (0);
 }
 
@@ -80,9 +95,8 @@ int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	status = dup2(STDOUT_FILENO, cmd->outfile);
 	if (status == -1)
 		return (-1);
-	if (cmd->cmd[0] != '/')
-		cmd->cmd = get_cmd_path(cmd->cmd, env_t);
-	if (!(cmd->cmd))
+	status = switch_cmd_path(cmd, env_t);
+	if (!status)
 		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
@@ -94,8 +108,6 @@ int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	}
 	else
 		waitpid(fork_pid, NULL, 0);
-	if (status == -1)
-		return (-1);
 	return (0);
 }
 

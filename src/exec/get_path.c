@@ -6,19 +6,64 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 01:42:17 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/04 21:53:30 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:05:24 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	add_element_to_list(t_list *list_entry, char *abs_path)
+{
+	t_list		*new_list_entry;
+
+	if (list_entry->content == NULL)
+		list_entry->content = abs_path;
+	else
+	{
+		new_list_entry = ft_lstnew(abs_path);
+		if (!new_list_entry)
+		{
+			free(abs_path);
+			return (-1);
+		}
+		ft_lstadd_back(&list_entry, new_list_entry);
+	}
+	return (0);
+}
+
+int	add_path_to_list(char *path, struct dirent *dir_entry, t_list *list_entry)
+{
+	char		*abs_path;
+	struct stat	entry;
+	int			status;
+
+	abs_path = ft_calloc(sizeof(char), strlen(path)
+			+ strlen(dir_entry->d_name) + 2);
+	if (!abs_path)
+		return (-1);
+	ft_strlcat(abs_path, path, ft_strlen(path));
+	ft_strlcat(abs_path, "/", 1);
+	ft_strlcat(abs_path, dir_entry->d_name, ft_strlen(dir_entry->d_name));
+	stat(abs_path, &entry);
+	if (S_ISREG(entry.st_mode)
+		&& (entry.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)))
+	{
+		status = add_element_to_list(list_entry, abs_path);
+		if (status)
+		{
+			free(abs_path);
+			return (-1);
+		}
+	}
+	free(abs_path);
+	return (0);
+}
+
 int	get_path_list(char *path, t_list *list_entry)
 {
 	DIR				*path_dir;
 	struct dirent	*dir_entry;
-	char			*abs_path;
-	struct stat		entry;
-	t_list			*new_list_entry;
+	int				status;
 
 	path_dir = opendir(path);
 	if (!path_dir)
@@ -26,38 +71,39 @@ int	get_path_list(char *path, t_list *list_entry)
 	dir_entry = readdir(path_dir);
 	while (dir_entry)
 	{
-		if (!ft_strncmp(dir_entry->d_name, ".", ft_strlen(dir_entry->d_name))
-			|| !ft_strncmp(dir_entry->d_name, "..",
-				ft_strlen(dir_entry->d_name)))
+		if (!ft_strncmp(dir_entry->d_name, ".", 2)
+			|| !ft_strncmp(dir_entry->d_name, "..", 3))
 		{
 			dir_entry = readdir(path_dir);
 			continue ;
 		}
-		abs_path = ft_calloc(sizeof(char), strlen(path)
-				+ strlen(dir_entry->d_name) + 2);
-		if (!abs_path)
+		status = add_path_to_list(path, dir_entry, list_entry);
+		if (status)
+			closedir(path_dir);
+		if (status)
 			return (-1);
-		strcat(abs_path, path);
-		strcat(abs_path, "/");
-		strcat(abs_path, dir_entry->d_name);
-		stat(abs_path, &entry);
-		if (S_ISREG(entry.st_mode)
-			&& (entry.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)))
-		{
-			if (list_entry->content == NULL)
-				list_entry->content = abs_path;
-			else
-			{
-				new_list_entry = ft_lstnew(abs_path);
-				if (!new_list_entry)
-					return (-1);
-				ft_lstadd_back(&list_entry, new_list_entry);
-			}
-		}
 		dir_entry = readdir(path_dir);
 	}
 	closedir(path_dir);
 	return (0);
+}
+
+char	**path_trans_list_to_char(t_list *list_entry)
+{
+	char	**path_list;
+	int		i;
+
+	i = 0;
+	path_list = ft_calloc(sizeof(char *), ft_lstsize(list_entry) + 1);
+	if (!path_list)
+		return (path_list);
+	while (list_entry)
+	{
+		path_list[i] = list_entry->content;
+		list_entry = list_entry->next;
+		i++;
+	}
+	return (path_list);
 }
 
 char	**get_path(char *path)
@@ -79,14 +125,7 @@ char	**get_path(char *path)
 		get_path_list(path_dir[i], list_entry);
 		i++;
 	}
-	i = 0;
-	path_list = ft_calloc(sizeof(char *), ft_lstsize(list_entry) + 1);
-	while (list_entry)
-	{
-		path_list[i] = list_entry->content;
-		list_entry = list_entry->next;
-		i++;
-	}
+	path_list = path_trans_list_to_char(list_entry);
 	ft_free("al", &path_dir, &list_entry);
 	return (path_list);
 }
