@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/10 17:08:57 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:10:18 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*env_get_value(char *name, t_env *env);
  *
  * @return (char *)		content of the variable, NULL if doesn't exist
  */
-char	*env_getn_value(char *name, t_env *env, int n)
+char	*env_getn_value(char *name, t_env *env, int n);
 
 /**
  * @brief				get an array from the env struct
