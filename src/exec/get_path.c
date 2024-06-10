@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 01:42:17 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/05 01:05:24 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:49:21 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	add_element_to_list(t_list *list_entry, char *abs_path)
 	{
 		new_list_entry = ft_lstnew(abs_path);
 		if (!new_list_entry)
-		{
-			free(abs_path);
 			return (-1);
-		}
 		ft_lstadd_back(&list_entry, new_list_entry);
 	}
 	return (0);
@@ -38,12 +35,13 @@ int	add_path_to_list(char *path, struct dirent *dir_entry, t_list *list_entry)
 	int			status;
 
 	abs_path = ft_calloc(sizeof(char), strlen(path)
-			+ strlen(dir_entry->d_name) + 2);
+			+ strlen(dir_entry->d_name) + 3);
 	if (!abs_path)
 		return (-1);
-	ft_strlcat(abs_path, path, ft_strlen(path));
-	ft_strlcat(abs_path, "/", 1);
-	ft_strlcat(abs_path, dir_entry->d_name, ft_strlen(dir_entry->d_name));
+	ft_strlcpy(abs_path, path, ft_strlen(path) + 1);
+	ft_strlcat(abs_path, "/", ft_strlen(abs_path) + 2);
+	ft_strlcat(abs_path, dir_entry->d_name, ft_strlen(abs_path)
+		+ ft_strlen(dir_entry->d_name) + 1);
 	stat(abs_path, &entry);
 	if (S_ISREG(entry.st_mode)
 		&& (entry.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)))
@@ -55,7 +53,6 @@ int	add_path_to_list(char *path, struct dirent *dir_entry, t_list *list_entry)
 			return (-1);
 		}
 	}
-	free(abs_path);
 	return (0);
 }
 

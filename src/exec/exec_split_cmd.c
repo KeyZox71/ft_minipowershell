@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/05 01:08:00 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:08:11 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ char	*get_cmd_global_path(char *cmd, t_env *env)
 		if (!ft_strcmp(ft_strrchr(path_list[i], '/') + 1, cmd))
 		{
 			path = ft_strdup(path_list[i]);
+			free(cmd);
 			return (path);
 		}
 		i++;
 	}
 	free(cmd);
-	return (path);
+	return (NULL);
 }
 
 char	*get_cmd_local_path(char *cmd, t_env *env)
@@ -46,10 +47,10 @@ char	*get_cmd_local_path(char *cmd, t_env *env)
 
 int	switch_cmd_path(t_cmd *cmd, t_env *env)
 {
-	if (cmd->cmd[0] != '/')
-		cmd->cmd = get_cmd_global_path(cmd->cmd, env);
-	else if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')
+	if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')
 		cmd->cmd = get_cmd_local_path(cmd->cmd, env);
+	else if (cmd->cmd[0] != '/')
+		cmd->cmd = get_cmd_global_path(cmd->cmd, env);
 	if (!(cmd->cmd))
 		return (-1);
 	return (0);
@@ -70,7 +71,7 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	if (status == -1)
 		return (-1);
 	status = switch_cmd_path(cmd, env_t);
-	if (!status)
+	if (status == -1)
 		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
@@ -96,7 +97,7 @@ int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	if (status == -1)
 		return (-1);
 	status = switch_cmd_path(cmd, env_t);
-	if (!status)
+	if (status == -1)
 		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
