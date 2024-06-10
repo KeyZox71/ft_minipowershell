@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/30 15:42:38 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:40:52 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@ typedef struct s_env
  * @return (int)		0 if everything goes well, 1 on error
  */
 int		env_init(char **env_d, t_env *env);
-
-/**
- * @brief				DEBUG FUNC : print the actual state of the env struct
- *
- * @param env			the env struct that will be printed
- *
- * @return (void)
- */
-void	env_print(t_env *env);
 
 /**
  * @brief				get value of an env
@@ -98,5 +89,14 @@ void	ft_envdelone(t_env *lst, void (*del)(void *));
 t_env	*ft_envlast(t_env *env);
 t_env	*ft_envnew(char *name, char *content);
 uint	ft_envsize(t_env *lst);
+
+/**
+ * @brief				DEBUG FUNC : print the actual state of the env struct
+ *
+ * @param env			the env struct that will be printed
+ *
+ * @return (void)
+ */
+void	ft_envprint(t_env *env);
 
 #endif

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd.c                                        :+:      :+:    :+:   */
+/*   ft_envprint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 15:00:32 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/08 18:31:42 by mmoussou         ###   ########.fr       */
+/*   Created: 2024/06/10 16:39:58 by mmoussou          #+#    #+#             */
+/*   Updated: 2024/06/10 16:42:29 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "libft.h"
+#include "minishell.h"
 
-t_cmd	*split_cmd(char *cmd_av, t_cmd *cmd)
+void	ft_envprint(t_env *env)
 {
-	char	**split;
-
-	split = ft_split(cmd_av, ' ');
-	cmd->cmd = ft_strdup(*split);
-	cmd->argv = split;
-	return (cmd);
+	while (env)
+	{
+		printf("%s:%s\n", env->name, env->content);
+		env = env->next;
+	}
 }

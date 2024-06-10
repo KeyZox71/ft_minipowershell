@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/27 13:11:07 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:39:43 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ char	*env_get_value(char *name, t_env *env)
 	return (NULL);
 }
 
-void	env_print(t_env *env)
+char	*env_getn_value(char *name, t_env *env, int n)
 {
-	while (env)
-	{
-		printf("%s:%s\n", env->name, env->content);
+	while (env && ft_strncmp(env->name, name, n))
 		env = env->next;
-	}
+	if (env)
+		return (env->content);
+	return (NULL);
 }
