@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/09 16:02:05 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:39:43 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	env_append(char *name, char *content, t_env *env)
 {
 	char	*new_content;
 
-	while (env && ft_strncmp(env->name, name,
-			max(ft_strlen(env->name), ft_strlen(name))))
+	while (env && ft_strcmp(env->name, name))
 		env = env->next;
 	if (!env)
 		return (-1);
@@ -34,8 +33,7 @@ int	env_append(char *name, char *content, t_env *env)
 
 int	env_edit(char *name, char *content, t_env *env)
 {
-	while (env && ft_strncmp(env->name, name,
-			max(ft_strlen(env->name), ft_strlen(name))))
+	while (env && ft_strcmp(env->name, name))
 		env = env->next;
 	if (!env)
 		return (-1);
@@ -48,8 +46,7 @@ int	env_delete(char *name, t_env *env)
 {
 	t_env	*tmp;
 
-	if (!ft_strncmp(env->name, name,
-			max(ft_strlen(env->name), ft_strlen(name))))
+	if (!ft_strcmp(env->name, name))
 	{
 		ft_free("cc", &env->name, &env->content);
 		env->name = env->next->name;
@@ -57,8 +54,7 @@ int	env_delete(char *name, t_env *env)
 		env->next = env->next->next;
 		return (0);
 	}
-	while (env && env->next && ft_strncmp(env->next->name, name,
-			max(ft_strlen(env->next->name), ft_strlen(name))))
+	while (env && env->next && ft_strcmp(env->next->name, name))
 		env = env->next;
 	if (!env || !env->next)
 		return (-1);
@@ -69,6 +65,15 @@ int	env_delete(char *name, t_env *env)
 	return (0);
 }
 
+char	*env_get_value(char *name, t_env *env)
+{
+	while (env && ft_strcmp(env->name, name))
+		env = env->next;
+	if (env)
+		return (env->content);
+	return (NULL);
+}
+
 char	*env_getn_value(char *name, t_env *env, int n)
 {
 	while (env && ft_strncmp(env->name, name, n))
@@ -76,13 +81,4 @@ char	*env_getn_value(char *name, t_env *env, int n)
 	if (env)
 		return (env->content);
 	return (NULL);
-}
-
-void	env_print(t_env *env)
-{
-	while (env)
-	{
-		printf("%s:%s\n", env->name, env->content);
-		env = env->next;
-	}
 }
