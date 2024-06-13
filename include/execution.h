@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/04 23:07:27 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:12:31 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "env.h"
 
-char	**get_path(char *path);
+char	*get_path(char *path, char *cmd);
 int		exec_split_cmd(t_list *list_cmd, t_env *env);
 
 /**

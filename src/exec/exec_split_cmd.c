@@ -6,36 +6,11 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/10 18:08:11 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:11:18 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_cmd_global_path(char *cmd, t_env *env)
-{
-	int		i;
-	char	*path;
-	char	**path_list;
-
-	path = NULL;
-	path_list = get_path(env_get_value("PATH", env));
-	if (!path_list)
-		return (NULL);
-	i = 0;
-	while (path_list[i])
-	{
-		if (!ft_strcmp(ft_strrchr(path_list[i], '/') + 1, cmd))
-		{
-			path = ft_strdup(path_list[i]);
-			free(cmd);
-			return (path);
-		}
-		i++;
-	}
-	free(cmd);
-	return (NULL);
-}
 
 char	*get_cmd_local_path(char *cmd, t_env *env)
 {
@@ -50,7 +25,7 @@ int	switch_cmd_path(t_cmd *cmd, t_env *env)
 	if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')
 		cmd->cmd = get_cmd_local_path(cmd->cmd, env);
 	else if (cmd->cmd[0] != '/')
-		cmd->cmd = get_cmd_global_path(cmd->cmd, env);
+		cmd->cmd = get_path(env_get_value("PATH", env), cmd->cmd);
 	if (!(cmd->cmd))
 		return (-1);
 	return (0);
