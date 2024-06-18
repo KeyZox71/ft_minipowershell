@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:11:18 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:29:40 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 char	*get_cmd_local_path(char *cmd, t_env *env)
 {
-	(void) cmd;
-	(void) env;
-	// TODO : get pwd, append cmd, done.
-	return (NULL);
+	char	*path;
+
+	path = env_get_value("PWD", env);
+	if (!path)
+		return (NULL);
+	path = ft_strjoin_free_s1(path, "/");
+	if (!path)
+		return (NULL);
+	path = ft_strjoin_free_s1(path, cmd);
+	return (path);
 }
 
 int	switch_cmd_path(t_cmd *cmd, t_env *env)
@@ -36,27 +42,26 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	int	fork_pid;
 	int	status;
 
-	status = dup2(cmd->infile, STDIN_FILENO);
-	if (status == -1)
-		return (-1);
-	if (cmd->outfile != STDOUT_FILENO)
-		status = dup2(STDOUT_FILENO, cmd->outfile);
-	else
-		status = dup2(STDOUT_FILENO, STDIN_FILENO);
-	if (status == -1)
-		return (-1);
-	status = switch_cmd_path(cmd, env_t);
-	if (status == -1)
-		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
 		return (-1);
 	if (!fork_pid)
-		status = execve(cmd->cmd, cmd->argv, env);
-	if (!fork_pid)
+	{
+		status = dup2(cmd->infile, STDIN_FILENO);
+		if (status == -1)
+			return (-1);
+		if (cmd->outfile != STDOUT_FILENO)
+			status = dup2(STDOUT_FILENO, cmd->outfile);
+		else
+			status = dup2(STDOUT_FILENO, STDIN_FILENO);
+		if (status == -1)
+			return (-1);
+		status = switch_cmd_path(cmd, env_t);
+		if (status == -1)
+			return (-1);
+		execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
-	else
-		waitpid(fork_pid, NULL, 0);
+	}
 	return (0);
 }
 
@@ -65,25 +70,23 @@ int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	int	fork_pid;
 	int	status;
 
-	status = dup2(cmd->infile, STDIN_FILENO);
-	if (status == -1)
-		return (-1);
-	status = dup2(STDOUT_FILENO, cmd->outfile);
-	if (status == -1)
-		return (-1);
-	status = switch_cmd_path(cmd, env_t);
-	if (status == -1)
-		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
 		return (-1);
 	if (!fork_pid)
 	{
+		status = dup2(cmd->infile, STDIN_FILENO);
+		if (status == -1)
+			return (-1);
+		status = dup2(STDOUT_FILENO, cmd->outfile);
+		if (status == -1)
+			return (-1);
+		status = switch_cmd_path(cmd, env_t);
+		if (status == -1)
+			return (-1);
 		status = execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
-	else
-		waitpid(fork_pid, NULL, 0);
 	return (0);
 }
 
@@ -91,6 +94,7 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 {
 	char	**env_array;
 	int		status;
+	int		return_code;
 
 	env_array = env_get(env);
 	if (!env_array)
@@ -109,5 +113,18 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 	ft_free("a", &env_array);
 	if (status == -1)
 		return (-1);
+	waitpid(-1, &return_code, 0);
+	if (WIFEXITED(return_code))
+		printf("minishell: %d\n", WEXITSTATUS(return_code));
+	else
+	{
+		if (WIFSIGNALED(return_code))
+		{
+			if (WCOREDUMP(return_code))
+				printf("minishell: %d\n", WTERMSIG(return_code));
+			else
+				printf("minishell: %d\n", WTERMSIG(return_code));
+		}
+	}
 	return (0);
 }
