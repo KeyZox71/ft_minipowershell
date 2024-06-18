@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:06:13 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/21 20:34:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/11 15:26:56 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 t_quote	__is_quote(char c)
 {
-	if (c == 39)
+	if (c == SINGLE) 
 		return (SINGLE);
-	if (c == 34)
+	if (c == DOUBLE)
 		return (DOUBLE);
 	return (FALSE);
 }

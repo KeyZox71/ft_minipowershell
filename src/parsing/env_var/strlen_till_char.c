@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pwd.c                                          :+:      :+:    :+:   */
+/*   strlen_till_char.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 14:42:00 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/11 16:04:42 by adjoly           ###   ########.fr       */
+/*   Created: 2024/06/07 01:09:40 by adjoly            #+#    #+#             */
+/*   Updated: 2024/06/09 14:02:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include "env.h"
+#include <stdlib.h>
 
-char	*get_pwd(t_env env)
+size_t	strlen_till_char(char *s, int c)
 {
-	char	*pwd;
-	char	*home;
+	char	*tmp;
+	size_t	size;
 
-	pwd = env_get_value("PWD", &env);//getenv("PWD");
-	if (!pwd)
-		return (NULL);
-	home = env_get_value("HOME", &env);//getenv("HOME");
-	if (!pwd)
-		return (NULL);
-	if (!ft_strncmp(pwd, home, ft_strlen(home) - 1))
+	tmp = s;
+	size = 0;
+	while (*tmp && *tmp != c)
 	{
-		pwd += ft_strlen(home);
-		pwd = ft_strjoin("~", pwd);
-		if (!pwd)
-			return (NULL);
-		return (pwd);
+		tmp++;
+		size++;
 	}
-	return (ft_strdup(pwd));
+	return (size);
 }

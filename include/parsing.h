@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/04 13:15:24 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/11 15:18:38 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "tokenizer.h"
+# include "env.h"
 
 typedef struct s_cmd
 {
@@ -28,15 +29,19 @@ typedef enum s_quote
 {
 	NOT_CLOSED = -1,
 	FALSE,
-	SINGLE,
-	DOUBLE
+	SINGLE = 39,
+	DOUBLE = 34
 }	t_quote;
 
-void	check_syntax(char *readline, char **argv);
+bool	check_syntax(char *readline, char **argv);
 void	send_error(char *msg, char **argv);
 void	check_redir(t_list *redir, char **argv);
 t_cmd	*get_redir_fd(void *content);
 t_list	*get_cmd_list(t_list *list);
+char	**split_argv(char *readline);
+char	*env_var_replace(char *readline, t_env *env);
+size_t	get_size_with_env(char *readline, t_env *env);
+size_t	strlen_till_char(char *s, int c);
 /**
  * @brief				Take the argv of a command a split the argv and the
  *						command it self
