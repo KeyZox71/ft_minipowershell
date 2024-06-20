@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/04 21:42:55 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:00:59 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ int	main(int ac, char **av, char **env)
 		if (is_str(test, "exit"))
 			break ;
 		piped = tokenizer(test);
-		check_redir(((t_token *)(piped->content))->redirection, av);
-		cmd_list = get_cmd_list(piped);
-		exec_split_cmd(cmd_list, &env_l);
+		//check_redir(((t_token *)(piped->content))->redirection, av);
+		cmd_list = get_cmd_list(piped, &env_l);
+		//exec_split_cmd(cmd_list, &env_l);
 		/*while (cmd_list)
 		{
 			cmd = cmd_list->content;
 			cmd_list = cmd_list->next;
-		}
-		print_cmd(cmd);*/
-		free(test);
-		ft_lstclear(&piped, free_token);
-		ft_free("a", &lll);
+		}*/
+		print_cmd(cmd_list->content);
+		//free(test);
+		//ft_lstclear(&piped, free_token);
+		//ft_free("a", &lll);
 	}
 	ft_free("a", &lll);
 	return (0);
@@ -110,6 +110,6 @@ int	main(int ac, char **av, char **env)
 	t_quote	d;
 
 	d = is_inquote(ll, 6);
-	ft_printf("%c\n", *(ll+6));
+	ft_printf("%c\n", *(ll+6))
 	print_quote_type(d);
 }*/
