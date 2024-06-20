@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/04 15:35:30 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/20 12:30:56 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "tokenizer.h"
 #include "execution.h"
 #include <fcntl.h>
+#include <stdio.h>
 #include "libft.h"
 
-t_cmd	*get_redir_fd(void *content)
+t_cmd	*get_redir_fd(void *content, t_env *env)
 {
 	t_token				*token;
 	t_list				*tmp;
@@ -68,6 +69,7 @@ t_cmd	*get_redir_fd(void *content)
 		cmd->infile = STDIN_FILENO;
 	if (out == INFILE)
 		cmd->outfile = STDOUT_FILENO;
-	cmd = split_cmd(token->argv, cmd);
+	char *ll = env_var_replace(token->argv, env);
+	cmd = split_cmd(ll, cmd);
 	return (cmd);
 }

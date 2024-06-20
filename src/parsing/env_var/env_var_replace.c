@@ -6,11 +6,12 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/11 16:26:06 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/20 14:14:57 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "parsing.h"
 #include "env.h"
 
@@ -37,15 +38,12 @@ char	*env_var_replace(char *readline, t_env *env)
 	tmp = readline;
 	while (*tmp)
 	{
-		print_quote_type(__is_quote(*tmp));
-		if (*tmp == '$' && is_inquote(tmp, tmp - readline + 1) != SINGLE)
+		if (*tmp == '$' && is_inquote(readline, tmp - readline) != SINGLE)
 		{
 			tmp++;
 			dollar_size = strlen_till_notalnum(tmp);
-			ft_putnbr_fd(dollar_size, STDOUT_FILENO);
-			dollar = env_getn_value(tmp, env, dollar_size);
-			write(1, tmp, dollar_size);
-			ft_putendl_fd(dollar, STDOUT_FILENO);
+			printf("%zu\n", dollar_size);
+			dollar = env_getn_value(tmp, env, dollar_size - 1);
 			if (!dollar)
 			{
 				tmp += dollar_size;
