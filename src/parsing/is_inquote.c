@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:06:13 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/20 11:07:56 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/20 14:35:26 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_quote	is_inquote(char *s, size_t i)
 	t_quote	quote_type;
 
 	start_quote = 0;
-	printf("%zu", i);
 	tmp = s;
 	quote_type = FALSE;
 	while (*tmp)

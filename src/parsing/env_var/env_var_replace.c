@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/20 14:14:57 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/20 14:34:25 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*env_var_replace(char *readline, t_env *env)
 		{
 			tmp++;
 			dollar_size = strlen_till_notalnum(tmp);
-			printf("%zu\n", dollar_size);
 			dollar = env_getn_value(tmp, env, dollar_size - 1);
 			if (!dollar)
 			{
