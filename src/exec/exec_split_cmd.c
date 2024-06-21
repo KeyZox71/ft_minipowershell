@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/18 20:29:40 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/21 09:58:27 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	int	fork_pid;
 	int	status;
 
+	status = switch_cmd_path(cmd, env_t);
+	if (status == -1 || access(cmd->cmd, X_OK))
+		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
 		return (-1);
@@ -49,16 +52,13 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	{
 		status = dup2(cmd->infile, STDIN_FILENO);
 		if (status == -1)
-			return (-1);
+			exit(-1);
 		if (cmd->outfile != STDOUT_FILENO)
 			status = dup2(STDOUT_FILENO, cmd->outfile);
 		else
 			status = dup2(STDOUT_FILENO, STDIN_FILENO);
 		if (status == -1)
-			return (-1);
-		status = switch_cmd_path(cmd, env_t);
-		if (status == -1)
-			return (-1);
+			exit(-1);
 		execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
@@ -70,6 +70,9 @@ int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	int	fork_pid;
 	int	status;
 
+	status = switch_cmd_path(cmd, env_t);
+	if (status == -1 || access(cmd->cmd, X_OK))
+		return (-1);
 	fork_pid = fork();
 	if (fork_pid == -1)
 		return (-1);
@@ -77,14 +80,11 @@ int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	{
 		status = dup2(cmd->infile, STDIN_FILENO);
 		if (status == -1)
-			return (-1);
+			exit(-1);
 		status = dup2(STDOUT_FILENO, cmd->outfile);
 		if (status == -1)
-			return (-1);
-		status = switch_cmd_path(cmd, env_t);
-		if (status == -1)
-			return (-1);
-		status = execve(cmd->cmd, cmd->argv, env);
+			exit(-1);
+		execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
 	return (0);
@@ -95,10 +95,12 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 	char	**env_array;
 	int		status;
 	int		return_code;
+	int		i;
 
 	env_array = env_get(env);
 	if (!env_array)
 		return (-1);
+	i = ft_lstsize(list_cmd);
 	while (list_cmd->next)
 	{
 		status = exec_single_cmd(list_cmd->content, env_array, env);
@@ -113,7 +115,11 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 	ft_free("a", &env_array);
 	if (status == -1)
 		return (-1);
-	waitpid(-1, &return_code, 0);
+	while (i)
+	{
+		waitpid(-1, &return_code, 0);
+		i--;
+	}
 	if (WIFEXITED(return_code))
 		printf("minishell: %d\n", WEXITSTATUS(return_code));
 	else
