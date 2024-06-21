@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/18 12:58:53 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/21 12:41:11 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	**split_argv(char *readline);
 char	*env_var_replace(char *readline, t_env *env);
 size_t	get_size_with_env(char *readline, t_env *env);
 size_t	strlen_till_char(char *s, int c);
+void	check_quote(char *readline);
 /**
  * @brief				Take the argv of a command a split the argv and the
  *						command it self
