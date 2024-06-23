@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/21 09:58:27 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/23 03:47:39 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	switch_cmd_path(t_cmd *cmd, t_env *env)
 	return (0);
 }
 
-int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
+int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 {
 	int	fork_pid;
 	int	status;
@@ -51,39 +51,17 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	if (!fork_pid)
 	{
 		status = dup2(cmd->infile, STDIN_FILENO);
+		if (cmd->infile != STDIN_FILENO)
+			close(cmd->infile);
 		if (status == -1)
 			exit(-1);
+		status = dup2(cmd->outfile, STDOUT_FILENO);
 		if (cmd->outfile != STDOUT_FILENO)
-			status = dup2(STDOUT_FILENO, cmd->outfile);
-		else
-			status = dup2(STDOUT_FILENO, STDIN_FILENO);
+			close(cmd->outfile);
 		if (status == -1)
 			exit(-1);
-		execve(cmd->cmd, cmd->argv, env);
-		exit(-1);
-	}
-	return (0);
-}
-
-int	exec_last_cmd(t_cmd *cmd, char **env, t_env *env_t)
-{
-	int	fork_pid;
-	int	status;
-
-	status = switch_cmd_path(cmd, env_t);
-	if (status == -1 || access(cmd->cmd, X_OK))
-		return (-1);
-	fork_pid = fork();
-	if (fork_pid == -1)
-		return (-1);
-	if (!fork_pid)
-	{
-		status = dup2(cmd->infile, STDIN_FILENO);
-		if (status == -1)
-			exit(-1);
-		status = dup2(STDOUT_FILENO, cmd->outfile);
-		if (status == -1)
-			exit(-1);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
 		execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
@@ -96,14 +74,28 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 	int		status;
 	int		return_code;
 	int		i;
+	int		pipe_fd[2];
 
 	env_array = env_get(env);
+	pipe_fd[0] = -1;
+	pipe_fd[1] = -1;
 	if (!env_array)
 		return (-1);
 	i = ft_lstsize(list_cmd);
 	while (list_cmd->next)
 	{
-		status = exec_single_cmd(list_cmd->content, env_array, env);
+		status = pipe(pipe_fd);
+		if (status)
+			return (-1);
+		if (((t_cmd *)(list_cmd->content))->outfile == STDOUT_FILENO)
+			((t_cmd *)(list_cmd->content))->outfile = pipe_fd[1];
+		if (((t_cmd *)(list_cmd->next->content))->infile == STDIN_FILENO)
+			((t_cmd *)(list_cmd->next->content))->infile = pipe_fd[0];
+		status = exec_single_cmd(list_cmd->content, env_array, env, pipe_fd);
+		if (((t_cmd *)(list_cmd->content))->outfile != STDOUT_FILENO)
+			close(((t_cmd *)(list_cmd->content))->outfile);
+		if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
+			close(((t_cmd *)(list_cmd->content))->infile);
 		if (status == -1)
 		{
 			ft_free("a", &env_array);
@@ -111,7 +103,11 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 		}
 		list_cmd = list_cmd->next;
 	}
-	status = exec_last_cmd(list_cmd->content, env_array, env);
+	status = exec_single_cmd(list_cmd->content, env_array, env, pipe_fd);
+	if (((t_cmd *)(list_cmd->content))->outfile != STDOUT_FILENO)
+		close(((t_cmd *)(list_cmd->content))->outfile);
+	if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
+		close(((t_cmd *)(list_cmd->content))->infile);
 	ft_free("a", &env_array);
 	if (status == -1)
 		return (-1);
