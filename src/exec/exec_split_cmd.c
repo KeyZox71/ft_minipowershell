@@ -6,11 +6,12 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/23 03:47:39 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:55:13 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "error_msg.h"
 
 char	*get_cmd_local_path(char *cmd, t_env *env)
 {
@@ -53,19 +54,43 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 		status = dup2(cmd->infile, STDIN_FILENO);
 		if (cmd->infile != STDIN_FILENO)
 			close(cmd->infile);
-		if (status == -1)
-			exit(-1);
-		status = dup2(cmd->outfile, STDOUT_FILENO);
+		status += dup2(cmd->outfile, STDOUT_FILENO);
 		if (cmd->outfile != STDOUT_FILENO)
 			close(cmd->outfile);
-		if (status == -1)
-			exit(-1);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
+		if (status)
+			exit(-1);
 		execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
 	return (0);
+}
+
+void	print_return_value(int return_code)
+{
+	int					code;
+	static const char	*sigmsg[] = {0, "Hangup", 0, "Quit", "Illegal \
+		instruction", "Trace/breakpoint trap", "Aborted", "Bus error",
+		"Floating point exception", "Killed", "User defined signal 1",
+		"Segmentation fault", "User defined signal 2", 0,
+		"Alarm clock", "Terminated", "Stack fault", 0, 0, "Stopped", "Stopped",
+		"Stopped", "Stopped", 0, "CPU time limit exceeded",
+		"File size limit exceeded", "Virtual time expired",
+		"Profiling timer expired", "I/O possible", "Power failure",
+		"Bad system call"};
+
+	if (!WIFEXITED(return_code))
+	{
+		if (WIFSIGNALED(return_code))
+		{
+			code = WTERMSIG(return_code);
+			if (WCOREDUMP(return_code))
+				printf("minishell : %s %s\n", sigmsg[code], ERROR_COREDUMP);
+			else
+				printf("minishell : %s\n", sigmsg[code]);
+		}
+	}
 }
 
 int	exec_split_cmd(t_list *list_cmd, t_env *env)
@@ -81,7 +106,7 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 	pipe_fd[1] = -1;
 	if (!env_array)
 		return (-1);
-	i = ft_lstsize(list_cmd);
+	i = 1;
 	while (list_cmd->next)
 	{
 		status = pipe(pipe_fd);
@@ -96,11 +121,10 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 			close(((t_cmd *)(list_cmd->content))->outfile);
 		if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
 			close(((t_cmd *)(list_cmd->content))->infile);
-		if (status == -1)
-		{
-			ft_free("a", &env_array);
-			return (-1);
-		}
+		if (status)
+			printf("minishell : command not found: %s\n", ((t_cmd *)(list_cmd->content))->cmd);
+		else
+			i++;
 		list_cmd = list_cmd->next;
 	}
 	status = exec_single_cmd(list_cmd->content, env_array, env, pipe_fd);
@@ -110,23 +134,17 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 		close(((t_cmd *)(list_cmd->content))->infile);
 	ft_free("a", &env_array);
 	if (status == -1)
-		return (-1);
+	{
+		printf("minishell : command not found: %s\n", ((t_cmd *)(list_cmd->content))->cmd);
+		i--;
+	}
+	if (i < 1)
+		return (0);
 	while (i)
 	{
 		waitpid(-1, &return_code, 0);
 		i--;
 	}
-	if (WIFEXITED(return_code))
-		printf("minishell: %d\n", WEXITSTATUS(return_code));
-	else
-	{
-		if (WIFSIGNALED(return_code))
-		{
-			if (WCOREDUMP(return_code))
-				printf("minishell: %d\n", WTERMSIG(return_code));
-			else
-				printf("minishell: %d\n", WTERMSIG(return_code));
-		}
-	}
+	print_return_value(return_code);
 	return (0);
 }

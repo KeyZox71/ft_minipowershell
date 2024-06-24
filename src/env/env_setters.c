@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/05/27 18:05:18 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:53:38 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,9 @@ int	env_init(char **env_d, t_env *env)
 	while (env_d[++i])
 	{
 		if (bool_first_el)
-		{
-			i = env_create_first_el(env_d[i], env);
-			if (i < 0)
+			if (env_create_first_el(env_d[i], env))
 				return (1);
-		}
-		else
+		if (!bool_first_el)
 		{
 			new = env_create_el(env_d[i]);
 			if (!new)
