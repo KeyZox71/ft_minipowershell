@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/10 16:39:43 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:31:08 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,28 @@ int	env_delete(char *name, t_env *env)
 
 char	*env_get_value(char *name, t_env *env)
 {
+	char	*value;
+
 	while (env && ft_strcmp(env->name, name))
 		env = env->next;
 	if (env)
-		return (env->content);
+	{
+		value = ft_strdup(env->content);
+		return (value);
+	}
 	return (NULL);
 }
 
 char	*env_getn_value(char *name, t_env *env, int n)
 {
+	char	*value;
+
 	while (env && ft_strncmp(env->name, name, n))
 		env = env->next;
 	if (env)
-		return (env->content);
+	{
+		value = ft_strdup(env->content);
+		return (value);
+	}
 	return (NULL);
 }
