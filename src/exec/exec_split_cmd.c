@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/24 12:55:13 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:05:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 		status = dup2(cmd->infile, STDIN_FILENO);
 		if (cmd->infile != STDIN_FILENO)
 			close(cmd->infile);
-		status += dup2(cmd->outfile, STDOUT_FILENO);
+		if (status == -1)
+			exit(-1);
+		status = dup2(cmd->outfile, STDOUT_FILENO);
 		if (cmd->outfile != STDOUT_FILENO)
 			close(cmd->outfile);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
-		if (status)
-			exit(-1);
-		execve(cmd->cmd, cmd->argv, env);
+		if (status != -1)
+			execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
 	return (0);
@@ -85,6 +86,8 @@ void	print_return_value(int return_code)
 		if (WIFSIGNALED(return_code))
 		{
 			code = WTERMSIG(return_code);
+			if (!sigmsg[code])
+				return ;
 			if (WCOREDUMP(return_code))
 				printf("minishell : %s %s\n", sigmsg[code], ERROR_COREDUMP);
 			else
