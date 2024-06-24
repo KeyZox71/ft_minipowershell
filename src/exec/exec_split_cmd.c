@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/24 13:05:01 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:05:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,18 @@ int	switch_cmd_path(t_cmd *cmd, t_env *env)
 
 int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 {
-	int	fork_pid;
-	int	status;
+	int		fork_pid;
+	int		status;
+	char	*input;
 
+	input = ft_strdup(cmd->cmd);
 	status = switch_cmd_path(cmd, env_t);
-	if (status == -1 || access(cmd->cmd, X_OK))
+	if (status == -1 || !input || access(cmd->cmd, X_OK))
+	{
+		printf("minishell : command not found: %s\n", input);
 		return (-1);
+	}
 	fork_pid = fork();
-	if (fork_pid == -1)
-		return (-1);
 	if (!fork_pid)
 	{
 		status = dup2(cmd->infile, STDIN_FILENO);
@@ -65,7 +68,7 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 			execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
 	}
-	return (0);
+	return (fork_pid);
 }
 
 void	print_return_value(int return_code)
@@ -124,9 +127,7 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 			close(((t_cmd *)(list_cmd->content))->outfile);
 		if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
 			close(((t_cmd *)(list_cmd->content))->infile);
-		if (status)
-			printf("minishell : command not found: %s\n", ((t_cmd *)(list_cmd->content))->cmd);
-		else
+		if (!status)
 			i++;
 		list_cmd = list_cmd->next;
 	}
@@ -137,10 +138,7 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 		close(((t_cmd *)(list_cmd->content))->infile);
 	ft_free("a", &env_array);
 	if (status == -1)
-	{
-		printf("minishell : command not found: %s\n", ((t_cmd *)(list_cmd->content))->cmd);
 		i--;
-	}
 	if (i < 1)
 		return (0);
 	while (i)
