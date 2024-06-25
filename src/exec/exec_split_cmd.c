@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/24 14:05:01 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:36:04 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 		status = dup2(cmd->outfile, STDOUT_FILENO);
 		if (cmd->outfile != STDOUT_FILENO)
 			close(cmd->outfile);
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
+		if (pipe_fd[0] != -1)
+			close(pipe_fd[0]);
+		if (pipe_fd[0] != -1)
+			close(pipe_fd[1]);
 		if (status != -1)
 			execve(cmd->cmd, cmd->argv, env);
 		exit(-1);
