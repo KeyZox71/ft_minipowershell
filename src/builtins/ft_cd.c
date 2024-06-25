@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/25 15:03:15 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/25 17:13:46 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*__get_parent_directory(char *pwd)
 {
 	char	*tmp;
 	char	*dir;
-	//char	*parent;
 
 	tmp = pwd;
 	while (*tmp)
@@ -28,7 +27,6 @@ char	*__get_parent_directory(char *pwd)
 			dir = tmp;
 		tmp++;
 	}
-	//parent = ft_calloc(dir - pwd + 1, sizeof(char));
 	ft_strlcpy(pwd, pwd, dir - pwd + 1);
 	return (pwd);
 }
@@ -51,7 +49,8 @@ char	*__relative_path(char *args, char *pwd)
 		else if (*tmp)
 		{
 			ft_strlcat(new_path, "/", ft_strlen(new_path) + 2);
-			ft_strlcat(new_path, *tmp, ft_strlen(new_path) + ft_strlen(*tmp) + 1);
+			ft_strlcat(new_path, *tmp, ft_strlen(new_path) + \
+				ft_strlen(*tmp) + 1);
 		}
 		tmp++;
 	}
@@ -66,7 +65,6 @@ void	ft_cd(t_env *env, char *args)
 
 	new_pwd = NULL;
 	pwd = ret_cwd();
-	ft_putendl_fd(env_get_value("OLDPWD", env), STDOUT_FILENO);
 	if (!args)
 		new_pwd = env_get_value("HOME", env);
 	else if (args[0] == '/')
