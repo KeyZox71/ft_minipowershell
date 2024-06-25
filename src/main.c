@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/24 12:47:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/25 11:31:25 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (is_str(test, "pwd"))
 		{
-			ft_pwd(&env_l);
+			ft_pwd();
 			continue ;
 		}
 		if (is_str(test, "cd"))
