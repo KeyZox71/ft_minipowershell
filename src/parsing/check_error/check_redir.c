@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 18:17:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/30 12:52:51 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/24 12:51:27 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_redir(t_list *redir, char **argv)
 	t_redirection	*tmp_redir;
 
 	tmp = redir;
-	while(tmp)
+	while (tmp)
 	{
 		tmp_redir = tmp->content;
 		if (tmp_redir->sign == HEREDOC && \

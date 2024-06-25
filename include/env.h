@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/10 17:10:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/22 14:07:50 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_envclear(t_env **lst, void (*del)(void *));
 void	ft_envdelone(t_env *lst, void (*del)(void *));
 t_env	*ft_envlast(t_env *env);
 t_env	*ft_envnew(char *name, char *content);
-uint	ft_envsize(t_env *lst);
+unsigned int	ft_envsize(t_env *lst);
 
 /**
  * @brief				DEBUG FUNC : print the actual state of the env struct

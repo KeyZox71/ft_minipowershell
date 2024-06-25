@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/20 14:34:25 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/24 12:57:59 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include <stdio.h>
 #include "parsing.h"
 #include "env.h"
+
+void	__cpy_dollar(char *tmp, size_t dollar_size, t_env *env, char **rl_dlrd)
+{
+	char	*dollar;
+
+	dollar = env_getn_value(tmp, env, dollar_size - 1);
+	if (!dollar)
+	{
+		tmp += dollar_size;
+		return ;
+	}
+	ft_strlcat(*rl_dlrd, dollar, \
+			ft_strlen(dollar) + ft_strlen(*rl_dlrd) + 1);
+}
 
 size_t	strlen_till_notalnum(char *s)
 {
@@ -30,8 +44,7 @@ char	*env_var_replace(char *readline, t_env *env)
 	char	*tmp;
 	char	*rl_dollared;
 	size_t	dollar_size;
-	char	*dollar;
- 
+
 	rl_dollared = ft_calloc(get_size_with_env(readline, env) + 1, sizeof(char));
 	if (rl_dollared == NULL)
 		return (NULL);
@@ -42,13 +55,7 @@ char	*env_var_replace(char *readline, t_env *env)
 		{
 			tmp++;
 			dollar_size = strlen_till_notalnum(tmp);
-			dollar = env_getn_value(tmp, env, dollar_size - 1);
-			if (!dollar)
-			{
-				tmp += dollar_size;
-				continue ;
-			}
-			ft_strlcat(rl_dollared, dollar, ft_strlen(dollar) + ft_strlen(rl_dollared) + 1);
+			__cpy_dollar(tmp, dollar_size, env, &rl_dollared);
 			tmp += dollar_size;
 		}
 		else
