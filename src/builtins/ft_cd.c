@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/25 13:47:17 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:03:15 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,18 @@ char	*__relative_path(char *args, char *pwd)
 
 	path = ft_split(args, '/');
 	tmp = path;
-	new_path = pwd;
+	new_path = ft_strdup(pwd);
+	if (!new_path)
+		return (NULL);
 	while (*tmp)
 	{
 		if (is_str(*tmp, ".."))
 			new_path = __get_parent_directory(new_path);
+		else if (*tmp)
+		{
+			ft_strlcat(new_path, "/", ft_strlen(new_path) + 2);
+			ft_strlcat(new_path, *tmp, ft_strlen(new_path) + ft_strlen(*tmp) + 1);
+		}
 		tmp++;
 	}
 	return (new_path);
@@ -59,20 +66,19 @@ void	ft_cd(t_env *env, char *args)
 
 	new_pwd = NULL;
 	pwd = ret_cwd();
-	ft_putendl_fd(args, STDOUT_FILENO);
-	ft_putendl_fd(pwd, STDOUT_FILENO);
+	ft_putendl_fd(env_get_value("OLDPWD", env), STDOUT_FILENO);
 	if (!args)
 		new_pwd = env_get_value("HOME", env);
 	else if (args[0] == '/')
 		new_pwd = ft_strdup(args);
+	else if (args[0] == '-')
+		new_pwd = env_get_value("OLDPWD", env);
 	else
-		new_pwd = __get_parent_directory(pwd);
-	ft_putendl_fd(new_pwd, STDOUT_FILENO);
+		new_pwd = __relative_path(args, pwd);
 	ret = chdir(new_pwd);
 	if (ret == -1)
-	{
 		return ;
-	}
 	env_edit("PWD", new_pwd, env);
+	env_edit("OLDPWD", ft_strdup(pwd), env);
 	free(args);
 }
