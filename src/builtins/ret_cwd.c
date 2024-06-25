@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ret_cwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 13:05:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/25 10:46:04 by adjoly           ###   ########.fr       */
+/*   Created: 2024/06/25 10:41:43 by adjoly            #+#    #+#             */
+/*   Updated: 2024/06/25 10:44:01 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
+#include <unistd.h>
 
-# include "env.h"
+char	*ret_cwd(void)
+{
+	char	buf[PATH_MAX_LEN];
 
-# define PATH_MAX_LEN 4096
-
-void	ft_pwd(t_env *env);
-void	ft_cd(t_env *env, char *args);
-char	*ret_cwd(void);
-
-#endif
+	return (getcwd(buf, PATH_MAX_LEN));
+}
