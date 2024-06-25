@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/25 11:31:25 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/25 17:53:36 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,15 @@ void	print_pipe(t_list *pipe)
 	}
 }
 
+void	sigggg(int code)
+{
+	(void)code;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*test;
@@ -75,6 +84,7 @@ int	main(int ac, char **av, char **env)
 	piped = NULL;
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
+	signal(SIGINT, &sigggg);
 	while (1)
 	{
 		prompt = get_prompt(env_l);
@@ -102,12 +112,6 @@ int	main(int ac, char **av, char **env)
 		//check_redir(((t_token *)(piped->content))->redirection, av);
 		cmd_list = get_cmd_list(piped, &env_l);
 		exec_split_cmd(cmd_list, &env_l);
-		/*while (cmd_list)
-		{
-			cmd = cmd_list->content;
-			cmd_list = cmd_list->next;
-		}*/
-		//print_cmd(cmd_list->content);
 		free(test);
 		ft_lstclear(&piped, free_token);
 		ft_free("a", &lll);
@@ -115,13 +119,3 @@ int	main(int ac, char **av, char **env)
 	ft_free("a", &lll);
 	return (0);
 }
-
-/*int	main()
-{
-	char	*ll = "asdf\"xf\"asfffd";
-	t_quote	d;
-
-	d = is_inquote(ll, 6);
-	ft_printf("%c\n", *(ll+6))
-	print_quote_type(d);
-}*/
