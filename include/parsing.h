@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/21 12:41:11 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:45:23 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ t_cmd	*split_cmd(char *cmd_av, t_cmd *cmd);
 t_quote	is_inquote(char	*s, size_t i);
 
 /**
- * @brief				Take a character and check if it is a quote and return the 
- *						type of quote
+ * @brief				Take a character and check if it is a quote and return 
+ *						the type of quote
  *
  * @param c				The character to check
  *

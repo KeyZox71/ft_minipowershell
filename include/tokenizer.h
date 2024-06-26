@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/26 16:32:00 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:45:41 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ typedef struct s_token
 t_redirection_sign	__to_redir_sign(char *redir_sign);
 
 /**
- * @brief				Take a string and split the filename and the redirect sign 
+ * @brief				Take a string and split the filename and the redirect 
+ *						sign
+ *
  * @param redir_s		A string that contain a redirection
  *
  * @return (t_redirection)	The splited redirection

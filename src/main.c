@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/25 17:53:36 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:48:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,17 @@ void	sigggg(int code)
 	rl_redisplay();
 }
 
+void	siggg_backslash(int code)
+{
+	(void)code;
+}
+
+void	siggg_d(int code)
+{
+	(void)code;
+	exit(EXIT_SUCCESS);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*test;
@@ -85,6 +96,8 @@ int	main(int ac, char **av, char **env)
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
 	signal(SIGINT, &sigggg);
+	signal(SIGQUIT, &siggg_backslash);
+	signal(SIGSEGV, &siggg_d);
 	while (1)
 	{
 		prompt = get_prompt(env_l);
@@ -95,18 +108,20 @@ int	main(int ac, char **av, char **env)
 		lll = ft_split(test, ' ');
 		if (!*lll)
 			continue ;
-		if (is_str(test, "exit"))
+		else if (is_str(test, "exit"))
 			break ;
-		if (is_str(test, "pwd"))
+		else if (is_str(test, "pwd"))
 		{
 			ft_pwd();
 			continue ;
 		}
-		if (is_str(test, "cd"))
+		else if (is_str(test, "cd"))
 		{
 			ft_cd(&env_l, lll[1]);
 			continue ;
 		}
+		else if (is_str(test, "exit"))
+			
 		check_quote(test);
 		piped = tokenizer(test);
 		//check_redir(((t_token *)(piped->content))->redirection, av);
