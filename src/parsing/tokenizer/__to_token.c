@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/31 19:55:28 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:56:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 	if (!redir_s || !redir)
 		return (0);
 	else if (redir->sign == OUT_APPEND || redir->sign == HEREDOC)
-		i = 1;
+		i = 2;
 	else
 		i = 0;
 	if (!redir->file_name)
