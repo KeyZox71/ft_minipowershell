@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/25 11:36:04 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:27:32 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 			close(((t_cmd *)(list_cmd->content))->outfile);
 		if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
 			close(((t_cmd *)(list_cmd->content))->infile);
-		if (!status)
+		if (status != -1)
 			i++;
 		list_cmd = list_cmd->next;
 	}
