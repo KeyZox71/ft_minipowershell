@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/26 12:48:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/27 15:37:43 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,18 @@ int	main(int ac, char **av, char **env)
 			ft_pwd();
 			continue ;
 		}
+		else if (is_str(test, "export"))
+		{
+			ft_export(NULL, &env_l);
+			continue ;
+		}
 		else if (is_str(test, "cd"))
 		{
 			ft_cd(&env_l, lll[1]);
 			continue ;
 		}
 		else if (is_str(test, "exit"))
-			
+			;
 		check_quote(test);
 		piped = tokenizer(test);
 		//check_redir(((t_token *)(piped->content))->redirection, av);

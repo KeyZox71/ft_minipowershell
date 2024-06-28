@@ -6,21 +6,61 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/26 10:21:18 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:52:42 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+uint	ft_arraylen(char **s)
+{
+	char	**endptr;
+
+	endptr = s;
+	while (*endptr)
+		endptr++;
+	return (endptr - s);
+}
+
+void	ft_arraysort(char **env)
+{
+	char	*tmp;
+	int		i;
+	int		y;
+
+	i = ft_arraylen(env);
+	while (i)
+	{
+		y = 0;
+		while (y < i - 1)
+		{
+			if (ft_strcmp(env[y], env[y + 1]) > 0)
+			{
+				tmp = env[y];
+				env[y] = env[y + 1];
+				env[y + 1] = tmp;
+			}
+			y++;
+		}
+		i--;
+	}
+}
+
 void	env_print_in_order(t_env *env_l)
 {
 	char	**env;
+	int		i;
 
 	env = env_get(env_l);
 	if (!env)
 		return ;
-	// sort env
-	// printf("declare -x %s\n", env[i]);
+	ft_arraysort(env);
+	i = 0;
+	while (env[i])
+	{
+		printf("declare -x %s\n", env[i]);
+		i++;
+	}
 	return ;
 }
 
@@ -44,7 +84,8 @@ void	ft_export(char **args, t_env *env)
 			return ;
 		}
 		ft_strlcpy(name, *args, ft_strchr(*args, '=') - *args);
-		ft_strlcpy(content, ft_strchr(*args, '=') + 1, ft_strlen(ft_strchr(*args, '=')));
+		ft_strlcpy(content, ft_strchr(*args, '=') + 1,
+			ft_strlen(ft_strchr(*args, '=')));
 		if (env_get_value(name, env))
 			env_edit(name, content, env);
 		else
