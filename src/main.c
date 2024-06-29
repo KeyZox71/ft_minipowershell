@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 15:34:53 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/29 19:44:30 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ int	main(int ac, char **av, char **env)
 		else if (is_str(test, "cd"))
 		{
 			ft_cd(&env_l, lll[1]);
+			continue ;
+		}
+		else if (is_str(test, "echo"))
+		{
+			ft_echo(lll + 1);
 			continue ;
 		}
 		else if (is_str(test, "exit"))

@@ -6,10 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/25 17:13:46 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/29 16:36:56 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "error_msg.h"
 #include "minishell.h"
 #include "env.h"
 #include "libft.h"
@@ -39,7 +40,7 @@ char	*__relative_path(char *args, char *pwd)
 
 	path = ft_split(args, '/');
 	tmp = path;
-	new_path = ft_strdup(pwd);
+	new_path = pwd;
 	if (!new_path)
 		return (NULL);
 	while (*tmp)
@@ -54,7 +55,9 @@ char	*__relative_path(char *args, char *pwd)
 		}
 		tmp++;
 	}
-	return (new_path);
+	*tmp = ft_strdup(new_path);
+	ft_free("a", path);
+	return (*tmp);
 }
 
 void	ft_cd(t_env *env, char *args)
@@ -75,8 +78,11 @@ void	ft_cd(t_env *env, char *args)
 		new_pwd = __relative_path(args, pwd);
 	ret = chdir(new_pwd);
 	if (ret == -1)
+	{
+		printf("./minishell: cd: %s: %s\n", args, ERROR_NO_FILE);
 		return ;
-	env_edit("PWD", new_pwd, env);
+	}
+	env_edit("PWD", ft_strdup(new_pwd), env);
 	env_edit("OLDPWD", ft_strdup(pwd), env);
 	free(args);
 }
