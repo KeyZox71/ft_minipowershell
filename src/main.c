@@ -6,10 +6,11 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/27 15:37:43 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/06/29 15:34:53 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -73,6 +74,8 @@ void	sigggg(int code)
 void	siggg_backslash(int code)
 {
 	(void)code;
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	siggg_d(int code)
@@ -95,6 +98,7 @@ int	main(int ac, char **av, char **env)
 	piped = NULL;
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
+	sigemptyset(&(sigset_t){SIGQUIT});
 	signal(SIGINT, &sigggg);
 	signal(SIGQUIT, &siggg_backslash);
 	signal(SIGSEGV, &siggg_d);
@@ -126,10 +130,10 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		else if (is_str(test, "exit"))
-			;
+			exit(EXIT_SUCCESS);
 		check_quote(test);
 		piped = tokenizer(test);
-		//check_redir(((t_token *)(piped->content))->redirection, av);
+		check_redir(((t_token *)(piped->content))->redirection, av);
 		cmd_list = get_cmd_list(piped, &env_l);
 		exec_split_cmd(cmd_list, &env_l);
 		free(test);

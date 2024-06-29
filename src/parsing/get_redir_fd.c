@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/20 12:30:56 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/29 15:32:44 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmd	*get_redir_fd(void *content, t_env *env)
 	t_redirection_sign	in;
 	t_cmd				*cmd;
 
+	(void)env;
 	token = (t_token *)content;
 	tmp = token->redirection;
 	cmd = NULL;
@@ -69,7 +70,7 @@ t_cmd	*get_redir_fd(void *content, t_env *env)
 		cmd->infile = STDIN_FILENO;
 	if (out == INFILE)
 		cmd->outfile = STDOUT_FILENO;
-	char *ll = env_var_replace(token->argv, env);
-	cmd = split_cmd(ll, cmd);
+//	char *ll = env_var_replace(token->argv, env);
+	cmd = split_cmd(token->argv, cmd);
 	return (cmd);
 }

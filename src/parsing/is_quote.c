@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd.c                                        :+:      :+:    :+:   */
+/*   is_quote.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 15:00:32 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 15:30:47 by adjoly           ###   ########.fr       */
+/*   Created: 2024/06/29 13:32:35 by adjoly            #+#    #+#             */
+/*   Updated: 2024/06/29 13:32:50 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "libft.h"
 
-t_cmd	*split_cmd(char *cmd_av, t_cmd *cmd)
+t_quote	__is_quote(char c)
 {
-	char	**split;
-
-	split = split_argv(cmd_av);
-	cmd->cmd = ft_strdup(*split);
-	cmd->argv = split;
-	return (cmd);
+	if (c == SINGLE)
+		return (SINGLE);
+	if (c == DOUBLE)
+		return (DOUBLE);
+	return (FALSE);
 }
