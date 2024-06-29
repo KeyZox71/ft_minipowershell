@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:19:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 20:04:36 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/29 20:10:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	__nl_option(char **args)
 
 	tmp = args;
 	i = 0;
-	while ((*tmp)[0] == '-' && (*tmp)[1] == 'n')
+	while (*tmp && (*tmp)[0] == '-' && (*tmp)[1] == 'n')
 	{
 		tmp_arg = (*tmp);
 		tmp_arg++;
@@ -48,7 +48,7 @@ void	ft_echo(char **args)
 	else
 		new_line = true;
 	tmp += __nl_option(args);
-	while (*tmp)
+	while (*tmp && tmp)
 	{
 		ft_putstr_fd(*tmp, STDOUT_FILENO);
 		tmp++;
