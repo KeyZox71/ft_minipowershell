@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/26 12:45:41 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:18:32 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ typedef enum s_redirection_sign
 	HEREDOC,
 	OUTFILE,
 	OUT_APPEND,
-}	t_redirection_sign;
+}	t_redir_sign;
 
 typedef struct s_redirection
 {
-	char				*file_name;
-	t_redirection_sign	sign;
+	char			*file_name;
+	t_redir_sign	sign;
 }	t_redirection;
 
 typedef struct s_token
@@ -42,7 +42,7 @@ typedef struct s_token
  *
  * @return (t_redirection_sign)	The sign of the redirecition
  */
-t_redirection_sign	__to_redir_sign(char *redir_sign);
+t_redir_sign		__to_redir_sign(char *redir_sign);
 
 /**
  * @brief				Take a string and split the filename and the redirect 

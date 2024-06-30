@@ -12,7 +12,7 @@ void	print_quote_type(t_quote type)
 		ft_putendl_fd("NOT_CLOSED", STDOUT_FILENO);
 }
 
-void	print_redir_sign(t_redirection_sign redir_sign)
+void	print_redir_sign(t_redir_sign redir_sign)
 {
 	if (redir_sign == HEREDOC)
 		ft_putendl_fd("HEREDOC", STDOUT_FILENO);

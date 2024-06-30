@@ -1,44 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_quote.c                                      :+:      :+:    :+:   */
+/*   check_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 11:59:34 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 16:11:23 by adjoly           ###   ########.fr       */
+/*   Created: 2024/06/30 12:52:22 by adjoly            #+#    #+#             */
+/*   Updated: 2024/06/30 17:26:09 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "parsing.h"
+#include <stdbool.h>
 #include "error_msg.h"
-#include "tokenizer.h"
 
-size_t	count_quote(char *readline, t_quote type)
+size_t	strlen_till_end_char(char *s, int c)
 {
 	char	*tmp;
-	size_t	count;
 
-	tmp = readline;
-	count = 0;
-	while (*tmp)
-	{
-		if (*tmp == type)
-			count++;
+	tmp = s;
+	while (*tmp && *tmp == c)
 		tmp++;
-	}
-	return (count);
+	return (tmp - s);
 }
 
-bool	check_quote(char *readline)
+bool	check_pipe(char *readline)
 {
-	size_t	count;
+	char	*tmp;
 
-	count = count_quote(readline, DOUBLE);
-	if (count % 2)
-		return (send_error_parsing("double quote not closed"));
-	count = count_quote(readline, SINGLE);
-	if (count % 2)
-		return (send_error_parsing("single quote not closed"));
+	tmp = readline;
+	while (*tmp)
+	{
+		if (*tmp == '|' && is_inquote(readline, tmp - readline) == FALSE)
+		{
+			tmp++;
+			tmp += strlen_till_end_char(tmp, ' ');
+			if (!*tmp)
+				return (send_error_parsing("No command after pipe"));
+		}
+		tmp++;
+	}
 	return (false);
 }

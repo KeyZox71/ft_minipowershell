@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 15:31:02 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:27:13 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ typedef enum s_quote
 	DOUBLE = 34
 }	t_quote;
 
-bool	check_syntax(char *readline, char **argv);
+bool	check_syntax(char *readline);
 void	send_error(char *msg, char **argv);
-void	check_redir(t_list *redir, char **argv);
-t_cmd	*get_redir_fd(void *content, t_env *env);
-t_list	*get_cmd_list(t_list *list, t_env *env);
+bool	check_redir(t_list *redir);
+t_cmd	*get_redir_fd(void *content);
+t_list	*get_cmd_list(t_list *list);
+void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2]);
 char	**split_argv(char *readline);
 char	*env_var_replace(char *readline, t_env *env);
 size_t	get_size_with_env(char *readline, t_env *env);
 size_t	strlen_till_char(char *s, int c);
-void	check_quote(char *readline);
+bool	check_quote(char *readline);
 t_quote	__is_quote(char c);
 char	*search_for_next_quote(char *s, t_quote quote_type);
+bool	check_pipe(char *readline);
 char	**split_argv(char *readline);
 /**
  * @brief				Take the argv of a command a split the argv and the
@@ -82,7 +84,7 @@ t_quote	__is_quote(char c);
  *						ONLY FOR DEBUG TO BE REMOVED 
  */
 void	print_quote_type(t_quote type);
-void	print_redir_sign(t_redirection_sign redir_sign);
+void	print_redir_sign(t_redir_sign redir_sign);
 void	print_token(t_token *token);
 void	print_redir(t_redirection *redir);
 

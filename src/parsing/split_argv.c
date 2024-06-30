@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:48:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 15:29:48 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 16:03:46 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 size_t	__get_len_arg(char *s)
 {
 	char	*tmp;
-	
+
 	if (*s == SINGLE || *s == DOUBLE)
 		return (search_for_next_quote((s + 1), __is_quote(*s)) - s + 1);
 	tmp = s;
@@ -70,7 +70,7 @@ char	**split_argv(char *readline)
 			tmp++;
 		else
 		{
-			*tmp_av = ft_calloc(__get_len_arg(tmp), sizeof(char));
+			*tmp_av = ft_calloc(__get_len_arg(tmp) + 1, sizeof(char));
 			tmp += __cpy_arg(*tmp_av, tmp);
 			tmp_av++;
 		}

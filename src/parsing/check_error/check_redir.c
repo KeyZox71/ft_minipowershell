@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 18:17:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/24 12:51:27 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 13:49:21 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parsing.h"
 #include "error_msg.h"
 
-void	check_redir(t_list *redir, char **argv)
+bool	check_redir(t_list *redir)
 {
 	t_list			*tmp;
 	t_redirection	*tmp_redir;
@@ -25,9 +25,10 @@ void	check_redir(t_list *redir, char **argv)
 		tmp_redir = tmp->content;
 		if (tmp_redir->sign == HEREDOC && \
 				!((t_redirection *)(tmp->content))->file_name)
-			send_error(ERROR_NO_EOF, argv);
+			return (send_error_parsing(ERROR_NO_EOF));
 		if (!((t_redirection *)(tmp->content))->file_name)
-			send_error(ERROR_NO_REDIR, argv);
+			return (send_error_parsing(ERROR_NO_REDIR));
 		tmp = tmp->next;
 	}
+	return (false);
 }

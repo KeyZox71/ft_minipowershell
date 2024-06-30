@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:42:00 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/11 16:04:42 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 15:41:46 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	*get_pwd(t_env env)
 	char	*pwd;
 	char	*home;
 
-	pwd = env_get_value("PWD", &env);//getenv("PWD");
+	pwd = env_get_value("PWD", &env);
 	if (!pwd)
 		return (NULL);
-	home = env_get_value("HOME", &env);//getenv("HOME");
+	home = env_get_value("HOME", &env);
 	if (!pwd)
 		return (NULL);
 	if (!ft_strncmp(pwd, home, ft_strlen(home) - 1))

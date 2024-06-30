@@ -6,13 +6,14 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 19:44:30 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:28:28 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
+#include "error_msg.h"
 #include <readline/history.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -95,25 +96,25 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	get_program_name(av[0]);
 	piped = NULL;
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
 	sigemptyset(&(sigset_t){SIGQUIT});
 	signal(SIGINT, &sigggg);
 	signal(SIGQUIT, &siggg_backslash);
-	signal(SIGSEGV, &siggg_d);
+	//signal(SIGSEGV, &siggg_d);
 	while (1)
 	{
 		prompt = get_prompt(env_l);
 		test = readline(prompt);
 		free(prompt);
 		add_history(test);
-		check_syntax(test, av);
+		if (check_syntax(test))
+			continue ;
 		lll = ft_split(test, ' ');
 		if (!*lll)
 			continue ;
-		else if (is_str(test, "exit"))
-			break ;
 		else if (is_str(test, "pwd"))
 		{
 			ft_pwd();
@@ -136,10 +137,14 @@ int	main(int ac, char **av, char **env)
 		}
 		else if (is_str(test, "exit"))
 			exit(EXIT_SUCCESS);
-		check_quote(test);
+		if (check_quote(test))
+			continue ;
+		if (check_pipe(test))
+			continue ;
 		piped = tokenizer(test);
-		check_redir(((t_token *)(piped->content))->redirection, av);
-		cmd_list = get_cmd_list(piped, &env_l);
+		if (check_redir(((t_token *)(piped->content))->redirection))
+			continue ;
+		cmd_list = get_cmd_list(piped);
 		exec_split_cmd(cmd_list, &env_l);
 		free(test);
 		ft_lstclear(&piped, free_token);

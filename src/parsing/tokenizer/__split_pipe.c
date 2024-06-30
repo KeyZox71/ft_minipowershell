@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:01:25 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/28 16:43:21 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 16:04:09 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ t_list	*__split_pipe(char *readline)
 	start_of_pipe = readline;
 	pipe = NULL;
 	(void)pipe;
-	while (*tmp)
+	while (*tmp && tmp)
 	{
-		if (*tmp == '|' && is_inquote(readline, (tmp - readline)) == FALSE)
+		if (*tmp && *tmp == '|' \
+			&& is_inquote(readline, (tmp - readline)) == FALSE)
 		{
 			tmp_pipe = ft_calloc(tmp - start_of_pipe + 1, sizeof(char));
 			if (!tmp_pipe)

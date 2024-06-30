@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:25:42 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/27 19:01:17 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/06/30 15:41:16 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_prompt(t_env env)
 {
 	char	*prompt;
 
-	prompt = env_get_value("USER", &env);//getenv("USER");
+	prompt = env_get_value("USER", &env);
 	if (!prompt)
 		prompt = ft_strdup("nixos");
 	prompt = ft_strjoin(prompt, "@");
