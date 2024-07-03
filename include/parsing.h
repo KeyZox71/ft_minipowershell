@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 17:27:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/03 19:03:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum s_quote
 bool	check_syntax(char *readline);
 void	send_error(char *msg, char **argv);
 bool	check_redir(t_list *redir);
+bool	check_argv(t_list *token);
 t_cmd	*get_redir_fd(void *content);
 t_list	*get_cmd_list(t_list *list);
 void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2]);

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 18:09:49 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 16:11:03 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:15:52 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ char	*get_program_name(char	*argv_one)
 	if (argv_one)
 		ft_strlcpy(prog_name, argv_one, ft_strlen(argv_one) + 1);
 	return (prog_name);
-}
-
-void	send_error(char *msg, char **argv)
-{
-	ft_putstr_fd(argv[0], STDERR_FILENO);
-	ft_putendl_fd(msg, STDERR_FILENO);
 }
 
 bool	send_error_parsing(char *msg)

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 12:52:22 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 17:26:09 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:17:02 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ bool	check_pipe(char *readline)
 	{
 		if (*tmp == '|' && is_inquote(readline, tmp - readline) == FALSE)
 		{
-			tmp++;
-			tmp += strlen_till_end_char(tmp, ' ');
+			tmp += strlen_till_end_char(tmp + 1, ' ') + 1;
 			if (!*tmp)
 				return (send_error_parsing("No command after pipe"));
 		}
