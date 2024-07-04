@@ -6,12 +6,56 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/27 15:06:45 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:39:00 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 #include "error_msg.h"
+
+int	is_in_builtins(char *cmd)
+{
+	int					i;
+	static const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset",
+		"env", "exit", NULL};
+
+	i = 0;
+	while (builtins[i])
+	{
+		if (!ft_strcmp(cmd, builtins[i]))
+			return (i + 1);
+		i++;
+	}
+	return (0);
+}
+
+void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
+{
+	int	i;
+
+	i = is_in_builtins(cmd);
+	if (i)
+	{
+		if (i == 1)
+			ft_echo(argv + 1);
+		if (i == 2)
+			ft_cd(env_t, argv[1]);
+		if (i == 3)
+			ft_pwd();
+		if (i == 4)
+			ft_export(argv + 1, env_t);
+		if (i == 5)
+			ft_unset(argv[1], env_t);
+		if (i == 6)
+			ft_env(env_t);
+		if (i == 7)
+			exit(ft_atoi(argv[1]));
+		exit(0);
+	}
+	else
+		execve(cmd, argv, env);
+}
 
 char	*get_cmd_local_path(char *cmd, t_env *env)
 {
@@ -29,6 +73,8 @@ char	*get_cmd_local_path(char *cmd, t_env *env)
 
 int	switch_cmd_path(t_cmd *cmd, t_env *env)
 {
+	if (is_in_builtins(cmd->cmd))
+		return (0);
 	if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')
 		cmd->cmd = get_cmd_local_path(cmd->cmd, env);
 	else if (cmd->cmd[0] != '/')
@@ -46,7 +92,7 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 
 	input = ft_strdup(cmd->cmd);
 	status = switch_cmd_path(cmd, env_t);
-	if (status == -1 || !input || access(cmd->cmd, X_OK))
+	if (status == -1 || !input || (access(cmd->cmd, X_OK) && !is_in_builtins(cmd->cmd)))
 	{
 		printf("minishell : command not found: %s\n", input);
 		return (-1);
@@ -67,7 +113,7 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 		if (pipe_fd[0] != -1)
 			close(pipe_fd[1]);
 		if (status != -1)
-			execve(cmd->cmd, cmd->argv, env);
+			exec_cmd(cmd->cmd, cmd->argv, env, env_t);
 		exit(-1);
 	}
 	return (fork_pid);
@@ -143,9 +189,10 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 		i--;
 	if (i < 1)
 		return (0);
-	while (i)
+	waitpid(status, &return_code, 0);
+	while (i - 1)
 	{
-		waitpid(-1, &return_code, 0);
+		waitpid(-1, NULL, 0);
 		i--;
 	}
 	print_return_value(return_code);

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/05 01:21:06 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:08:18 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	fd_manager(int mode)
 	index++;
 	ft_strlcat(path, "/tmp/.minishell-heredoc-", 24);
 	ft_strlcat(path, index_itoa, ft_strlen(index_itoa));
+	free(index_itoa);
 	if (mode > 0)
 		fd = open(path, O_RDONLY);
 	else

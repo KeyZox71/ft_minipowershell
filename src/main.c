@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 17:28:28 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/04 10:49:59 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	main(int ac, char **av, char **env)
 	piped = NULL;
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
-	sigemptyset(&(sigset_t){SIGQUIT});
+	//sigemptyset(&(sigset_t){ SIGQUIT });
 	signal(SIGINT, &sigggg);
 	signal(SIGQUIT, &siggg_backslash);
 	//signal(SIGSEGV, &siggg_d);
@@ -108,6 +108,8 @@ int	main(int ac, char **av, char **env)
 	{
 		prompt = get_prompt(env_l);
 		test = readline(prompt);
+		if (!test)
+			exit(727);
 		free(prompt);
 		add_history(test);
 		if (check_syntax(test))
@@ -115,28 +117,6 @@ int	main(int ac, char **av, char **env)
 		lll = ft_split(test, ' ');
 		if (!*lll)
 			continue ;
-		else if (is_str(test, "pwd"))
-		{
-			ft_pwd();
-			continue ;
-		}
-		else if (is_str(test, "export"))
-		{
-			ft_export(NULL, &env_l);
-			continue ;
-		}
-		else if (is_str(test, "cd"))
-		{
-			ft_cd(&env_l, lll[1]);
-			continue ;
-		}
-		else if (is_str(test, "echo"))
-		{
-			ft_echo(lll + 1);
-			continue ;
-		}
-		else if (is_str(test, "exit"))
-			exit(EXIT_SUCCESS);
 		if (check_quote(test))
 			continue ;
 		if (check_pipe(test))
@@ -145,6 +125,7 @@ int	main(int ac, char **av, char **env)
 		if (check_redir(((t_token *)(piped->content))->redirection))
 			continue ;
 		cmd_list = get_cmd_list(piped);
+		format_quotes(cmd_list);
 		exec_split_cmd(cmd_list, &env_l);
 		free(test);
 		ft_lstclear(&piped, free_token);
