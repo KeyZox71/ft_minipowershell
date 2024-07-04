@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/04 12:07:26 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:02:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	free_token(void *token_v)
 	t_token	*token;
 
 	token = token_v;
+	print_token(token);
 	free(token->argv);
 	ft_lstclear(&(token->redirection), free_redir);
+	free(token);
 }
 
 /*void	print_cmd(t_cmd cmd)
@@ -63,7 +65,7 @@ void	print_pipe(t_list *pipe)
 	}
 }
 
-void	sigggg(int code)
+void	sig_c(int code)
 {
 	(void)code;
 	ft_putchar_fd('\n', STDOUT_FILENO);
@@ -72,65 +74,54 @@ void	sigggg(int code)
 	rl_redisplay();
 }
 
-void	siggg_backslash(int code)
+void	free_cmd(void *content)
 {
-	(void)code;
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	t_cmd	*cmd;
 
-void	siggg_d(int code)
-{
-	(void)code;
-	exit(EXIT_SUCCESS);
+	cmd = (t_cmd *)content;
+	free(cmd->cmd);
+	ft_free("a", &(cmd->argv));
+	free(cmd);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char	*test;
+	char	*rl;
 	char	*prompt;
-	char	**lll;
-	t_list	*piped;
 	t_env	env_l;
 	t_list	*cmd_list;
+	t_list	*piped;
 
 	(void)ac;
-	(void)av;
 	get_program_name(av[0]);
-	piped = NULL;
 	if (env_init(env, &env_l))
 		return (EXIT_FAILURE);
-	//sigemptyset(&(sigset_t){ SIGQUIT });
-	signal(SIGINT, &sigggg);
-	signal(SIGQUIT, &siggg_backslash);
-	//signal(SIGSEGV, &siggg_d);
+	signal(SIGINT, &sig_c);
 	while (1)
 	{
 		prompt = get_prompt(env_l);
-		test = readline(prompt);
-		if (!test)
-			exit(727);
+		rl = readline(prompt);
 		free(prompt);
-		add_history(test);
-		if (check_syntax(test))
+		if (!rl)
+			exit(727);
+		if (!*rl)
 			continue ;
-		lll = ft_split(test, ' ');
-		if (!*lll)
+		if (check_syntax(rl))
 			continue ;
-		if (check_quote(test))
+		if (check_quote(rl))
 			continue ;
-		if (check_pipe(test))
+		if (check_pipe(rl))
 			continue ;
-		piped = tokenizer(test);
-		if (check_argv(((t_token *)(piped->content))->redirection))
+		piped = tokenizer(rl);
+		if (check_argv(piped))
 			continue ;
+		add_history(rl);
 		cmd_list = get_cmd_list(piped);
+		ft_lstclear(&piped, &free_token);
 		format_quotes(cmd_list);
 		exec_split_cmd(cmd_list, &env_l);
-		free(test);
-		ft_lstclear(&piped, free_token);
-		ft_free("a", &lll);
+		ft_lstclear(&cmd_list, &free_cmd);
+		free(rl);
 	}
-	ft_free("a", &lll);
 	return (0);
 }
