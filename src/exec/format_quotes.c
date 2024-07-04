@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/04 10:09:03 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:08:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,23 +120,23 @@ int	format_quotes_cmd(t_cmd *cmd)
 	char	*new_cmd;
 	uint	i;
 
-	printf("before : %s\n", cmd->cmd);
+	//printf("before : %s\n", cmd->cmd);
 	new_cmd = format_quotes_string(cmd->cmd);
 	if (!new_cmd)
 		return (-1);
 	free(cmd->cmd);
 	cmd->cmd = new_cmd;
-	printf("after : %s\n", cmd->cmd);
+	//printf("after : %s\n", cmd->cmd);
 	i = 0;
 	while (cmd->argv[i])
 	{
-		printf("before : %s\n", cmd->argv[i]);
+		//printf("before : %s\n", cmd->argv[i]);
 		new_cmd = format_quotes_string(cmd->argv[i]);
 		if (!new_cmd)
 			return (-1);
 		free(cmd->argv[i]);
 		cmd->argv[i] = new_cmd;
-		printf("after : %s\n", cmd->argv[i]);
+		//printf("after : %s\n", cmd->argv[i]);
 		i++;
 	}
 	return (0);
@@ -144,7 +144,7 @@ int	format_quotes_cmd(t_cmd *cmd)
 
 int	format_quotes(t_list *list_cmd)
 {
-	printf("aled\n");
+	//printf("aled\n");
 	if (!list_cmd)
 		return (0);
 	while (list_cmd)

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/04 10:49:59 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:07:26 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main(int ac, char **av, char **env)
 		if (check_pipe(test))
 			continue ;
 		piped = tokenizer(test);
-		if (check_redir(((t_token *)(piped->content))->redirection))
+		if (check_argv(((t_token *)(piped->content))->redirection))
 			continue ;
 		cmd_list = get_cmd_list(piped);
 		format_quotes(cmd_list);
