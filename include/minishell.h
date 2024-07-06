@@ -34,4 +34,9 @@ char	set_env(char **env, const char *name, char *content);
 bool	is_str(char *src, char *dst);
 void	print_cmd(t_cmd *cmd);
 
+
+void	free_redir(void *redir_v);
+void	free_token(void *token_v);
+void	free_cmd(void *content);
+
 #endif

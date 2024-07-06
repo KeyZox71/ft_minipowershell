@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/04 17:02:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/04 20:17:22 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,47 +24,6 @@
 #include "parsing.h"
 #include "prompt.h"
 
-void	free_redir(void *redir_v)
-{
-	t_redirection	*redir;
-
-	redir = redir_v;
-	free(redir->file_name);
-}
-
-void	free_token(void *token_v)
-{
-	t_token	*token;
-
-	token = token_v;
-	print_token(token);
-	free(token->argv);
-	ft_lstclear(&(token->redirection), free_redir);
-	free(token);
-}
-
-/*void	print_cmd(t_cmd cmd)
-{
-	ft_putendl_fd(cmd.cmd, 1);	
-	while (*(cmd.argv))
-	{
-		ft_putendl_fd(*(cmd.argv), 1);
-		(cmd.argv)++;
-	}
-}*/
-
-void	print_pipe(t_list *pipe)
-{
-	t_list	*tmp;
-
-	tmp = pipe;
-	while (tmp)
-	{
-		ft_putendl_fd(tmp->content, STDOUT_FILENO);
-		tmp = tmp->next;
-	}
-}
-
 void	sig_c(int code)
 {
 	(void)code;
@@ -72,16 +31,6 @@ void	sig_c(int code)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-}
-
-void	free_cmd(void *content)
-{
-	t_cmd	*cmd;
-
-	cmd = (t_cmd *)content;
-	free(cmd->cmd);
-	ft_free("a", &(cmd->argv));
-	free(cmd);
 }
 
 int	main(int ac, char **av, char **env)
