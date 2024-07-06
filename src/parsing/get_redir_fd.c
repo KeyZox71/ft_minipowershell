@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 17:34:47 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:06:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "libft.h"
 
-t_cmd	*get_redir_fd(void *content)
+t_cmd	*get_redir_fd(void *content, t_env *env)
 {
 	t_list			*tmp;
 	t_redir_sign	sign[2];
@@ -38,6 +38,6 @@ t_cmd	*get_redir_fd(void *content)
 		cmd->outfile = STDOUT_FILENO;
 	if (sign[1] == OUTFILE)
 		cmd->infile = STDIN_FILENO;
-	cmd = split_cmd(((t_token *)content)->argv, cmd);
+	cmd = split_cmd(env_var_replace(((t_token *)content)->argv, env), cmd);
 	return (cmd);
 }
