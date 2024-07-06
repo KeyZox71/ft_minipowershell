@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/04 11:39:00 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:01:21 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 int	is_in_builtins(char *cmd)
 {
 	int					i;
-	static const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset",
-		"env", "exit", NULL};
+	static const char	*builtins[] = {"exit", "cd", "unset", "export", "echo",
+		"pwd", "env", NULL};
 
 	i = 0;
 	while (builtins[i])
@@ -37,21 +37,22 @@ void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 	i = is_in_builtins(cmd);
 	if (i)
 	{
-		if (i == 1)
+		if (i == 5)
 			ft_echo(argv + 1);
 		if (i == 2)
 			ft_cd(env_t, argv[1]);
-		if (i == 3)
+		if (i == 6)
 			ft_pwd();
 		if (i == 4)
 			ft_export(argv + 1, env_t);
-		if (i == 5)
+		if (i == 3)
 			ft_unset(argv[1], env_t);
-		if (i == 6)
-			ft_env(env_t);
 		if (i == 7)
+			ft_env(env_t);
+		if (i == 1)
 			exit(ft_atoi(argv[1]));
-		exit(0);
+		if (i > 4)
+			exit(0);
 	}
 	else
 		execve(cmd, argv, env);
@@ -96,6 +97,10 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	{
 		printf("minishell : command not found: %s\n", input);
 		return (-1);
+	}
+	if (is_in_builtins(cmd->cmd) < 5)
+	{
+		exec_cmd(cmd->cmd, cmd->argv, env, env_t);
 	}
 	fork_pid = fork();
 	if (!fork_pid)
