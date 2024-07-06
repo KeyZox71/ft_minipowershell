@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/22 14:07:50 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/06 18:24:48 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_env
  *
  * @return (int)		0 if everything goes well, 1 on error
  */
-int		env_init(char **env_d, t_env *env);
+int				env_init(char **env_d, t_env *env);
 
 /**
  * @brief				get value of an env
@@ -38,7 +38,7 @@ int		env_init(char **env_d, t_env *env);
  *
  * @return (char *)		content of the variable, NULL if doesn't exist
  */
-char	*env_get_value(char *name, t_env *env);
+char			*env_get_value(char *name, t_env *env);
 
 /**
  * @brief				get value of an env
@@ -49,7 +49,7 @@ char	*env_get_value(char *name, t_env *env);
  *
  * @return (char *)		content of the variable, NULL if doesn't exist
  */
-char	*env_getn_value(char *name, t_env *env, int n);
+char			*env_getn_value(char *name, t_env *env, int n);
 
 /**
  * @brief				get an array from the env struct
@@ -58,7 +58,7 @@ char	*env_getn_value(char *name, t_env *env, int n);
  *
  * @return (char **)	the array, or NULL on error
  */
-char	**env_get(t_env *env);
+char			**env_get(t_env *env);
 
 /**
  * @brief				append content at the end of an env variable
@@ -69,7 +69,7 @@ char	**env_get(t_env *env);
  *
  * @return (int)		0 if everything goes well, -1 on error
  */
-int		env_append(char *name, char *content, t_env *env);
+int				env_append(char *name, char *content, t_env *env);
 
 /**
  * @brief				replace the content of an env variable
@@ -80,7 +80,7 @@ int		env_append(char *name, char *content, t_env *env);
  *
  * @return (int)		0 if everything goes well, -1 on error
  */
-int		env_edit(char *name, char *content, t_env *env);
+int				env_edit(char *name, char *content, t_env *env);
 
 /**
  * @brief				delete an entry in the env struct
@@ -90,15 +90,17 @@ int		env_edit(char *name, char *content, t_env *env);
  *
  * @return (int)		0 if everything goes well, -1 on error
  */
-int		env_delete(char *name, t_env *env);
+int				env_delete(char *name, t_env *env);
+
+t_env			*env_create_el(char *env_line);
 
 // theses are literally the linked-list functions but for env
-void	ft_envadd_back(t_env **env, t_env *new);
-void	ft_envadd_front(t_env **lst, t_env *new);
-void	ft_envclear(t_env **lst, void (*del)(void *));
-void	ft_envdelone(t_env *lst, void (*del)(void *));
-t_env	*ft_envlast(t_env *env);
-t_env	*ft_envnew(char *name, char *content);
+void			ft_envadd_back(t_env **env, t_env *new);
+void			ft_envadd_front(t_env **lst, t_env *new);
+void			ft_envclear(t_env **lst, void (*del)(void *));
+void			ft_envdelone(t_env *lst, void (*del)(void *));
+t_env			*ft_envlast(t_env *env);
+t_env			*ft_envnew(char *name, char *content);
 unsigned int	ft_envsize(t_env *lst);
 
 /**
@@ -108,6 +110,6 @@ unsigned int	ft_envsize(t_env *lst);
  *
  * @return (void)
  */
-void	ft_envprint(t_env *env);
+void			ft_envprint(t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/27 15:52:42 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:27:41 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	ft_export(char **args, t_env *env)
 	}
 	while (*args)
 	{
+		if (!strchr(*args, '='))
+			return ;
 		name = ft_calloc(sizeof(char), ft_strchr(*args, '=') - *args + 1);
 		content = ft_calloc(sizeof(char), ft_strlen(ft_strchr(*args, '=')));
 		if (!name || !content)
@@ -83,13 +85,13 @@ void	ft_export(char **args, t_env *env)
 			ft_free("cc", &name, &content);
 			return ;
 		}
-		ft_strlcpy(name, *args, ft_strchr(*args, '=') - *args);
+		ft_strlcpy(name, *args, ft_strchr(*args, '=') - *args + 1);
 		ft_strlcpy(content, ft_strchr(*args, '=') + 1,
-			ft_strlen(ft_strchr(*args, '=')));
+			ft_strlen(ft_strchr(*args, '=')) + 1);
 		if (env_get_value(name, env))
 			env_edit(name, content, env);
 		else
-			env_append(name, content, env);
+			ft_envadd_back(&env, ft_envnew(name, content));
 		args++;
 	}
 }
