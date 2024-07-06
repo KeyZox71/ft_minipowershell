@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/06 12:01:21 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:23:32 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 		printf("minishell : command not found: %s\n", input);
 		return (-1);
 	}
-	if (is_in_builtins(cmd->cmd) < 5)
+	if (is_in_builtins(cmd->cmd) && is_in_builtins(cmd->cmd) < 5)
 	{
 		exec_cmd(cmd->cmd, cmd->argv, env, env_t);
+		return (0);
 	}
 	fork_pid = fork();
 	if (!fork_pid)
@@ -194,7 +195,8 @@ int	exec_split_cmd(t_list *list_cmd, t_env *env)
 		i--;
 	if (i < 1)
 		return (0);
-	waitpid(status, &return_code, 0);
+	if (status != 0)
+		waitpid(status, &return_code, 0);
 	while (i - 1)
 	{
 		waitpid(-1, NULL, 0);
