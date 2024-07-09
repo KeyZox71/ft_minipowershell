@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 16:41:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 18:04:47 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av, char **env)
 	rl = NULL;
 	get_program_name(av[0]);
 	env_l = env_init(env);
+	get_env(&env_l);
 	if (!env_l)
 		return (EXIT_FAILURE);
 	signal(SIGINT, &sig_c);
@@ -62,6 +63,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		piped = tokenizer(rl);
+		get_list(&piped);
 		if (check_argv(piped))
 			continue ;
 		add_history(rl);

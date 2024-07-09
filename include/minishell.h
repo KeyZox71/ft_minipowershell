@@ -39,4 +39,7 @@ void	free_redir(void *redir_v);
 void	free_token(void *token_v);
 void	free_cmd(void *content);
 
+t_env	**get_env(t_env **env);
+t_list	**get_list(t_list **list);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/09 11:05:31 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 18:02:28 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	get_input(char *delimiter, int fd)
 	return (-(status == -1));
 }
 
-int	ft_heredoc(char *delimiter)
+int	__heredoc(char *delimiter)
 {
 	int		fork_pid;
 	int		fd;
@@ -95,9 +95,20 @@ int	ft_heredoc(char *delimiter)
 	if (!fork_pid)
 	{
 		get_input(delimiter, fd);
+		ft_envclear(get_env(NULL), free);
+		ft_lstclear(get_list(NULL), &free_token);
 		exit(0);
 	}
 	else
 		waitpid(fork_pid, NULL, 0);
 	return (fd_manager(1));
+}
+
+int	ft_heredoc(char *delimiter)
+{
+	int	fd;
+
+	fd = __heredoc(delimiter);
+
+	return (fd);
 }
