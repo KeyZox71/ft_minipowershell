@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/06 18:06:23 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/07 14:37:59 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,46 @@ typedef enum s_quote
 	DOUBLE = 34
 }	t_quote;
 
-bool	check_syntax(char *readline);
-void	send_error(char *msg, char **argv);
-bool	check_redir(t_list *redir);
-bool	check_argv(t_list *token);
 t_cmd	*get_redir_fd(void *content, t_env *env);
 t_list	*get_cmd_list(t_list *list, t_env *env);
 void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2]);
-char	**split_argv(char *readline);
-char	*env_var_replace(char *readline, t_env *env);
-size_t	get_size_with_env(char *readline, t_env *env);
+
+/**
+ * @brief				Take a string and a character and return the lengh
+ *						until the given character
+ *
+ * @param s				The string
+ * @param				The character the lengh stops at
+ *
+ * @return (size_t)		The lengh until the given character
+ */
 size_t	strlen_till_char(char *s, int c);
+
+
 bool	check_quote(char *readline);
-t_quote	__is_quote(char c);
-char	*search_for_next_quote(char *s, t_quote quote_type);
+bool	check_syntax(char *readline);
+bool	check_redir(t_list *redir);
+bool	check_argv(t_list *token);
+/**
+ * @brief				Take the readline output and check if all the pipe 
+ *						a command after them
+ *
+ * @param				The readline output
+ *
+ * @return (bool)		A boolean of whether or not there is an error
+ */
 bool	check_pipe(char *readline);
+
+/**
+ * @brief				Take the readline output and split it into an argv 
+ *						while taking into account quotes
+ *
+ * @param				The readline output
+ *
+ * @return (char **)	The argv of the command
+ */
 char	**split_argv(char *readline);
+
 /**
  * @brief				Take the argv of a command a split the argv and the
  *						command it self
@@ -81,12 +105,35 @@ t_quote	is_inquote(char	*s, size_t i);
  */
 t_quote	__is_quote(char c);
 
+/**
+ * @brief				Take a string and a quote type and return the pointer to
+ *						the next quote
+ *
+ * @param s				A pointer to a string
+ * @param quote_type	A type of quote
+ *
+ * @return (char *)		A pointer to the next quote
+ */
+char	*search_for_next_quote(char *s, t_quote quote_type);
+
+/**
+ * @brief				Take the readline output and the env and replace all the 
+ *						$("variable") by their variable content
+ *
+ * @param readline		The readline output
+ * @param env			The env
+ *
+ * @return (char *)		The curated string
+ */
+char	*env_var_replace(char *readline, t_env *env);
+size_t	get_size_with_env(char *readline, t_env *env);
+
 /*
  *						ONLY FOR DEBUG TO BE REMOVED 
  */
-void	print_quote_type(t_quote type);
-void	print_redir_sign(t_redir_sign redir_sign);
-void	print_token(t_token *token);
-void	print_redir(t_redirection *redir);
+void										print_quote_type(t_quote type);
+void										print_redir_sign(t_redir_sign redir_sign);
+void										print_token(t_token *token);
+void										print_redir(t_redirection *redir);
 
 #endif

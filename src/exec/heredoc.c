@@ -6,24 +6,23 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/03 10:08:18 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:05:31 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-	# mode
-		0: ouvre un nouveau fichier
-		1: réouvre le fichier pour la lecture
-		-1: pour signifier qu'il faut decrémenter la static
+ * # mode
+ *	0: ouvre un nouveau fichier
+ *	1: réouvre le fichier pour la lecture
+ *	-1: pour signifier qu'il faut decrémenter la static
  */
 int	fd_manager(int mode)
 {
 	static int	index = 0;
 	char		*index_itoa;
 	char		*path;
-	int			fd;
 
 	if (mode < 0)
 		index--;
@@ -42,10 +41,9 @@ int	fd_manager(int mode)
 	ft_strlcat(path, index_itoa, ft_strlen(index_itoa));
 	free(index_itoa);
 	if (mode > 0)
-		fd = open(path, O_RDONLY);
+		return (open(path, O_RDONLY));
 	else
-		fd = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	return (fd);
+		return (open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644));
 }
 
 static int	get_input(char *delimiter, int fd)
@@ -60,12 +58,12 @@ static int	get_input(char *delimiter, int fd)
 		if (status == -1)
 			fd_manager(fd);
 		if (status == -1)
-			return (-1);
+			break ;
 		status = write(fd, "\n", 1);
 		if (status == -1)
 			fd_manager(fd);
 		if (status == -1)
-			return (-1);
+			break ;
 		free(line);
 		line = readline("heredoc> ");
 	}

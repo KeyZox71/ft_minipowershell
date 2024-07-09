@@ -6,23 +6,11 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/06 18:07:24 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/07 14:50:45 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include "error_msg.h"
-#include <readline/history.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include "libft.h"
-#include "builtins.h"
 #include "minishell.h"
-#include "parsing.h"
-#include "prompt.h"
 
 void	sig_c(int code)
 {
@@ -31,6 +19,19 @@ void	sig_c(int code)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+bool	run_checks(char *rl)
+{
+	if (!*rl)
+		return (true);
+	if (check_syntax(rl))
+		return (true);
+	if (check_quote(rl))
+		return (true);
+	if (check_pipe(rl))
+		return (true);
+	return (false);
 }
 
 int	main(int ac, char **av, char **env)
@@ -53,13 +54,7 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!rl)
 			exit(727);
-		if (!*rl)
-			continue ;
-		if (check_syntax(rl))
-			continue ;
-		if (check_quote(rl))
-			continue ;
-		if (check_pipe(rl))
+		if (run_checks(rl))
 			continue ;
 		piped = tokenizer(rl);
 		if (check_argv(piped))
