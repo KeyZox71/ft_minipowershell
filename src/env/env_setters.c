@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/24 12:53:38 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:34:39 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,25 @@ t_env	*env_create_el(char *env_line)
 	return (new);
 }
 
-int	env_init(char **env_d, t_env *env)
+t_env	*env_init(char **env_d)
 {
+	t_env	*env;
 	t_env	*new;
 	int		i;
-	char	bool_first_el;
 
 	i = -1;
-	bool_first_el = true;
+	env = NULL;
 	while (env_d[++i])
 	{
-		if (bool_first_el)
-			if (env_create_first_el(env_d[i], env))
-				return (1);
-		if (!bool_first_el)
+		new = env_create_el(env_d[i]);
+		if (!new)
 		{
-			new = env_create_el(env_d[i]);
-			if (!new)
-			{
-				ft_envclear(&env, free);
-				return (1);
-			}
-			ft_envadd_back(&env, new);
+			ft_envclear(&env, free);
+			return (NULL);
 		}
-		bool_first_el = false;
+		ft_envadd_back(&env, new);
 	}
-	return (0);
+	return (env);
 }
 
 char	**env_get(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/06 18:24:48 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:40:00 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_env
  *
  * @return (int)		0 if everything goes well, 1 on error
  */
-int				env_init(char **env_d, t_env *env);
+t_env			*env_init(char **env_d);
 
 /**
  * @brief				get value of an env

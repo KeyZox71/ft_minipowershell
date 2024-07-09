@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/07 14:50:45 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 14:40:50 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	run_checks(char *rl)
 	return (false);
 }
 
-int	main(int ac, char **av, char **env)
+/*int	main(int ac, char **av, char **env)
 {
 	char	*rl;
 	char	*prompt;
@@ -68,4 +68,15 @@ int	main(int ac, char **av, char **env)
 		free(rl);
 	}
 	return (0);
+}*/
+
+int	main(int ac, char **av, char **e)
+{
+	t_env	*env;
+
+	(void) ac;
+	(void) av;
+	env = env_init(e);
+	ft_envprint(env);
+	ft_envclear(&env, free);
 }
