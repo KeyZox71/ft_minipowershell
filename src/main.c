@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 16:08:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 16:41:08 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,39 +56,29 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!rl)
 			break ;
-		if (!*rl)
+		if (run_checks(rl))
 		{
-			
+			free(rl);
 			continue ;
 		}
-		if (run_checks(rl))
-			continue ;
 		piped = tokenizer(rl);
 		if (check_argv(piped))
 			continue ;
 		add_history(rl);
 		cmd_list = get_cmd_list(piped, env_l);
+		free(rl);
 		ft_lstclear(&piped, &free_token);
 		format_quotes(cmd_list);
+		if (check_redir(cmd_list))
+		{
+			ft_lstclear(&cmd_list, &free_cmd);
+			continue ;
+		}
 		exec_split_cmd(cmd_list, env_l);
 		ft_lstclear(&cmd_list, &free_cmd);
-		free(rl);
 	}
 	free(rl);
 	rl_clear_history();
-	//ft_lstclear(&piped, &free_token);
-	//ft_lstclear(&cmd_list, &free_cmd);
 	ft_envclear(&env_l, free);
 	return (727);
 }
-
-/*int	main(int ac, char **av, char **e)
-{
-	t_env	*env;
-
-	(void) ac;
-	(void) av;
-	env = env_init(e);
-	ft_envprint(env);
-	ft_envclear(&env, free);
-}*/
