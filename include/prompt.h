@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:05 by adjoly            #+#    #+#             */
-/*   Updated: 2024/05/27 18:59:56 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 14:35:40 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ char	*get_hostname(void);
  *
  * @return (char *)		the pwd
  */
-char	*get_pwd(t_env env);
+char	*get_pwd(t_env *env);
 
 /**
  * @brief				return the full prompt
  *
  * @prompt (char *)		the prompt
  */
-char	*get_prompt(t_env env);
+char	*get_prompt(t_env *env);
 
 #endif
