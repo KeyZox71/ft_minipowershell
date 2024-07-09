@@ -1,5 +1,4 @@
 obj/
-src/main.c
 minishell
 .direnv
 .envrc
