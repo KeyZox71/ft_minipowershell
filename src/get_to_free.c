@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:24:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 18:05:07 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/10 00:46:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,16 @@ t_env	**get_env(t_env **env)
 t_list	**get_list(t_list **list)
 {
 	static t_list	**ret;
-	
+
+	if (list)
+		ret = list;
+	return (ret);
+}
+
+t_list	**get_list2(t_list **list)
+{
+	static t_list	**ret;
+
 	if (list)
 		ret = list;
 	return (ret);

@@ -6,14 +6,15 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:56:53 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 18:03:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/10 01:07:09 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include <fcntl.h>
-#include "execution.h" 
 #include "parsing.h"
+#include "execution.h" 
+#include <stdio.h>
 
 t_redir_sign	__close_unused_fd(t_cmd *cmd, t_redir_sign sign)
 {
@@ -31,7 +32,7 @@ void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2])
 	if (redir->sign == INFILE || redir->sign == HEREDOC)
 		sign[1] = __close_unused_fd(cmd, redir->sign);
 	if (redir->sign == HEREDOC)
-		cmd->infile = ft_heredoc(redir->file_name);
+		cmd->infile = ft_heredoc(redir->file_name, cmd);
 	else if (redir->sign == INFILE)
 		cmd->infile = open(redir->file_name, O_RDONLY);
 	else if (redir->sign == OUTFILE)

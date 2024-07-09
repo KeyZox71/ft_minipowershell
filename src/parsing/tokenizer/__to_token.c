@@ -6,13 +6,14 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/26 12:56:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 23:43:39 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include "libft.h"
 #include "parsing.h"
+#include <stdio.h>
 
 size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 {

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 20:10:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/04 20:12:06 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/10 01:19:32 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_redir(void *redir_v)
 
 	redir = redir_v;
 	free(redir->file_name);
+	free(redir);
 }
 
 void	free_token(void *token_v)
@@ -36,7 +37,14 @@ void	free_cmd(void *content)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)content;
-	free(cmd->cmd);
-	ft_free("a", &(cmd->argv));
-	free(cmd);
+	if (cmd->cmd)
+		free(cmd->cmd);
+	if (cmd->infile != STDIN_FILENO && cmd->infile != -1)
+		close(cmd->infile);
+	if (cmd->outfile != STDOUT_FILENO && cmd->outfile != -1)
+		close(cmd->outfile);
+	if (cmd->argv)
+		ft_free("a", &(cmd->argv));
+	if (cmd)
+		free(cmd);
 }

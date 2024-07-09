@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/07 14:37:59 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 23:52:39 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef enum s_quote
 	DOUBLE = 34
 }	t_quote;
 
-t_cmd	*get_redir_fd(void *content, t_env *env);
-t_list	*get_cmd_list(t_list *list, t_env *env);
+t_cmd	*get_redir_fd(void *content);
+t_list	*get_cmd_list(t_list *list);
 void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2]);
 
 /**
@@ -135,5 +135,6 @@ void										print_quote_type(t_quote type);
 void										print_redir_sign(t_redir_sign redir_sign);
 void										print_token(t_token *token);
 void										print_redir(t_redirection *redir);
+void	print_cmd(t_cmd *cmd);
 
 #endif

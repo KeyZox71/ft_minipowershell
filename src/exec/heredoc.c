@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/09 18:02:28 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/10 01:14:41 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	fd_manager(int mode)
 	ft_strlcat(path, "/tmp/.minishell-heredoc-", 24);
 	ft_strlcat(path, index_itoa, ft_strlen(index_itoa));
 	free(index_itoa);
-	if (mode > 0)
-		return (open(path, O_RDONLY));
-	else
-		return (open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644));
+	return (__open_fd_here(path, mode));
 }
 
 static int	get_input(char *delimiter, int fd)
@@ -52,16 +49,16 @@ static int	get_input(char *delimiter, int fd)
 	int		status;
 
 	line = readline("heredoc> ");
-	while (ft_strcmp(line, delimiter))
+	while (line && ft_strcmp(line, delimiter))
 	{
 		status = write(fd, line, ft_strlen(line));
 		if (status == -1)
-			fd_manager(fd);
+			close(fd_manager(fd));
 		if (status == -1)
 			break ;
 		status = write(fd, "\n", 1);
 		if (status == -1)
-			fd_manager(fd);
+			close(fd_manager(fd));
 		if (status == -1)
 			break ;
 		free(line);
@@ -70,11 +67,21 @@ static int	get_input(char *delimiter, int fd)
 	free(line);
 	status = write(fd, "\0", 1);
 	if (status == -1)
-		fd_manager(fd);
+		close(fd_manager(fd));
 	return (-(status == -1));
 }
 
-int	__heredoc(char *delimiter)
+void	__forked(char *delimiter, int fd, t_cmd *cmd)
+{
+	get_input(delimiter, fd);
+	free(cmd);
+	ft_envclear(get_env(NULL), free);
+	ft_lstclear_till_nxt(get_list2(NULL), &free_cmd);
+	ft_lstclear(get_list(NULL), &free_token);
+	close(fd);
+}
+
+int	__heredoc(char *delimiter, t_cmd *cmd)
 {
 	int		fork_pid;
 	int		fd;
@@ -82,33 +89,31 @@ int	__heredoc(char *delimiter)
 	fd = fd_manager(0);
 	if (fd == -1)
 	{
-		fd_manager(-1);
+		close(fd_manager(-1));
 		return (-1);
 	}
 	fork_pid = fork();
 	if (fork_pid == -1)
 	{
-		fd_manager(-1);
+		close(fd_manager(-1));
 		close(fd);
 		return (-1);
 	}
 	if (!fork_pid)
 	{
-		get_input(delimiter, fd);
-		ft_envclear(get_env(NULL), free);
-		ft_lstclear(get_list(NULL), &free_token);
+		__forked(delimiter, fd, cmd);
 		exit(0);
 	}
 	else
 		waitpid(fork_pid, NULL, 0);
+	close(fd);
 	return (fd_manager(1));
 }
 
-int	ft_heredoc(char *delimiter)
+int	ft_heredoc(char *delimiter, t_cmd *cmd)
 {
 	int	fd;
 
-	fd = __heredoc(delimiter);
-
+	fd = __heredoc(delimiter, cmd);
 	return (fd);
 }

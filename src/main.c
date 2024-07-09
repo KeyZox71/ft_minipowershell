@@ -6,11 +6,12 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 18:04:47 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/10 00:31:20 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 void	sig_c(int code)
 {
@@ -49,9 +50,9 @@ int	main(int ac, char **av, char **env)
 	get_env(&env_l);
 	if (!env_l)
 		return (EXIT_FAILURE);
-	signal(SIGINT, &sig_c);
 	while (1)
 	{
+		signal(SIGINT, &sig_c);
 		prompt = get_prompt(env_l);
 		rl = readline(prompt);
 		free(prompt);
@@ -65,15 +66,19 @@ int	main(int ac, char **av, char **env)
 		piped = tokenizer(rl);
 		get_list(&piped);
 		if (check_argv(piped))
+		{
+			ft_lstclear(&piped, &free_token);
 			continue ;
+		}
 		add_history(rl);
-		cmd_list = get_cmd_list(piped, env_l);
+		cmd_list = get_cmd_list(piped);
 		free(rl);
 		ft_lstclear(&piped, &free_token);
-		format_quotes(cmd_list);
+		format_quotes(cmd_list, env_l);
+		get_list(&cmd_list);
 		if (check_redir(cmd_list))
 		{
-			ft_lstclear(&cmd_list, &free_cmd);
+			ft_lstclear(get_list(NULL), &free_cmd);
 			continue ;
 		}
 		exec_split_cmd(cmd_list, env_l);

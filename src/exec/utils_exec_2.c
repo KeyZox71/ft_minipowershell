@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_redir.c                                      :+:      :+:    :+:   */
+/*   utils_exec_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 16:32:21 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 23:09:41 by adjoly           ###   ########.fr       */
+/*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
+/*   Updated: 2024/07/09 22:57:38 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "error_msg.h"
+#include "libft.h"
 #include "minishell.h"
 
-bool	check_redir(t_list *list)
+void	__wait(int i)
 {
-	t_list	*tmp;
-	t_cmd	*cmd;
-
-	tmp = list;
-	while (tmp)
+	while (i - 1)
 	{
-		cmd = (t_cmd *)tmp->content;
-		if (cmd->infile == -1 || cmd->outfile == -1)
-			return (send_error_parsing(ERROR_NO_FILE));
-		tmp = tmp->next;
+		waitpid(-1, NULL, 0);
+		i--;
 	}
-	return (false);
+}
+
+void	__close(void *content)
+{
+	if (((t_cmd *)(content))->outfile != STDOUT_FILENO)
+		close(((t_cmd *)(content))->outfile);
+	if (((t_cmd *)(content))->infile != STDIN_FILENO)
+		close(((t_cmd *)(content))->infile);
+}
+
+int	send_error_exec(char *input)
+{
+	printf("minishell : command not found: %s\n", input);
+	free(input);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 16:12:34 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/09 20:23:16 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ char	*env_var_replace(char *readline, t_env *env)
 			tmp++;
 		}
 	}
+	free(readline);
 	return (rl_dollared);
 }
