@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/09 14:34:39 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:46:56 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,29 @@ t_env	*env_init(char **env_d)
 
 char	**env_get(t_env *env)
 {
-	char	**exec_env;
+	char	**ar;
 	int		i;
 
-	exec_env = malloc(sizeof(char *) * (ft_envsize(env) + 1));
-	if (!exec_env)
-		return (exec_env);
-	exec_env[ft_envsize(env)] = NULL;
+	ar = ft_calloc(sizeof(char *), (ft_envsize(env) + 1));
+	if (!ar)
+		return (ar);
+	ar[ft_envsize(env)] = NULL;
 	i = 0;
 	while (env)
 	{
-		exec_env[i] = malloc(ft_strlen(env->name)
-				+ ft_strlen(env->content) + 2);
-		if (!exec_env[i])
+		if (!env->content)
+			continue ;
+		ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 2);
+		if (!ar[i])
 		{
-			ft_free("a", exec_env);
+			ft_free("a", ar);
 			return (NULL);
 		}
-		ft_strlcpy(exec_env[i], env->name, ft_strlen(env->name) + 1);
-		exec_env[i][ft_strlen(env->name)] = '=';
-		ft_strlcpy(exec_env[i] + ft_strlen(env->name) + 1,
-			env->content, ft_strlen(env->content) + 1);
+		ft_strlcpy(ar[i], env->name, ft_strlen(env->name) + 1);
+		ar[i][ft_strlen(env->name)] = '=';
+		ft_strlcat(ar[i], env->content, ft_vstrlen(2, ar[i], env->content) + 1);
 		env = env->next;
 		i++;
 	}
-	return (exec_env);
+	return (ar);
 }

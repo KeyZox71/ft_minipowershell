@@ -6,11 +6,12 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/06 19:08:43 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:07:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 uint	ft_arraylen(char **s)
 {
@@ -51,7 +52,7 @@ void	env_print_in_order(t_env *env_l)
 	char	**env;
 	int		i;
 
-	env = env_get(env_l);
+	env = env_get_list(env_l);
 	if (!env)
 		return ;
 	ft_arraysort(env);
@@ -64,10 +65,38 @@ void	env_print_in_order(t_env *env_l)
 	return ;
 }
 
-void	ft_export(char **args, t_env *env)
+int	export_value(char *arg, t_env *env)
 {
 	char	*name;
 	char	*content;
+
+	if (!strchr(arg, '='))
+	{
+		name = ft_strdup(arg);
+		if (name)
+			ft_envadd_back(&env, ft_envnew(name, ft_calloc(1, 1)));
+		return (-1);
+	}
+	name = ft_calloc(sizeof(char), ft_strchr(arg, '=') - arg + 1);
+	content = ft_calloc(sizeof(char), ft_strlen(ft_strchr(arg, '=')));
+	if (!name || !content)
+	{
+		ft_free("cc", &name, &content);
+		return (-1);
+	}
+	ft_strlcpy(name, arg, ft_strchr(arg, '=') - arg + 1);
+	ft_strlcpy(content, ft_strchr(arg, '=') + 1,
+		ft_strlen(ft_strchr(arg, '=')) + 1);
+	if (env_get_value(name, env))
+		env_edit(name, content, env);
+	else
+		ft_envadd_back(&env, ft_envnew(name, content));
+	return (0);
+}
+
+void	ft_export(char **args, t_env *env)
+{
+	int	status;
 
 	if (!args || !args[0])
 	{
@@ -76,22 +105,9 @@ void	ft_export(char **args, t_env *env)
 	}
 	while (*args)
 	{
-		if (!strchr(*args, '='))
+		status = export_value(*args, env);
+		if (status)
 			return ;
-		name = ft_calloc(sizeof(char), ft_strchr(*args, '=') - *args + 1);
-		content = ft_calloc(sizeof(char), ft_strlen(ft_strchr(*args, '=')));
-		if (!name || !content)
-		{
-			ft_free("cc", &name, &content);
-			return ;
-		}
-		ft_strlcpy(name, *args, ft_strchr(*args, '=') - *args + 1);
-		ft_strlcpy(content, ft_strchr(*args, '=') + 1,
-			ft_strlen(ft_strchr(*args, '=')) + 1);
-		if (env_get_value(name, env))
-			env_edit(name, content, env);
-		else
-			ft_envadd_back(&env, ft_envnew(name, content));
 		args++;
 	}
 }
