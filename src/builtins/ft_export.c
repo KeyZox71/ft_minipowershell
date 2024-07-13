@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/11 19:07:01 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:11:55 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	env_print_in_order(t_env *env_l)
 		printf("declare -x %s\n", env[i]);
 		i++;
 	}
+	ft_free("a", &env);
 	return ;
 }
 
@@ -74,7 +75,7 @@ int	export_value(char *arg, t_env *env)
 	{
 		name = ft_strdup(arg);
 		if (name)
-			ft_envadd_back(&env, ft_envnew(name, ft_calloc(1, 1)));
+			add_to_env(name, NULL, env);
 		return (-1);
 	}
 	name = ft_calloc(sizeof(char), ft_strchr(arg, '=') - arg + 1);
@@ -87,10 +88,7 @@ int	export_value(char *arg, t_env *env)
 	ft_strlcpy(name, arg, ft_strchr(arg, '=') - arg + 1);
 	ft_strlcpy(content, ft_strchr(arg, '=') + 1,
 		ft_strlen(ft_strchr(arg, '=')) + 1);
-	if (env_get_value(name, env))
-		env_edit(name, content, env);
-	else
-		ft_envadd_back(&env, ft_envnew(name, content));
+	add_to_env(name, content, env);
 	return (0);
 }
 
