@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 14:13:41 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:35:57 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ char	*search_for_next_quote(char *s, t_quote quote_type);
  */
 char	*env_var_replace(char *readline, t_env *env);
 size_t	get_size_with_env(char *readline, t_env *env);
+size_t	strlen_till_notalnum(char *s);
 
 /*
  *						ONLY FOR DEBUG TO BE REMOVED 

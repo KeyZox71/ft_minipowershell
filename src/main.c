@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/13 13:35:37 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:55:57 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **av, char **env)
 	get_env(&env_l);
 	if (!env_l)
 		return (EXIT_FAILURE);
+	get_exit_code(12);
 	while (1)
 	{
 		signal(SIGINT, &sig_c);
