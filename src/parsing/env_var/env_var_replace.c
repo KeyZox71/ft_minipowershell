@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/13 17:21:59 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:48:16 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	strlen_till_notalnum(char *s)
 	return (tmp - s);
 }
 
-size_t __add_dollar(t_env *env, char **rl_dollared, char *tmp)
+size_t	__add_dollar(t_env *env, char **rl_dollared, char *tmp)
 {
 	size_t	dollar_size;
 
@@ -48,8 +48,8 @@ size_t __add_dollar(t_env *env, char **rl_dollared, char *tmp)
 	if ((*tmp) == '?')
 	{
 		ft_strlcat(*rl_dollared, ft_itoa(get_exit_code(-1)), \
-			 ft_strlen(ft_itoa(get_exit_code(-1))) \
-			 + ft_strlen(*rl_dollared) + 1);
+			ft_strlen(ft_itoa(get_exit_code(-1))) \
+				+ ft_strlen(*rl_dollared) + 1);
 		return (1);
 	}
 	dollar_size = strlen_till_notalnum(tmp);
