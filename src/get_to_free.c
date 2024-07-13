@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:24:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 00:46:24 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:09:08 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,24 @@ t_list	**get_list2(t_list **list)
 	if (list)
 		ret = list;
 	return (ret);
+}
+
+int	get_exit_code(int in)
+{
+	static int	exit_code;
+
+	if (in != -1)
+		exit_code = in % 256;
+	if (exit_code < 0)
+		exit_code += 256;
+	return (exit_code);
+}
+
+int	get_fd_heredoc(int in)
+{
+	static int	fd;
+
+	if (in != -1)
+		fd = in;
+	return (fd);
 }

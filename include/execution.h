@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/10 01:21:10 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:03:47 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,9 @@ void	__close(void *content);
 int		ft_heredoc(char *delimiter, t_cmd *cmd);
 int		__open_fd_here(char *path, int mode);
 void	ft_lstclear_till_nxt(t_list **lst, void (*del)(void *));
+int		get_fd_heredoc(int in);
+int		check_error(int heredoc_ret, int fd);
+void	__heredoc_sig(int code);
+int		fd_manager(int mode);
 
 #endif

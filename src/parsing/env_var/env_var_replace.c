@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 20:23:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:14:20 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ char	*env_var_replace(char *readline, t_env *env)
 		if (*tmp == '$' && is_inquote(readline, tmp - readline) != SINGLE)
 		{
 			tmp++;
+			if ((*tmp) == '?')
+			{
+				tmp++;
+				continue ;
+			}
 			dollar_size = strlen_till_notalnum(tmp);
 			__cpy_dollar(tmp, dollar_size, env, &rl_dollared);
 			tmp += dollar_size;

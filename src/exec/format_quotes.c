@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/09 21:21:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 13:19:34 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*format_quotes_string(char *cmd)
 {
+	if (!cmd)
+		return (NULL);
 	if (*cmd == DOUBLE || *cmd == SINGLE)
 		ft_strlcpy(cmd, cmd + 1, ft_strlen(cmd) - 1);
 	return (cmd);
@@ -23,7 +25,9 @@ int	format_quotes_cmd(t_cmd *cmd, t_env *env)
 {
 	uint	i;
 
-	format_quotes_string(cmd->cmd);
+	if (!cmd)
+		return (-1);
+	cmd->cmd = format_quotes_string(cmd->cmd);
 	i = 0;
 	while (cmd->argv[i])
 	{
@@ -40,7 +44,8 @@ int	format_quotes(t_list *list_cmd, t_env *env)
 		return (0);
 	while (list_cmd)
 	{
-		format_quotes_cmd(list_cmd->content, env);
+		if (format_quotes_cmd(list_cmd->content, env))
+			return (-1);
 		list_cmd = list_cmd->next;
 	}
 	return (0);

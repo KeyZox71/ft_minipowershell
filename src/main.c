@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 00:31:20 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 13:35:37 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,13 @@ int	main(int ac, char **av, char **env)
 		cmd_list = get_cmd_list(piped);
 		free(rl);
 		ft_lstclear(&piped, &free_token);
-		format_quotes(cmd_list, env_l);
+		if (!cmd_list)
+			continue ;
+		if (format_quotes(cmd_list, env_l))
+		{
+			ft_lstclear(get_list(NULL), &free_cmd);
+			continue ;
+		}
 		get_list(&cmd_list);
 		if (check_redir(cmd_list))
 		{

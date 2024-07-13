@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/03 12:18:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/12 15:26:48 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	ft_cd(t_env *env, char *args)
 	}
 	env_edit("PWD", ft_strdup(ret_cwd()), env);
 	env_edit("OLDPWD", pwd, env);
-	free(args);
 }

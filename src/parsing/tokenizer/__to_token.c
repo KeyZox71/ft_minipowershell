@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 23:43:39 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:49:40 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ t_token	*__to_token(char *cmd)
 			tmp += __get_sizeof_redir(tmp, tmp_redir);
 		}
 		else
+		{
 			token->argv = ft_strjoin_free(token->argv, ft_substr(tmp, 0, 1));
+		}
 		tmp++;
 	}
 	return (token);

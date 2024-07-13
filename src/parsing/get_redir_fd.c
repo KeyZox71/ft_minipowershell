@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 01:07:50 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:05:27 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ t_cmd	*get_redir_fd(void *content)
 	while (tmp)
 	{
 		open_redir((t_redirection *)tmp->content, cmd, sign);
+		if (cmd->infile == -2)
+		{
+			free(cmd);
+			return (NULL);
+		}
 		tmp = tmp->next;
 	}
 	if (sign[0] == INFILE)

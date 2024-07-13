@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 23:52:39 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/10 14:13:41 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2]);
  * @return (size_t)		The lengh until the given character
  */
 size_t	strlen_till_char(char *s, int c);
-
 
 bool	check_quote(char *readline);
 bool	check_syntax(char *readline);

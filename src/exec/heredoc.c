@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/10 01:14:41 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:02:22 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ static int	get_input(char *delimiter, int fd)
 
 void	__forked(char *delimiter, int fd, t_cmd *cmd)
 {
-	get_input(delimiter, fd);
+	signal(SIGINT, &__heredoc_sig);
 	free(cmd);
+	get_input(delimiter, fd);
 	ft_envclear(get_env(NULL), free);
 	ft_lstclear_till_nxt(get_list2(NULL), &free_cmd);
 	ft_lstclear(get_list(NULL), &free_token);
+	rl_clear_history();
 	close(fd);
 }
 
@@ -85,6 +87,7 @@ int	__heredoc(char *delimiter, t_cmd *cmd)
 {
 	int		fork_pid;
 	int		fd;
+	int		heredoc_ret;
 
 	fd = fd_manager(0);
 	if (fd == -1)
@@ -105,9 +108,8 @@ int	__heredoc(char *delimiter, t_cmd *cmd)
 		exit(0);
 	}
 	else
-		waitpid(fork_pid, NULL, 0);
-	close(fd);
-	return (fd_manager(1));
+		waitpid(fork_pid, &heredoc_ret, 0);
+	return (check_error(heredoc_ret, fd));
 }
 
 int	ft_heredoc(char *delimiter, t_cmd *cmd)

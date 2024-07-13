@@ -6,13 +6,14 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 01:14:10 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 01:16:48 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:03:00 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 #include <fcntl.h>
+#include "minishell.h"
 
 int	__open_fd_here(char *path, int mode)
 {
@@ -23,6 +24,7 @@ int	__open_fd_here(char *path, int mode)
 	else
 		fd = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	free(path);
+	get_fd_heredoc(fd);
 	return (fd);
 }
 
@@ -45,4 +47,28 @@ void	ft_lstclear_till_nxt(t_list **lst, void (*del)(void *))
 		*lst = tmp;
 	}
 	free(*lst);
+}
+
+int	check_error(int heredoc_ret, int fd)
+{
+	heredoc_ret = WEXITSTATUS(heredoc_ret);
+	if (heredoc_ret != 0)
+	{
+		close(fd);
+		get_exit_code(heredoc_ret);
+		return (-2);
+	}
+	close(fd);
+	return (fd_manager(1));
+}
+
+void	__heredoc_sig(int code)
+{
+	(void)code;
+	ft_envclear(get_env(NULL), free);
+	ft_lstclear_till_nxt(get_list2(NULL), &free_cmd);
+	ft_lstclear(get_list(NULL), &free_token);
+	close(get_fd_heredoc(-1));
+	rl_clear_history();
+	exit(130);
 }

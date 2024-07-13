@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:56:53 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 01:07:09 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/13 13:47:38 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2])
 {
 	if (redir->sign == OUTFILE || redir->sign == OUT_APPEND)
 		sign[0] = __close_unused_fd(cmd, redir->sign);
-	if (redir->sign == INFILE || redir->sign == HEREDOC)
+	else if (redir->sign == INFILE || redir->sign == HEREDOC)
 		sign[1] = __close_unused_fd(cmd, redir->sign);
 	if (redir->sign == HEREDOC)
+	{
 		cmd->infile = ft_heredoc(redir->file_name, cmd);
+		if (cmd->infile == -2)
+			return ;
+	}
 	else if (redir->sign == INFILE)
 		cmd->infile = open(redir->file_name, O_RDONLY);
 	else if (redir->sign == OUTFILE)
