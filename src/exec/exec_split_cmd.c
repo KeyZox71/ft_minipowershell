@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 14:44:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:48:41 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	exec.pipe_fd[0] = pipe_fd[0];
 	exec.pipe_fd[1] = pipe_fd[1];
 	exec.status = switch_cmd_path(cmd, env_t);
-	if (exec.status == -1 || !input || (access(cmd->cmd, X_OK) \
-		&& !is_in_builtins(cmd->cmd)))
+	if (exec.status == -1 || !input || check_file(cmd->cmd, input))
 	{
-		printf("minishell : command not found: %s$\n", input);
+		if (exec.status == -1)
+			printf("minishell : command not found: %s\n", input);
 		free(input);
 		return (-1);
 	}

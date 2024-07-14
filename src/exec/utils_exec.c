@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:25:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 01:17:11 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:49:04 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,26 @@ int	switch_cmd_path(t_cmd *cmd, t_env *env)
 	if (!(cmd->cmd))
 		return (-1);
 	return (0);
+}
+
+int	check_file(char *cmd, char *input)
+{
+	struct stat	entry;
+	int			status;
+
+	if (is_in_builtins(cmd))
+		return (0);
+	status = stat(cmd, &entry);
+	if (status)
+	{
+		printf("minishell : command not found: %s\n", input);
+		return (1);
+	}
+	if (!S_ISDIR(entry.st_mode) && !access(cmd, X_OK))
+		return (0);
+	if (S_ISDIR(entry.st_mode))
+		printf("minishell : %s is a directory.\n", input);
+	else
+		printf("minishell : command not found: %s\n", input);
+	return (1);
 }

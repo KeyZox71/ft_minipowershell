@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/13 14:03:47 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:49:21 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*get_cmd_local_path(char *cmd, t_env *env);
 void	print_return_value(int return_code);
 void	__wait(int i);
 void	__close(void *content);
+int		check_file(char *cmd, char *input);
 
 /**
  * @brief				spawn a heredoc
