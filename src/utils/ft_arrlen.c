@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:52:08 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 14:25:27 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:51:51 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_arrlen(char **a)
 {
 	char	**tmp;
-	
+
 	tmp = a;
 	while (*tmp)
 		tmp++;
