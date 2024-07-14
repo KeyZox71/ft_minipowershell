@@ -43,5 +43,6 @@ t_env	**get_env(t_env **env);
 t_list	**get_list(t_list **list);
 t_list	**get_list2(t_list **list);
 int		get_exit_code(int in);
+size_t	ft_arrlen(char **a);
 
 #endif

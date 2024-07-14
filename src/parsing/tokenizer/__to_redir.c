@@ -6,12 +6,13 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:06:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/10 00:21:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:20:08 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
+#include <stdio.h>
 t_redirection	*__to_redir(char *redir_s)
 {
 	t_redirection	*redir;
@@ -27,6 +28,8 @@ t_redirection	*__to_redir(char *redir_s)
 	while (*redir_s && *redir_s == ' ')
 		redir_s++;
 	tmp = redir_s;
+	if (*tmp == '/' || *tmp == '.')
+		return (redir);
 	if (!ft_isalnum(*tmp))
 		return (redir);
 	while (*tmp && ft_isalnum(*tmp))

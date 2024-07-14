@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/13 18:48:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 14:50:44 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,29 @@
 #include "minishell.h"
 #include "env.h"
 
+char	*__rep_quote(char *dollar)
+{
+	char	*tmp;
+
+	tmp = dollar;
+	if (!tmp)
+		return (NULL);
+	while (*tmp)
+	{
+		if (*tmp == DOUBLE)
+			*tmp = -2;
+		else if (*tmp == SINGLE)
+			*tmp = -1;
+		tmp++;
+	}
+	return (dollar);
+}
+
 void	__cpy_dollar(char *tmp, size_t dollar_size, t_env *env, char **rl_dlrd)
 {
 	char	*dollar;
 
-	dollar = env_getn_value(tmp, env, dollar_size - 1);
+	dollar = __rep_quote(env_getn_value(tmp, env, dollar_size - 2));
 	if (!dollar)
 	{
 		tmp += dollar_size;
@@ -28,6 +46,7 @@ void	__cpy_dollar(char *tmp, size_t dollar_size, t_env *env, char **rl_dlrd)
 	}
 	ft_strlcat(*rl_dlrd, dollar, \
 			ft_strlen(dollar) + ft_strlen(*rl_dlrd) + 1);
+	free(dollar);
 }
 
 size_t	strlen_till_notalnum(char *s)

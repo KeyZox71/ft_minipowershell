@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/10 14:11:59 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 14:44:18 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 		if (i == 7)
 			ft_env(env_t);
 		if (i == 1)
-			exit(ft_atoi(argv[1]));
+			ft_exit(argv, ft_arrlen(argv));
 	}
 	else
 		execve(cmd, argv, env);
@@ -73,7 +73,7 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	if (exec.status == -1 || !input || (access(cmd->cmd, X_OK) \
 		&& !is_in_builtins(cmd->cmd)))
 	{
-		printf("minishell : command not found: %s\n", input);
+		printf("minishell : command not found: %s$\n", input);
 		free(input);
 		return (-1);
 	}
