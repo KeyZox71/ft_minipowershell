@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:59:27 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/13 16:10:28 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:26:18 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	env_make_str(char *str, char *name, char *content)
 	{
 		ft_strlcpy(str, name, ft_strlen(name) + 1);
 		str[ft_strlen(name)] = '=';
+		ft_strlcat(str, "\"", ft_strlen(str) + 2);
 		ft_strlcat(str, content, ft_vstrlen(2, str, content) + 1);
+		ft_strlcat(str, "\"", ft_strlen(str) + 2);
 	}
 }
 
@@ -38,7 +40,7 @@ char	**env_get_list(t_env *env)
 	{
 		if (ft_strcmp(env->name, "_"))
 		{
-			ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 2);
+			ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 4);
 			if (!ar[i])
 			{
 				ft_free("a", ar);
@@ -54,11 +56,12 @@ char	**env_get_list(t_env *env)
 
 void	add_to_env(char *name, char *content, t_env *env)
 {
-	if (!content)
-		content = ft_calloc(1, 1);
-	if (!content)
-		return ;
-	if (env_get_value(name, env))
+	t_env	*env_t;
+
+	env_t = env;
+	while (env_t && ft_strcmp(env_t->name, name))
+		env_t = env_t->next;
+	if (env_t)
 		env_edit(name, content, env);
 	else
 		ft_envadd_back(&env, ft_envnew(name, content));

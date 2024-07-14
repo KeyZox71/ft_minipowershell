@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/11 17:46:56 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:59:13 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ char	**env_get(t_env *env)
 	while (env)
 	{
 		if (!env->content)
+		{
+			env = env->next;
 			continue ;
+		}
 		ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 2);
 		if (!ar[i])
 		{
