@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 13:59:13 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:42:28 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ t_env	*env_init(char **env_d)
 	return (env);
 }
 
+void	fill_env_get(char *name, char *content, char *str)
+{
+	ft_strlcpy(str, name, ft_strlen(name) + 1);
+	str[ft_strlen(name)] = '=';
+	if (content)
+		ft_strlcat(str, content, ft_vstrlen(2, str, content) + 1);
+}
+
 char	**env_get(t_env *env)
 {
 	char	**ar;
@@ -86,20 +94,13 @@ char	**env_get(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (!env->content)
-		{
-			env = env->next;
-			continue ;
-		}
 		ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 2);
 		if (!ar[i])
 		{
 			ft_free("a", ar);
 			return (NULL);
 		}
-		ft_strlcpy(ar[i], env->name, ft_strlen(env->name) + 1);
-		ar[i][ft_strlen(env->name)] = '=';
-		ft_strlcat(ar[i], env->content, ft_vstrlen(2, ar[i], env->content) + 1);
+		fill_env_get(env->name, env->content, ar[i]);
 		env = env->next;
 		i++;
 	}
