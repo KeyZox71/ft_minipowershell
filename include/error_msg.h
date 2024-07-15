@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:25:06 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/03 19:07:12 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:05:05 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ERROR_NO_EOF "need delimiter to heredoc"
 # define ERROR_NO_FILE "No such file or directory"
 # define ERROR_CMD_PIPE "No command after pipe"
-# define ERROR_NO_CMD "No command in the pipe"
+# define ERROR_NO_CMD "command not found"
 
 # define ERROR_COREDUMP "(core dumped)"
 

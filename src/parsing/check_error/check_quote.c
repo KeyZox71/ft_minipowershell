@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 11:59:34 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 16:11:23 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:16:52 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	count_quote(char *readline, t_quote type)
 	while (*tmp)
 	{
 		if (*tmp == type)
-			count++;
+			count += search_for_next_quote(tmp, type) - tmp;
 		tmp++;
 	}
 	return (count);
