@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 14:35:30 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 15:23:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "error_msg.h"
 #include "execution.h"
 
-void	__sig(void);
+void	__sig(int status);
 
 void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 {
@@ -112,7 +112,7 @@ t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 	}
 	exec.status = exec_single_cmd(list_cmd->content, exec.env_array, \
 		env, exec.pipe_fd);
-	__sig();
+	__sig(exec.status);
 	if (((t_cmd *)(list_cmd->content))->outfile != STDOUT_FILENO)
 		close(((t_cmd *)(list_cmd->content))->outfile);
 	if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)

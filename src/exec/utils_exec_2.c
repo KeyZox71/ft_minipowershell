@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 14:32:40 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 15:23:00 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,16 @@ int	send_error_exec(char *input)
 	return (-1);
 }
 
-void	__sig(void)
+void	__sig(int status)
 {
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+	{
+		get_exit_code(131);
+		if (WCOREDUMP(status))
+			ft_putendl_fd("Quit (core dumped)", 2);
+		else
+			ft_putendl_fd("Quit", 2);
+	}	
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 }
