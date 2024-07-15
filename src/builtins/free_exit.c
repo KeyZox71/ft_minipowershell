@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:28:36 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 15:50:55 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:07:23 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_exit(t_env *env, char **env_array)
 {
 	int	i;
 
-	i = 0;
+	i = 3;
 	while (i < 1024)
 	{
 		close(i);
