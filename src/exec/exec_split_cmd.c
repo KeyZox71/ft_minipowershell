@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 15:23:24 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 15:47:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 		if (i == 7)
 			ft_env(env_t);
 		if (i == 1)
-			ft_exit(argv, ft_arrlen(argv));
+			ft_exit(argv, ft_arrlen(argv), env, env_t);
 	}
 	else
 		execve(cmd, argv, env);
