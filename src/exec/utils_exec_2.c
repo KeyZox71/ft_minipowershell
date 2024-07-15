@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 22:57:38 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:32:40 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ int	send_error_exec(char *input)
 	printf("minishell : command not found: %s\n", input);
 	free(input);
 	return (-1);
+}
+
+void	__sig(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 }

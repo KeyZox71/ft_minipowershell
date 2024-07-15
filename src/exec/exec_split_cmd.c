@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 20:13:30 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:35:30 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "builtins.h"
 #include "error_msg.h"
 #include "execution.h"
+
+void	__sig(void);
 
 void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 {
@@ -86,8 +88,6 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	fork_pid = fork();
 	if (!fork_pid)
 		__fork_single_cmd(cmd, env, env_t, exec);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 	return (fork_pid);
 }
 
@@ -112,6 +112,7 @@ t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 	}
 	exec.status = exec_single_cmd(list_cmd->content, exec.env_array, \
 		env, exec.pipe_fd);
+	__sig();
 	if (((t_cmd *)(list_cmd->content))->outfile != STDOUT_FILENO)
 		close(((t_cmd *)(list_cmd->content))->outfile);
 	if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
