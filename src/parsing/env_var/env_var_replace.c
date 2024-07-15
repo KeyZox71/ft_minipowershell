@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 14:00:50 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:26:26 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,17 @@ size_t	strlen_till_notalnum(char *s)
 size_t	__add_dollar(t_env *env, char **rl_dollared, char *tmp)
 {
 	size_t	dollar_size;
+	char	*exit_code;
 
 	tmp++;
 	if ((*tmp) == '?')
 	{
-		ft_strlcat(*rl_dollared, ft_itoa(get_exit_code(-1)), \
-			ft_strlen(ft_itoa(get_exit_code(-1))) \
+		exit_code = ft_itoa(get_exit_code(-1));
+		ft_strlcat(*rl_dollared, exit_code, \
+			ft_strlen(exit_code) \
 				+ ft_strlen(*rl_dollared) + 1);
-		return (1);
+		free(exit_code);
+		return (2);
 	}
 	dollar_size = strlen_till_notalnum(tmp);
 	__cpy_dollar(tmp, dollar_size, env, rl_dollared);
@@ -88,7 +91,7 @@ char	*env_var_replace(char *readline, t_env *env)
 	while (*tmp)
 	{
 		if (*tmp == '$' && is_inquote(readline, tmp - readline) != SINGLE)
-			tmp += __add_dollar(env, &rl_dollared, tmp) + 1;
+			tmp += __add_dollar(env, &rl_dollared, tmp);
 		else
 		{
 			ft_strlcat(rl_dollared, tmp, ft_strlen(rl_dollared) + 2);

@@ -6,20 +6,56 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 17:39:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:25:01 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+size_t	__get_size_in_quote(char *cmd)
+{
+	char	*tmp;
+
+	tmp = search_for_next_quote(cmd + 1, __is_quote(*cmd));
+	return (tmp - cmd);
+}
+
 char	*format_quotes_string(char *cmd)
 {
+	size_t	inquote;
+	char	*tmp;
+	char	*ret;
+
 	if (!cmd)
 		return (NULL);
-	if (*cmd == DOUBLE || *cmd == SINGLE)
-		ft_strlcpy(cmd, cmd + 1, ft_strlen(cmd) - 1);
-	return (cmd);
+	tmp = cmd;
+	ret = ft_calloc(ft_strlen(cmd) + 1, sizeof(char));
+	while (*tmp)
+	{
+		if (*tmp == DOUBLE || *tmp == SINGLE)
+		{
+			inquote = __get_size_in_quote(tmp);
+			ft_strlcat(ret, tmp + 1, ft_strlen(ret) + inquote);
+			tmp += inquote;
+		}
+		else
+		{
+			ft_strlcat(ret, tmp, ft_strlen(ret) + 2);
+			tmp++;
+		}
+	}
+	free(cmd);
+	return (ret);
 }
+
+//char	*format_quotes_string(char *cmd)
+//{
+//	if (!cmd)
+//		return (NULL);
+//	if (*cmd == DOUBLE || *cmd == SINGLE)
+//		ft_strlcpy(cmd, cmd + 1, ft_strlen(cmd) - 1);
+//	return (cmd);
+//}
 
 int	format_quotes_cmd(t_cmd *cmd)
 {
