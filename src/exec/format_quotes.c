@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 18:31:35 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:36:05 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,6 @@ char	*format_quotes_string(char *cmd)
 	free(cmd);
 	return (ret);
 }
-
-//char	*format_quotes_string(char *cmd)
-//{
-//	if (!cmd)
-//		return (NULL);
-//	if (*cmd == DOUBLE || *cmd == SINGLE)
-//		ft_strlcpy(cmd, cmd + 1, ft_strlen(cmd) - 1);
-//	return (cmd);
-//}
 
 int	format_quotes_cmd(t_cmd *cmd)
 {
