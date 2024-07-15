@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 18:17:50 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:31:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ size_t	__get_size_in_quote(char *cmd)
 
 	tmp = search_for_next_quote(cmd + 1, __is_quote(*cmd));
 	return (tmp - cmd);
+}
+
+char	*get_what_to_cpy(char *s)
+{
+	if (*s == -1)
+		return ("\'");
+	if (*s == -1)
+		return ("\'");
+	else
+		return (s);
 }
 
 char	*format_quotes_string(char *cmd)
@@ -38,19 +48,9 @@ char	*format_quotes_string(char *cmd)
 			ft_strlcat(ret, tmp + 1, ft_strlen(ret) + inquote);
 			tmp += inquote;
 		}
-		else if (*tmp == -1)
-		{
-			ft_strlcat(ret, "\'", ft_strlen(ret) + 2);
-			tmp++;
-		}
-		else if (*tmp == -1)
-		{
-			ft_strlcat(ret, "\"", ft_strlen(ret) + 2);
-			tmp++;
-		}
 		else
 		{
-			ft_strlcat(ret, tmp, ft_strlen(ret) + 2);
+			ft_strlcat(ret, get_what_to_cpy(tmp), ft_strlen(ret) + 2);
 			tmp++;
 		}
 	}
