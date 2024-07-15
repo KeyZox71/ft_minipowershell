@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 18:41:09 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:46:12 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	env_append(char *name, char *content, t_env *env)
 		tmp_env = tmp_env->next;
 	if (!tmp_env)
 	{
-		ft_envadd_back(&env, ft_envnew(name, content));
+		new_content = ft_strdup(name);
+		if (!new_content)
+			return (-1);
+		ft_envadd_back(&env, ft_envnew(new_content, content));
 		return (-1);
 	}
 	new_content = ft_calloc(1, ft_strlen(tmp_env->content)
@@ -40,13 +43,17 @@ int	env_append(char *name, char *content, t_env *env)
 int	env_edit(char *name, char *content, t_env *env)
 {
 	t_env	*tmp_env;
+	char	*name_dup;
 
 	tmp_env = env;
 	while (tmp_env && ft_strcmp(tmp_env->name, name))
 		tmp_env = tmp_env->next;
 	if (!tmp_env)
 	{
-		ft_envadd_back(&env, ft_envnew(name, content));
+		name_dup = ft_strdup(name);
+		if (!name_dup)
+			return (-1);
+		ft_envadd_back(&env, ft_envnew(name_dup, content));
 		return (-1);
 	}
 	free(tmp_env->content);
