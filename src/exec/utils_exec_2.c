@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 15:23:00 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 17:05:33 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	__sig(int status)
 			ft_putendl_fd("Quit (core dumped)", 2);
 		else
 			ft_putendl_fd("Quit", 2);
-	}	
+	}
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 }

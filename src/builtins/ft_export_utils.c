@@ -6,11 +6,21 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:59:27 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 13:33:35 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:02:49 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+unsigned int	ft_arraylen(char **s)
+{
+	char	**endptr;
+
+	endptr = s;
+	while (*endptr)
+		endptr++;
+	return (endptr - s);
+}
 
 void	env_make_str(char *str, char *name, char *content)
 {
@@ -82,6 +92,11 @@ int	check_export_input(char *input)
 	{
 		if (!ft_isalnum(input[i]) && input[i] != '_')
 		{
+			if (input[i] == '+' && input[i + 1] == '=')
+			{
+				i++;
+				continue ;
+			}
 			printf("minishell: export: '%s': not a valid identifier\n", input);
 			return (1);
 		}
