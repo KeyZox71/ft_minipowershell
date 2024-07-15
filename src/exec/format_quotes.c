@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 14:19:30 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 17:39:18 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*format_quotes_string(char *cmd)
 	return (cmd);
 }
 
-int	format_quotes_cmd(t_cmd *cmd, t_env *env)
+int	format_quotes_cmd(t_cmd *cmd)
 {
 	uint	i;
 
@@ -32,19 +32,18 @@ int	format_quotes_cmd(t_cmd *cmd, t_env *env)
 	while (cmd->argv[i])
 	{
 		cmd->argv[i] = format_quotes_string(cmd->argv[i]);
-		cmd->argv[i] = env_var_replace(cmd->argv[i], env);
 		i++;
 	}
 	return (0);
 }
 
-int	format_quotes(t_list *list_cmd, t_env *env)
+int	format_quotes(t_list *list_cmd)
 {
 	if (!list_cmd)
 		return (0);
 	while (list_cmd)
 	{
-		if (format_quotes_cmd(list_cmd->content, env))
+		if (format_quotes_cmd(list_cmd->content))
 			return (-1);
 		list_cmd = list_cmd->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 15:49:21 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:39:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_exec
 	int		pipe_fd[2];
 }	t_exec;
 
-int		format_quotes(t_list *list_cmd, t_env *env);
+int		format_quotes(t_list *list_cmd);
 
 char	*get_path(char *path, char *cmd);
 int		exec_split_cmd(t_list *list_cmd, t_env *env);
