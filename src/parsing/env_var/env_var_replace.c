@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 19:21:23 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:00:50 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*env_var_replace(char *readline, t_env *env)
 	while (*tmp)
 	{
 		if (*tmp == '$' && is_inquote(readline, tmp - readline) != SINGLE)
-			tmp += __add_dollar(env, &rl_dollared, tmp);
+			tmp += __add_dollar(env, &rl_dollared, tmp) + 1;
 		else
 		{
 			ft_strlcat(rl_dollared, tmp, ft_strlen(rl_dollared) + 2);
