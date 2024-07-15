@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 13:05:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 14:18:50 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:29:21 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_exit(char **argv, int ac);
 
 char	**env_get_list(t_env *env);
 void	add_to_env(char *name, char *content, t_env *env);
+int		check_export_input(char *input);
 void	ft_export(char **args, t_env *env);
 
 #endif

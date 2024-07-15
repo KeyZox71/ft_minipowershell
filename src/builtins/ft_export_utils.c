@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:59:27 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 14:26:18 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:33:35 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,27 @@ void	add_to_env(char *name, char *content, t_env *env)
 		env_edit(name, content, env);
 	else
 		ft_envadd_back(&env, ft_envnew(name, content));
+}
+
+int	check_export_input(char *input)
+{
+	int	i;
+
+	i = 0;
+	if ((!ft_isalpha(input[i]) && input[i] != '_') || input[i] == '=')
+	{
+		printf("minishell: export: '%s': not a valid identifier\n", input);
+		return (1);
+	}
+	i++;
+	while (input[i] && input[i] != '=')
+	{
+		if (!ft_isalnum(input[i]) && input[i] != '_')
+		{
+			printf("minishell: export: '%s': not a valid identifier\n", input);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }

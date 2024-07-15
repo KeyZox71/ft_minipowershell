@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 13:52:32 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:31:22 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,12 @@ void	ft_export(char **args, t_env *env)
 	}
 	while (*args)
 	{
-		status = export_value(*args, env);
-		if (status)
-			return ;
+		if (!check_export_input(*args))
+		{
+			status = export_value(*args, env);
+			if (status)
+				return ;
+		}
 		args++;
 	}
 }
