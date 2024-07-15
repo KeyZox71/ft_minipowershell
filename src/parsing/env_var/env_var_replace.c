@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 14:50:44 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/14 19:21:23 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	__cpy_dollar(char *tmp, size_t dollar_size, t_env *env, char **rl_dlrd)
 {
 	char	*dollar;
 
-	dollar = __rep_quote(env_getn_value(tmp, env, dollar_size - 2));
+	dollar = __rep_quote(env_getn_value(tmp, env, dollar_size - 1));
 	if (!dollar)
 	{
 		tmp += dollar_size;
@@ -73,7 +73,7 @@ size_t	__add_dollar(t_env *env, char **rl_dollared, char *tmp)
 	}
 	dollar_size = strlen_till_notalnum(tmp);
 	__cpy_dollar(tmp, dollar_size, env, rl_dollared);
-	return (dollar_size);
+	return (dollar_size + 1);
 }
 
 char	*env_var_replace(char *readline, t_env *env)
@@ -88,7 +88,7 @@ char	*env_var_replace(char *readline, t_env *env)
 	while (*tmp)
 	{
 		if (*tmp == '$' && is_inquote(readline, tmp - readline) != SINGLE)
-			tmp += __add_dollar(env, &rl_dollared, tmp) + 1;
+			tmp += __add_dollar(env, &rl_dollared, tmp);
 		else
 		{
 			ft_strlcat(rl_dollared, tmp, ft_strlen(rl_dollared) + 2);
