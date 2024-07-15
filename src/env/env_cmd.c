@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/24 10:31:08 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:41:09 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,42 @@
 int	env_append(char *name, char *content, t_env *env)
 {
 	char	*new_content;
+	t_env	*tmp_env;
 
-	while (env && ft_strcmp(env->name, name))
-		env = env->next;
-	if (!env)
+	tmp_env = env;
+	while (tmp_env && ft_strcmp(tmp_env->name, name))
+		tmp_env = tmp_env->next;
+	if (!tmp_env)
+	{
+		ft_envadd_back(&env, ft_envnew(name, content));
 		return (-1);
-	new_content = ft_calloc(1, ft_strlen(env->content) + ft_strlen(content));
+	}
+	new_content = ft_calloc(1, ft_strlen(tmp_env->content)
+			+ ft_strlen(content));
 	if (!new_content)
 		return (-1);
-	ft_strlcpy(new_content, env->content, ft_strlen(env->content) + 1);
-	ft_strlcpy(new_content + ft_strlen(env->content),
+	ft_strlcpy(new_content, tmp_env->content, ft_strlen(tmp_env->content) + 1);
+	ft_strlcpy(new_content + ft_strlen(tmp_env->content),
 		content, ft_strlen(content) + 1);
-	free(env->content);
-	env->content = new_content;
+	free(tmp_env->content);
+	tmp_env->content = new_content;
 	return (0);
 }
 
 int	env_edit(char *name, char *content, t_env *env)
 {
-	while (env && ft_strcmp(env->name, name))
-		env = env->next;
-	if (!env)
+	t_env	*tmp_env;
+
+	tmp_env = env;
+	while (tmp_env && ft_strcmp(tmp_env->name, name))
+		tmp_env = tmp_env->next;
+	if (!tmp_env)
+	{
+		ft_envadd_back(&env, ft_envnew(name, content));
 		return (-1);
-	free(env->content);
-	env->content = content;
+	}
+	free(tmp_env->content);
+	tmp_env->content = content;
 	return (0);
 }
 
