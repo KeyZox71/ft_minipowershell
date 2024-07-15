@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 17:39:35 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 19:28:57 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_return_value(int return_code);
 void	__wait(int i);
 void	__close(void *content);
 int		check_file(char *cmd, char *input);
+void	free_exec(t_env *env, char **env_array);
 
 /**
  * @brief				spawn a heredoc

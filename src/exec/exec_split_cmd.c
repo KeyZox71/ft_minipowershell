@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 15:47:01 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:58:56 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 			ft_exit(argv, ft_arrlen(argv), env, env_t);
 	}
 	else
+	{
+		ft_envclear(&env_t, free);
 		execve(cmd, argv, env);
+	}
 }
 
 void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
@@ -62,6 +65,35 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
 	exit(-1);
 }
 
+int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
+{
+	t_exec	exec;
+	int		fork_pid;
+	char	*input;
+
+	input = ft_strdup(cmd->cmd);
+	exec.pipe_fd[0] = pipe_fd[0];
+	exec.pipe_fd[1] = pipe_fd[1];
+	exec.status = switch_cmd_path(cmd, env_t);
+	if (exec.status == -1 || !input || check_file(cmd->cmd, input))
+	{
+		if (exec.status == -1)
+			printf("minishell : command not found: %s\n", input);
+		get_exit_code(127);
+		free(input);
+		return (-1);
+	}
+	free(input);
+	fork_pid = fork();
+	if (!fork_pid)
+	{
+		__fork_single_cmd(cmd, env, env_t, exec);
+		free_exec(env_t, env);
+		exit(get_exit_code(-1));
+	}
+	return (fork_pid);
+}
+
 int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 {
 	t_exec	exec;
@@ -76,23 +108,37 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	{
 		if (exec.status == -1)
 			printf("minishell : command not found: %s\n", input);
+		get_exit_code(127);
 		free(input);
 		return (-1);
 	}
 	free(input);
 	if (is_in_builtins(cmd->cmd) > 0)
-	{
 		exec_cmd(cmd->cmd, cmd->argv, env, env_t);
+	if (is_in_builtins(cmd->cmd) > 0)
 		return (0);
-	}
 	fork_pid = fork();
 	if (!fork_pid)
 		__fork_single_cmd(cmd, env, env_t, exec);
 	return (fork_pid);
 }
 
+t_exec	exec_pipe_unforked(t_exec exec, t_list *list_cmd, t_env *env)
+{
+	exec.status = exec_single_cmd(list_cmd->content, exec.env_array, \
+			env, exec.pipe_fd);
+	__sig(exec.status);
+	if (((t_cmd *)(list_cmd->content))->outfile != STDOUT_FILENO)
+		close(((t_cmd *)(list_cmd->content))->outfile);
+	if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
+		close(((t_cmd *)(list_cmd->content))->infile);
+	return (exec);
+}
+
 t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 {
+	if (!list_cmd->next)
+		return (exec_pipe_unforked(exec, list_cmd, env));
 	while (list_cmd->next)
 	{
 		exec.status = pipe(exec.pipe_fd);
@@ -103,20 +149,17 @@ t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 			((t_cmd *)(list_cmd->content))->outfile = exec.pipe_fd[1];
 		if (((t_cmd *)(list_cmd->next->content))->infile == STDIN_FILENO)
 			((t_cmd *)(list_cmd->next->content))->infile = exec.pipe_fd[0];
-		exec.status = exec_single_cmd(list_cmd->content, exec.env_array, \
+		exec.status = exec_fork_cmd(list_cmd->content, exec.env_array, \
 			env, exec.pipe_fd);
 		__close(list_cmd->content);
 		if (exec.status != -1)
 			exec.i++;
 		list_cmd = list_cmd->next;
 	}
-	exec.status = exec_single_cmd(list_cmd->content, exec.env_array, \
+	exec.status = exec_fork_cmd(list_cmd->content, exec.env_array, \
 		env, exec.pipe_fd);
 	__sig(exec.status);
-	if (((t_cmd *)(list_cmd->content))->outfile != STDOUT_FILENO)
-		close(((t_cmd *)(list_cmd->content))->outfile);
-	if (((t_cmd *)(list_cmd->content))->infile != STDIN_FILENO)
-		close(((t_cmd *)(list_cmd->content))->infile);
+	__close(list_cmd->content);
 	return (exec);
 }
 
