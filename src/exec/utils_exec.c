@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:25:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 15:49:04 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:04:23 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ void	print_return_value(int return_code)
 		if (WIFSIGNALED(return_code))
 		{
 			code = WTERMSIG(return_code);
-			if (!sigmsg[code])
-				return ;
+			get_exit_code(128 + code);
 			if (WCOREDUMP(return_code))
 				printf("minishell : %s %s\n", sigmsg[code], ERROR_COREDUMP);
 			else
 				printf("minishell : %s\n", sigmsg[code]);
 		}
 	}
+	else
+		get_exit_code(WEXITSTATUS(return_code));
 }
 
 char	*get_cmd_local_path(char *cmd, t_env *env)
