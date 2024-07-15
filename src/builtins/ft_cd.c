@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/12 15:26:48 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 16:38:59 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_cd(t_env *env, char *args)
 	else
 		new_pwd = ft_strdup(args);
 	ret = chdir(new_pwd);
+	free(new_pwd);
 	if (ret == -1)
 	{
 		send_error_parsing(ERROR_NO_FILE);

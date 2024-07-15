@@ -6,12 +6,21 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 14:02:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/15 17:03:47 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parsing.h"
+
+char	**get_rl(char **rl)
+{
+	static char	**ret;
+
+	if (rl)
+		ret = rl;
+	return (ret);
+}
 
 void	sig_c(int code)
 {
@@ -71,6 +80,7 @@ int	main(int ac, char **av, char **env)
 		}
 		add_history(rl);
 		rl = env_var_replace(rl, env_l);
+		get_rl(&rl);
 		piped = tokenizer(rl);
 		get_list(&piped);
 		if (check_argv(piped))

@@ -44,5 +44,6 @@ t_list	**get_list(t_list **list);
 t_list	**get_list2(t_list **list);
 int		get_exit_code(int in);
 size_t	ft_arrlen(char **a);
+char	**get_rl(char **rl);
 
 #endif
