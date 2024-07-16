@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/14 14:42:28 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:19:36 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,18 @@ char	**env_get(t_env *env)
 	i = 0;
 	while (env)
 	{
-		ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 2);
-		if (!ar[i])
+		if (env->content)
 		{
-			ft_free("a", ar);
-			return (NULL);
+			ar[i] = ft_calloc(1, ft_vstrlen(2, env->name, env->content) + 2);
+			if (!ar[i])
+			{
+				ft_free("a", ar);
+				return (NULL);
+			}
+			fill_env_get(env->name, env->content, ar[i]);
+			i++;
 		}
-		fill_env_get(env->name, env->content, ar[i]);
 		env = env->next;
-		i++;
 	}
 	return (ar);
 }
