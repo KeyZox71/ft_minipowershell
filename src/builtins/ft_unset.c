@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:45:04 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/25 17:13:38 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:35:38 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pop_first_el(t_env *env)
 	free(tmp);
 }
 
-void	ft_unset(char *arg, t_env *env)
+void	ft_unset_arg(char *arg, t_env *env)
 {
 	t_env	*tmp;
 
@@ -49,5 +49,14 @@ void	ft_unset(char *arg, t_env *env)
 			return ;
 		}
 		env = env->next;
+	}
+}
+
+void	ft_unset(char **args, t_env *env)
+{
+	while (*args)
+	{
+		ft_unset_arg(*args, env);
+		args++;
 	}
 }

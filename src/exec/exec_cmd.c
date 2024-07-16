@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:03:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/16 12:26:06 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:36:06 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 		if (i == 4)
 			ft_export(argv + 1, env_t);
 		if (i == 3)
-			ft_unset(argv[1], env_t);
+			ft_unset(&argv[1], env_t);
 		if (i == 7)
 			ft_env(env_t);
 		if (i == 1)
