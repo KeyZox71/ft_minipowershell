@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:03:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 21:04:44 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:26:06 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
 		close(exec.pipe_fd[1]);
 	if (exec.status != -1)
 		exec_cmd(cmd->cmd, cmd->argv, env, env_t);
-	exit(-1);
 }
