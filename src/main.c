@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 14:40:35 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:15:38 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int ac, char **av, char **env)
 		}
 		add_history(rl);
 		rl = env_var_replace(rl, env_l);
+		printf ("\t%s\n", rl);
 		get_rl(&rl);
 		piped = tokenizer(rl);
 		get_list(&piped);

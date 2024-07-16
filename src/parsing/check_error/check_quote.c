@@ -6,39 +6,36 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 11:59:34 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 18:16:52 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:15:41 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "error_msg.h"
 #include "tokenizer.h"
+#include <stdio.h>
 
-size_t	count_quote(char *readline, t_quote type)
+bool	watch_quote(char *rl)
 {
 	char	*tmp;
-	size_t	count;
 
-	tmp = readline;
-	count = 0;
+	tmp = rl;
 	while (*tmp)
 	{
-		if (*tmp == type)
-			count += search_for_next_quote(tmp, type) - tmp;
+		if (__is_quote(*tmp) != FALSE)
+		{
+			tmp = search_for_next_quote(tmp + 1, __is_quote(*tmp));
+			if (!tmp)
+				return (true);
+		}
 		tmp++;
 	}
-	return (count);
+	return (false);
 }
 
 bool	check_quote(char *readline)
 {
-	size_t	count;
-
-	count = count_quote(readline, DOUBLE);
-	if (count % 2)
-		return (send_error_parsing("double quote not closed"));
-	count = count_quote(readline, SINGLE);
-	if (count % 2)
-		return (send_error_parsing("single quote not closed"));
+	if (watch_quote(readline))	
+		return (send_error_parsing("quote not closed"));
 	return (false);
 }
