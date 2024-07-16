@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 17:03:47 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:20:42 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ bool	run_checks(char *rl)
 	if (check_quote(rl))
 		return (true);
 	if (check_pipe(rl))
+		return (true);
+	if (check_space(rl))
 		return (true);
 	return (false);
 }

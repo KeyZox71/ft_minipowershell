@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:25:06 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 18:05:05 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:20:19 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 
 char	*get_program_name(char	*argv_one);
 bool	send_error_parsing(char *msg);
+bool	check_space(char *rl);
 
 #endif

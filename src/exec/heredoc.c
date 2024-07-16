@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/13 14:02:22 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:53:57 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	__forked(char *delimiter, int fd, t_cmd *cmd)
 	ft_envclear(get_env(NULL), free);
 	ft_lstclear_till_nxt(get_list2(NULL), &free_cmd);
 	ft_lstclear(get_list(NULL), &free_token);
+	free(*get_rl(NULL));
 	rl_clear_history();
 	close(fd);
 }
