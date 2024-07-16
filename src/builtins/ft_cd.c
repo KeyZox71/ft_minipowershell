@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 18:45:48 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:39:26 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_cd(t_env *env, char *args)
 	free(new_pwd);
 	if (ret == -1)
 	{
+		free(pwd);
 		send_error_parsing(ERROR_NO_FILE);
 		return ;
 	}
