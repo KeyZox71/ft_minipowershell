@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 17:05:33 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:39:09 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,3 @@ int	send_error_exec(char *input)
 	return (-1);
 }
 
-void	__sig(int status)
-{
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-	{
-		get_exit_code(131);
-		if (WCOREDUMP(status))
-			ft_putendl_fd("Quit (core dumped)", 2);
-		else
-			ft_putendl_fd("Quit", 2);
-	}
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
-}

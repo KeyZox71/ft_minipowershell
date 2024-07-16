@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 14:20:42 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:40:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int ac, char **av, char **env)
 		free(prompt);
 		if (!rl)
 		{
+			ft_putendl_fd("exit", STDOUT_FILENO);
 			get_exit_code(0);
 			break ;
 		}

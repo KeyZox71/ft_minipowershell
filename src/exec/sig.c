@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   send_error.c                                       :+:      :+:    :+:   */
+/*   sig.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 18:09:49 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 14:26:39 by adjoly           ###   ########.fr       */
+/*   Created: 2024/07/16 14:38:11 by adjoly            #+#    #+#             */
+/*   Updated: 2024/07/16 14:38:58 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-char	*get_program_name(char	*argv_one)
+void	ign(int signal)
 {
-	static char	prog_name[255];
-
-	if (argv_one)
-		ft_strlcpy(prog_name, argv_one, ft_strlen(argv_one) + 1);
-	return (prog_name);
+	(void) signal;
 }
 
-bool	send_error_parsing(char *msg)
+void	__sig2(int status)
 {
-	ft_putstr_fd(get_program_name(NULL), STDERR_FILENO);
-	ft_putstr_fd(": Error: ", STDERR_FILENO);
-	ft_putendl_fd(msg, STDERR_FILENO);
-	get_exit_code(2);
-	return (true);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+	{
+		get_exit_code(131);
+		if (WCOREDUMP(status))
+			ft_putendl_fd("Quit (core dumped)", 2);
+		else
+			ft_putendl_fd("Quit", 2);
+	}
+}
+
+void	__sig(void)
+{
+	signal(SIGQUIT, ign);
+	signal(SIGINT, ign);
 }

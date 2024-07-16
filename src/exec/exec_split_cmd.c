@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 21:03:12 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:36:38 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "execution.h"
 
 void	__sig(int status);
+void	__sig2(int status);
 
 int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 {
@@ -89,6 +90,7 @@ t_exec	exec_pipe_unforked(t_exec exec, t_list *list_cmd, t_env *env)
 
 t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 {
+	__sig(exec.status);
 	if (!list_cmd->next)
 		return (exec_pipe_unforked(exec, list_cmd, env));
 	while (list_cmd->next)
@@ -110,7 +112,7 @@ t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 	}
 	exec.status = exec_fork_cmd(list_cmd->content, exec.env_array, \
 		env, exec.pipe_fd);
-	__sig(exec.status);
+	__sig2(exec.status);
 	__close(list_cmd->content);
 	return (exec);
 }
