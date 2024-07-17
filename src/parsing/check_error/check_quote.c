@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 11:59:34 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 16:15:41 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/17 17:14:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "tokenizer.h"
 #include <stdio.h>
 
+char	*go_to_nxt_quote(char *rl, t_quote quote_type)
+{
+	 while (*rl && __is_quote(*rl) != quote_type)
+		rl++;
+	return (rl);
+}
+
 bool	watch_quote(char *rl)
 {
 	char	*tmp;
@@ -22,10 +29,10 @@ bool	watch_quote(char *rl)
 	tmp = rl;
 	while (*tmp)
 	{
-		if (__is_quote(*tmp) != FALSE)
+		if (*tmp == DOUBLE || *tmp == SINGLE)
 		{
-			tmp = search_for_next_quote(tmp + 1, __is_quote(*tmp));
-			if (!tmp)
+			tmp = go_to_nxt_quote(tmp + 1, __is_quote(*tmp));
+			if (!*tmp)
 				return (true);
 		}
 		tmp++;
@@ -35,7 +42,7 @@ bool	watch_quote(char *rl)
 
 bool	check_quote(char *readline)
 {
-	if (watch_quote(readline))	
+	if (watch_quote(readline))
 		return (send_error_parsing("quote not closed"));
 	return (false);
 }

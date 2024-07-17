@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:06:13 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 15:55:00 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:20:46 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,10 @@
 char	*search_for_next_quote(char *s, t_quote quote_type)
 {
 	char	*tmp;
-	t_quote	o_quote;
 
 	tmp = s;
-	if (quote_type == DOUBLE)
-		o_quote = SINGLE;
-	else if (quote_type == SINGLE)
-		o_quote = DOUBLE;
-	while (*tmp && __is_quote(*tmp) != quote_type && __is_quote(*tmp) != o_quote)
+	while (*tmp && __is_quote(*tmp) != quote_type)
 		tmp++;
-	if (__is_quote(*tmp) != quote_type)
-		return (NULL);
 	return (tmp);
 }
 

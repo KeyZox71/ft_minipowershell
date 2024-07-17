@@ -6,12 +6,15 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:00:32 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 16:12:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:04:23 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "libft.h"
+
+
+#include <stdio.h>
 
 t_cmd	*split_cmd(char *cmd_av, t_cmd *cmd)
 {
@@ -24,5 +27,6 @@ t_cmd	*split_cmd(char *cmd_av, t_cmd *cmd)
 	if (!cmd->cmd)
 		return (NULL);
 	cmd->argv = split;
+	printf("%s\n", cmd->cmd);
 	return (cmd);
 }
