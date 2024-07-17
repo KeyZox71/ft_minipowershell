@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:25:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 14:45:09 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:13:29 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*get_cmd_local_path(char *cmd, t_env *env)
 	if (!path)
 		return (NULL);
 	path = ft_strjoin_free_s1(path, cmd);
+	free(cmd);
 	return (path);
 }
 
