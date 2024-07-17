@@ -6,36 +6,12 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 18:02:16 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/17 02:17:05 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtins.h"
-
-void	ft_arraysort(char **env)
-{
-	char	*tmp;
-	int		i;
-	int		y;
-
-	i = ft_arraylen(env);
-	while (i)
-	{
-		y = 0;
-		while (y < i - 1)
-		{
-			if (ft_strcmp(env[y], env[y + 1]) > 0)
-			{
-				tmp = env[y];
-				env[y] = env[y + 1];
-				env[y + 1] = tmp;
-			}
-			y++;
-		}
-		i--;
-	}
-}
 
 void	env_print_in_order(t_env *env_l)
 {
@@ -66,7 +42,7 @@ int	export_value(char *arg, t_env *env)
 		name = ft_strdup(arg);
 		if (name)
 			add_to_env(name, NULL, env);
-		return (-1);
+		return (0);
 	}
 	name = ft_calloc(sizeof(char), ft_strchr(arg, '=') - arg + 1);
 	content = ft_calloc(sizeof(char), ft_strlen(ft_strchr(arg, '=')));
@@ -80,6 +56,20 @@ int	export_value(char *arg, t_env *env)
 		ft_strlen(ft_strchr(arg, '=')) + 1);
 	add_to_env(name, content, env);
 	return (0);
+}
+
+void	append_process(char *name, char *content, t_env *env_t, t_env *env)
+{
+	if (env_t)
+	{
+		if (env_t->content)
+			env_append(name, content, env);
+		else
+			env_edit(name, content, env);
+		free(name);
+	}
+	else
+		ft_envadd_back(&env, ft_envnew(name, content));
 }
 
 int	export_append_value(char *arg, t_env *env)
@@ -101,10 +91,7 @@ int	export_append_value(char *arg, t_env *env)
 	env_t = env;
 	while (env_t && ft_strcmp(env_t->name, name))
 		env_t = env_t->next;
-	if (env_t)
-		env_append(name, content, env);
-	else
-		ft_envadd_back(&env, ft_envnew(name, content));
+	append_process(name, content, env_t, env);
 	return (0);
 }
 

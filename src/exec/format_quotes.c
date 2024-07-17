@@ -6,60 +6,43 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/16 16:17:45 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/17 00:37:25 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	__get_size_in_quote(char *cmd)
+void	copy_until_next(char *cmd, char quote, uint *i, uint *i_offset)
 {
-	char	*tmp;
-
-	tmp = search_for_next_quote(cmd + 1, __is_quote(*cmd));
-	if (!tmp)
-		return (0);
-	return (tmp - cmd);
-}
-
-char	*get_what_to_cpy(char *s)
-{
-	if (*s == -1)
-		return ("\'");
-	if (*s == -1)
-		return ("\'");
-	else
-		return (s);
+	(*i_offset)++;
+	(*i)++;
+	while (cmd[*i] && cmd[*i] != quote)
+	{
+		cmd[*i - *i_offset] = cmd[*i];
+		(*i)++;
+	}
+	(*i_offset)++;
 }
 
 char	*format_quotes_string(char *cmd)
 {
-	size_t	inquote;
-	char	*tmp;
-	char	*ret;
+	uint	i;
+	uint	i_offset;
 
-	if (!cmd)
-		return (NULL);
-	tmp = cmd;
-	ret = ft_calloc(ft_strlen(cmd) + 1, sizeof(char));
-	while (*tmp)
+	i = 0;
+	i_offset = 0;
+	while (cmd[i])
 	{
-		if (*tmp == DOUBLE || *tmp == SINGLE)
-		{
-			inquote = __get_size_in_quote(tmp);
-			if (inquote == 0)
-				return (NULL);
-			ft_strlcat(ret, tmp + 1, ft_strlen(ret) + inquote);
-			tmp += inquote;
-		}
+		if (cmd[i] == SINGLE)
+			copy_until_next(cmd, SINGLE, &i, &i_offset);
+		else if (cmd[i] == DOUBLE)
+			copy_until_next(cmd, DOUBLE, &i, &i_offset);
 		else
-		{
-			ft_strlcat(ret, get_what_to_cpy(tmp), ft_strlen(ret) + 2);
-			tmp++;
-		}
+			cmd[i - i_offset] = cmd[i];
+		i++;
 	}
-	free(cmd);
-	return (ret);
+	cmd[i - i_offset] = 0;
+	return (cmd);
 }
 
 int	format_quotes_cmd(t_cmd *cmd)

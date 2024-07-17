@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:59:27 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 18:02:49 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/17 01:03:58 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ void	add_to_env(char *name, char *content, t_env *env)
 	while (env_t && ft_strcmp(env_t->name, name))
 		env_t = env_t->next;
 	if (env_t)
-		env_edit(name, content, env);
+	{
+		if (content)
+			env_edit(name, content, env);
+		free(name);
+	}
 	else
 		ft_envadd_back(&env, ft_envnew(name, content));
 }

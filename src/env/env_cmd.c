@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 18:46:12 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/17 02:18:30 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	env_append(char *name, char *content, t_env *env)
 		return (-1);
 	}
 	new_content = ft_calloc(1, ft_strlen(tmp_env->content)
-			+ ft_strlen(content));
+			+ ft_strlen(content) + 1);
 	if (!new_content)
 		return (-1);
 	ft_strlcpy(new_content, tmp_env->content, ft_strlen(tmp_env->content) + 1);
@@ -37,6 +37,7 @@ int	env_append(char *name, char *content, t_env *env)
 		content, ft_strlen(content) + 1);
 	free(tmp_env->content);
 	tmp_env->content = new_content;
+	free(content);
 	return (0);
 }
 
