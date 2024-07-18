@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 12:52:22 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 14:24:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:04:06 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,4 @@ bool	check_pipe(char *readline)
 		tmp++;
 	}
 	return (false);
-}
-
-bool	check_space(char *rl)
-{
-	while (*rl && *rl == ' ')
-		rl++;
-	if (!*rl)
-		return (send_error_parsing(ERROR_NO_FILE));
-	else
-		return (false);
 }

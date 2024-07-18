@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:42:00 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/09 14:36:05 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 16:57:47 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,10 @@
 #include "libft.h"
 #include "env.h"
 
-char	*get_pwd(t_env *env)
+char	*_format_pwd(char *pwd, char *home)
 {
-	char	*pwd;
-	char	*home;
 	char	*tmp;
 
-	pwd = env_get_value("PWD", env);
-	if (!pwd)
-		return (NULL);
-	home = env_get_value("HOME", env);
-	if (!home)
-		return (NULL);
 	if (!ft_strncmp(pwd, home, ft_strlen(home) - 1))
 	{
 		tmp = pwd;
@@ -39,4 +31,21 @@ char	*get_pwd(t_env *env)
 	}
 	free(home);
 	return (pwd);
+}
+
+char	*get_pwd(t_env *env)
+{
+	char	*pwd;
+	char	*home;
+
+	pwd = env_get_value("PWD", env);
+	if (!pwd)
+		return (NULL);
+	home = env_get_value("HOME", env);
+	if (!home)
+	{
+		free(pwd);
+		return (NULL);
+	}
+	return (_format_pwd(pwd, home));
 }
