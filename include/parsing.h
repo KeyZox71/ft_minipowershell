@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 17:05:47 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:23:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,5 @@ char	*search_for_next_quote(char *s, t_quote quote_type);
 char	*env_var_replace(char *readline, t_env *env);
 size_t	get_size_with_env(char *readline, t_env *env);
 size_t	strlen_till_notalnum(char *s);
-
-/*
- *						ONLY FOR DEBUG TO BE REMOVED 
- */
-void										print_quote_type(t_quote type);
-void										print_redir_sign(t_redir_sign redir_sign);
-void										print_token(t_token *token);
-void										print_redir(t_redirection *redir);
-void	print_cmd(t_cmd *cmd);
 
 #endif
