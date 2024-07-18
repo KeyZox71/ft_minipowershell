@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/15 21:04:19 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:25:25 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_exec
 
 int		format_quotes(t_list *list_cmd);
 
+int		exec_single_cmd_execution(t_cmd *cmd, char **env,
+			t_env *env_t, t_exec exec);
 char	*get_path(char *path, char *cmd);
 int		exec_split_cmd(t_list *list_cmd, t_env *env);
 int		switch_cmd_path(t_cmd *cmd, t_env *env);

@@ -6,12 +6,13 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:03:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/16 13:36:06 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:27:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtins.h"
+#include "error_msg.h"
 
 void	exec_cmd(char *cmd, char **argv, char **env, t_env *env_t)
 {
@@ -58,4 +59,22 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
 		close(exec.pipe_fd[1]);
 	if (exec.status != -1)
 		exec_cmd(cmd->cmd, cmd->argv, env, env_t);
+}
+
+int	exec_single_cmd_execution(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
+{
+	int		fork_pid;
+
+	if (is_in_builtins(cmd->cmd) > 0 && is_in_builtins(cmd->cmd) < 5)
+		__fork_single_cmd(cmd, env, env_t, exec);
+	if (is_in_builtins(cmd->cmd) > 0 && is_in_builtins(cmd->cmd) < 5)
+		return (0);
+	fork_pid = fork();
+	if (!fork_pid)
+	{
+		__fork_single_cmd(cmd, env, env_t, exec);
+		free_exec(env_t, env);
+		exit(get_exit_code(-1));
+	}
+	return (fork_pid);
 }

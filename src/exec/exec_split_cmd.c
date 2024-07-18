@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/16 14:36:38 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 14:26:05 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 {
 	t_exec	exec;
-	int		fork_pid;
 	char	*input;
 
 	input = ft_strdup(cmd->cmd);
@@ -66,14 +65,8 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 		return (-1);
 	}
 	free(input);
-	if (is_in_builtins(cmd->cmd) > 0)
-		exec_cmd(cmd->cmd, cmd->argv, env, env_t);
-	if (is_in_builtins(cmd->cmd) > 0)
-		return (0);
-	fork_pid = fork();
-	if (!fork_pid)
-		__fork_single_cmd(cmd, env, env_t, exec);
-	return (fork_pid);
+	exec.status = exec_single_cmd_execution(cmd, env, env_t, exec);
+	return (exec.status);
 }
 
 t_exec	exec_pipe_unforked(t_exec exec, t_list *list_cmd, t_env *env)

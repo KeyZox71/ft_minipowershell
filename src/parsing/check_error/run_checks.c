@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   run_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:30:27 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 13:31:33 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 14:01:24 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "error_msg.h"
+#include <stdio.h>
 #include <readline/history.h>
 
 bool	run_checks(char *rl)

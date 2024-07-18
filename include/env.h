@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/09 14:40:00 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:23:00 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_env			*ft_envnew(char *name, char *content);
 unsigned int	ft_envsize(t_env *lst);
 
 /**
- * @brief				DEBUG FUNC : print the actual state of the env struct
+ * @brief				print the actual state of the env struct
  *
  * @param env			the env struct that will be printed
  *
