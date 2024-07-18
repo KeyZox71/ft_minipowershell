@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 11:59:34 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/17 17:14:35 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 13:01:49 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	*go_to_nxt_quote(char *rl, t_quote quote_type)
 {
-	 while (*rl && __is_quote(*rl) != quote_type)
+	while (*rl && __is_quote(*rl) != quote_type)
 		rl++;
 	return (rl);
 }
