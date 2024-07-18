@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:19:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 14:37:39 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:44:45 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ size_t	__nl_option(char **args)
 	return (i);
 }
 
-void	ft_echo(char **args, int fd)
+void	ft_echo(char **args)
 {
 	char	**tmp;
 	bool	new_line;
 
-	fd = STDOUT_FILENO;
 	tmp = args;
 	if (__nl_option(args) > 0)
 		new_line = false;
@@ -51,11 +50,11 @@ void	ft_echo(char **args, int fd)
 	tmp += __nl_option(args);
 	while (*tmp && tmp)
 	{
-		ft_putstr_fd(*tmp, fd);
+		ft_putstr_fd(*tmp, STDOUT_FILENO);
 		tmp++;
 		if (*tmp != NULL)
-			ft_putchar_fd(' ', fd);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (new_line == true)
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 }

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:03:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/18 14:41:32 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:44:07 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exec_cmd(t_cmd *cmd, char **env, t_env *env_t)
 	if (i)
 	{
 		if (i == 5)
-			ft_echo(cmd->argv + 1, cmd->outfile);
+			ft_echo(cmd->argv + 1);
 		if (i == 2)
 			ft_cd(env_t, (cmd->argv)[1]);
 		if (i == 6)
