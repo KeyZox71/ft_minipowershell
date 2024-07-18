@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:48:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/06 15:04:35 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:15:48 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	**split_argv(char *readline)
 	char	*tmp;
 
 	tmp = readline;
+	if (!readline || !*readline)
+		return (NULL);
 	argv = ft_calloc(__count_args(readline) + 1, sizeof(char *));
 	tmp_av = argv;
 	while (*tmp)

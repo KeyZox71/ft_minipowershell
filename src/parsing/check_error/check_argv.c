@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:34:19 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 17:30:41 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:15:01 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ bool	check_argv(t_list *token)
 	tmp = token;
 	while (tmp)
 	{
-		if (!((t_token *)tmp->content)->argv)
-			return (send_error_parsing(ERROR_NO_CMD));
 		if (check_file_name(((t_token *)tmp->content)->redirection))
 			return (send_error_parsing(ERROR_NO_FILE));
 		tmp = tmp->next;

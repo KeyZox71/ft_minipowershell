@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:30:27 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 17:03:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:13:11 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ bool	run_checks(char *rl)
 {
 	if (!*rl)
 		return (true);
-//	if (check_space(rl))
-		//return (true);
 	add_history(rl);
 	if (check_syntax(rl))
 		return (true);
