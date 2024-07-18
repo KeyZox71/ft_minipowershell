@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/11 13:49:40 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 14:08:29 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token	*__to_token(char *cmd)
 	tmp = cmd;
 	while (*tmp)
 	{
-		if (*tmp == '<' || *tmp == '>')
+		if ((*tmp == '<' || *tmp == '>') && is_inquote(cmd, tmp - cmd) == FALSE)
 		{
 			tmp_redir = __to_redir(tmp);
 			ft_lstadd_back(&(token->redirection), ft_lstnew((void *)tmp_redir));
