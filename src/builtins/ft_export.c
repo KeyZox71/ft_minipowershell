@@ -6,14 +6,14 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:42:36 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/17 02:17:05 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:40:56 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtins.h"
 
-void	env_print_in_order(t_env *env_l)
+void	env_print_in_order(t_env *env_l, int fd)
 {
 	char	**env;
 	int		i;
@@ -25,7 +25,7 @@ void	env_print_in_order(t_env *env_l)
 	i = 0;
 	while (env[i])
 	{
-		printf("declare -x %s\n", env[i]);
+		ft_printf_fd(fd, "declare -x %s\n", env[i]);
 		i++;
 	}
 	ft_free("a", &env);
@@ -95,13 +95,13 @@ int	export_append_value(char *arg, t_env *env)
 	return (0);
 }
 
-void	ft_export(char **args, t_env *env)
+void	ft_export(char **args, t_env *env, int fd)
 {
 	int	status;
 
 	if (!args || !args[0])
 	{
-		env_print_in_order(env);
+		env_print_in_order(env, fd);
 		return ;
 	}
 	while (*args)

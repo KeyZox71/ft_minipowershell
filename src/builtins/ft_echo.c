@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:19:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 14:28:05 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 14:37:39 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_echo(char **args, int fd)
 	char	**tmp;
 	bool	new_line;
 
+	fd = STDOUT_FILENO;
 	tmp = args;
 	if (__nl_option(args) > 0)
 		new_line = false;
