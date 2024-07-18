@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:19:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/29 20:10:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/18 14:28:05 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t	__nl_option(char **args)
 	return (i);
 }
 
-void	ft_echo(char **args)
+void	ft_echo(char **args, int fd)
 {
 	char	**tmp;
 	bool	new_line;
@@ -50,11 +50,11 @@ void	ft_echo(char **args)
 	tmp += __nl_option(args);
 	while (*tmp && tmp)
 	{
-		ft_putstr_fd(*tmp, STDOUT_FILENO);
+		ft_putstr_fd(*tmp, fd);
 		tmp++;
 		if (*tmp != NULL)
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			ft_putchar_fd(' ', fd);
 	}
 	if (new_line == true)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putchar_fd('\n', fd);
 }
