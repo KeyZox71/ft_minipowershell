@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:24 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 15:48:44 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/19 11:38:34 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	change_dir(char *new_pwd, char *pwd, t_env *env)
 	{
 		free(pwd);
 		send_error_parsing(ERROR_NO_FILE);
+		get_exit_code(1);
 		return ;
 	}
 	env_edit("PWD", ft_strdup(ret_cwd()), env);
 	env_edit("OLDPWD", pwd, env);
+	get_exit_code(0);
 }
 
 void	ft_cd(t_env *env, char *args)

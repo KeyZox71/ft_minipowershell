@@ -6,11 +6,12 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 19:19:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 14:44:45 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:40:40 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include "minishell.h"
 //#include <stdlib.h>
 #include "libft.h"
 #include <stdio.h>
@@ -57,4 +58,5 @@ void	ft_echo(char **args)
 	}
 	if (new_line == true)
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	get_exit_code(0);
 }

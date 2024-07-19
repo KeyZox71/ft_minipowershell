@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:59:27 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/17 01:03:58 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:33:57 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	check_export_input(char *input)
 	if ((!ft_isalpha(input[i]) && input[i] != '_') || input[i] == '=')
 	{
 		printf("minishell: export: '%s': not a valid identifier\n", input);
-		return (1);
+		return (get_exit_code(1));
 	}
 	i++;
 	while (input[i] && input[i] != '=')
@@ -102,9 +102,9 @@ int	check_export_input(char *input)
 				continue ;
 			}
 			printf("minishell: export: '%s': not a valid identifier\n", input);
-			return (1);
+			return (get_exit_code(1));
 		}
 		i++;
 	}
-	return (0);
+	return (get_exit_code(0));
 }

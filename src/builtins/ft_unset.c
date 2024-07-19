@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:45:04 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/16 13:35:38 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:36:00 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void	ft_unset_arg(char *arg, t_env *env)
 {
 	t_env	*tmp;
 
-	if (!arg)
-	{
-		printf("unset: not enough arguments");
-		return ;
-	}
 	if (!ft_strcmp(env->name, arg))
 	{
 		pop_first_el(env);
@@ -59,4 +54,5 @@ void	ft_unset(char **args, t_env *env)
 		ft_unset_arg(*args, env);
 		args++;
 	}
+	get_exit_code(0);
 }
