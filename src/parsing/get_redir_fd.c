@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 15:11:26 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/20 17:16:57 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@
 #include <stdio.h>
 #include "libft.h"
 
-t_cmd	*get_redir_fd(void *content)
+t_cmd	*get_redir_fd(void *content, t_list *tmp)
 {
-	t_list			*tmp;
 	t_redir_sign	sign[2];
 	t_cmd			*cmd;
 
-	tmp = ((t_token *)content)->redirection;
-	cmd = NULL;
 	sign[0] = INFILE;
 	sign[1] = OUTFILE;
 	cmd = ft_calloc(sizeof(t_cmd), 1);
+	if (!cmd)
+		return (NULL);
 	while (tmp)
 	{
 		open_redir((t_redirection *)tmp->content, cmd, sign);

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 18:23:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/20 17:06:30 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum s_quote
 	DOUBLE = 34
 }	t_quote;
 
-t_cmd	*get_redir_fd(void *content);
+t_cmd	*get_redir_fd(void *content, t_list *tmp);
 t_list	*get_cmd_list(t_list *list);
 void	open_redir(t_redirection *redir, t_cmd *cmd, t_redir_sign sign[2]);
 

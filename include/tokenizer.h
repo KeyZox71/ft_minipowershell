@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:14:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/04 16:50:24 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/20 16:52:51 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-typedef enum s_redirection_sign
+typedef enum s_redir_sign
 {
 	INFILE,
 	HEREDOC,
