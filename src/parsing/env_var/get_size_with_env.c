@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:01:19 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 19:23:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/21 15:40:01 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ size_t	__add_sizeof_dollar(size_t size, char **tmp, t_env *env, char *readline)
 {
 	char	*dollar;
 
-	if (**tmp == '$' && **tmp == '?' && \
+	if (**tmp == '$' && *(*tmp + 1) == '?' && \
 		is_inquote(*tmp, *tmp - readline) != SINGLE && \
 		is_inquote(*tmp, *tmp - readline) != NOT_CLOSED)
 	{
 		*tmp += 2;
 		size++;
 	}
-	else if (**tmp == '$' && is_inquote(*tmp, *tmp - readline) != SINGLE && \
-		is_inquote(*tmp, *tmp - readline) != NOT_CLOSED)
+	else if (**tmp == '$' && is_inquote(*tmp, *tmp - readline) != SINGLE)
 	{
 		(*tmp)++;
 		size -= strlen_till_notalnum(*tmp);
