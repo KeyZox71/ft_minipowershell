@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/21 17:38:50 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:57:47 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 
 	if (!cmd->cmd)
 	{
-		ft_free("a", &(cmd->argv));
+		if (cmd->argv)
+			ft_free("a", &(cmd->argv));
 		get_exit_code(0);
 		return (0);
 	}

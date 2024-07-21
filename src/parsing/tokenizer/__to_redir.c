@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:06:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/21 17:51:56 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:37 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*__redir_filename_cpy(char *redir_s)
 
 	tmp = ft_calloc(__get_len_arg(redir_s) + 1, sizeof(char));
 	len = __cpy_arg(tmp, redir_s);
-	printf("%zu\n", len);
 	i = 0;
 	j = 0;
 	filename = ft_calloc(len + 1, sizeof(char));
