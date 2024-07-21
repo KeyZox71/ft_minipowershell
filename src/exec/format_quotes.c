@@ -6,11 +6,20 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/21 13:07:26 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:39:15 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	copy_char(char *cmd, int i, char c)
+{
+	if (c == -1)
+		c = SINGLE;
+	else if (c == -2)
+		c = DOUBLE;
+	cmd[i] = c;
+}
 
 void	copy_until_next(char *cmd, char quote, uint *i, uint *i_offset)
 {
@@ -18,7 +27,7 @@ void	copy_until_next(char *cmd, char quote, uint *i, uint *i_offset)
 	(*i)++;
 	while (cmd[*i] && cmd[*i] != quote)
 	{
-		cmd[*i - *i_offset] = cmd[*i];
+		copy_char(cmd, *i - *i_offset, cmd[*i]);
 		(*i)++;
 	}
 	(*i_offset)++;
@@ -38,7 +47,7 @@ char	*format_quotes_string(char *cmd)
 		else if (cmd[i] == DOUBLE)
 			copy_until_next(cmd, DOUBLE, &i, &i_offset);
 		else
-			cmd[i - i_offset] = cmd[i];
+			copy_char(cmd, i - i_offset, cmd[i]);
 		i++;
 	}
 	cmd[i - i_offset] = 0;
