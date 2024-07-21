@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/17 00:37:25 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:07:26 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	format_quotes_cmd(t_cmd *cmd)
 {
 	uint	i;
 
-	if (!cmd)
-		return (-1);
+	if (!cmd || !cmd->cmd)
+		return (0);
 	cmd->cmd = format_quotes_string(cmd->cmd);
 	i = 0;
 	while (cmd->argv[i])

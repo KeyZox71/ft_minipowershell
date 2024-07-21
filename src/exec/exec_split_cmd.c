@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/18 14:31:46 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:58:49 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	t_exec	exec;
 	char	*input;
 
+	if (!cmd->cmd)
+	{
+		free(cmd->argv);
+		get_exit_code(0);
+		return (0);
+	}
 	input = ft_strdup(cmd->cmd);
 	exec.pipe_fd[0] = pipe_fd[0];
 	exec.pipe_fd[1] = pipe_fd[1];
