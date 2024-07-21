@@ -6,7 +6,7 @@
 /*   By: mmoussou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:27:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/01/18 01:05:44 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:38:12 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ void	free_tab(char ***arr)
 	int	i;
 
 	i = 0;
-	while ((*arr)[i])
+	if (*arr)
 	{
-		free((*arr)[i]);
-		i++;
+		while ((*arr)[i])
+		{
+			free((*arr)[i]);
+			i++;
+		}
 	}
 	free(*arr);
 	*arr = NULL;
