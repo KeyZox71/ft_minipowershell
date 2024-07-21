@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 17:00:51 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/21 17:58:47 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "libft.h"
 #include "parsing.h"
 #include <stdio.h>
+
+size_t	__get_len_arg(char *s);
 
 size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 {
@@ -23,15 +25,15 @@ size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 	if (!redir_s || !redir)
 		return (0);
 	else if (redir->sign == OUT_APPEND || redir->sign == HEREDOC)
-		i = 2;
+		i = 1;
 	else
 		i = 0;
 	if (!redir->file_name)
 		return (i);
-	tmp = redir_s;
+	tmp = redir_s + i;
 	while (*++tmp && *tmp == ' ')
 		i++;
-	i += ft_strlen(redir->file_name);
+	i += __get_len_arg(tmp);
 	return (i);
 }
 
