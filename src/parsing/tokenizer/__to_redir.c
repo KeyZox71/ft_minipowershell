@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:06:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/21 18:01:37 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:06:25 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*__redir_filename_cpy(char *redir_s)
 t_redirection	*__to_redir(char *redir_s)
 {
 	t_redirection	*redir;
-//	char			*tmp;
 
 	redir = ft_calloc(sizeof(t_redirection), 1);
 	redir->sign = __to_redir_sign(redir_s);
@@ -60,13 +59,6 @@ t_redirection	*__to_redir(char *redir_s)
 		redir_s++;
 	while (*redir_s && *redir_s == ' ')
 		redir_s++;
-//	tmp = redir_s;
-	//if (!ft_isalnum(*tmp) && *tmp != '/' && *tmp != '.')
-		//return (redir);
-	//while (*tmp && (ft_isalnum(*tmp) || *tmp == '/' || *tmp == '.'))
-	//	tmp++;
-	//redir->file_name = ft_calloc(tmp - redir_s + 1, sizeof(char));
-	//ft_strlcpy(redir->file_name, redir_s, tmp - redir_s + 1);
 	redir->file_name = __redir_filename_cpy(redir_s);
 	return (redir);
 }
