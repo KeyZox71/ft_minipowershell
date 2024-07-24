@@ -6,11 +6,12 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/16 13:19:36 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:42:45 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 int	env_create_first_el(char *env_line, t_env *env)
 {
@@ -71,6 +72,8 @@ t_env	*env_init(char **env_d)
 		}
 		ft_envadd_back(&env, new);
 	}
+	new = ft_envnew(ft_strdup("PWD"), ft_strdup(ret_cwd()));
+	ft_envadd_back(&env, new);
 	return (env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:45:04 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/19 11:36:00 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:52:10 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,25 @@ void	ft_unset_arg(char *arg, t_env *env)
 {
 	t_env	*tmp;
 
-	if (!ft_strcmp(env->name, arg))
+	if (ft_strcmp(arg, "PWD"))
 	{
-		pop_first_el(env);
-		return ;
-	}
-	while (env->next)
-	{
-		if (!ft_strcmp(env->next->name, arg))
+		if (!ft_strcmp(env->name, arg))
 		{
-			ft_free("cc", &env->next->name, &env->next->content);
-			tmp = env->next;
-			env->next = env->next->next;
-			free(tmp);
+			pop_first_el(env);
 			return ;
 		}
-		env = env->next;
+		while (env->next)
+		{
+			if (!ft_strcmp(env->next->name, arg))
+			{
+				ft_free("cc", &env->next->name, &env->next->content);
+				tmp = env->next;
+				env->next = env->next->next;
+				free(tmp);
+				return ;
+			}
+			env = env->next;
+		}
 	}
 }
 
