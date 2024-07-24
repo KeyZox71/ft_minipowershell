@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:06:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/21 19:06:25 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:13:17 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,37 @@
 
 size_t	__cpy_arg(char *dst, char *src);
 size_t	__get_len_arg(char *s);
+char	*format_quotes_string(char *cmd);
 
 char	*__redir_filename_cpy(char *redir_s)
 {
-	char	*filename;
-	size_t	len;
-	size_t	i;
-	size_t	j;
+	//char	*filename;
+	//size_t	len;
+	//size_t	i;
+	//size_t	j;
 	char	*tmp;
 
 	tmp = ft_calloc(__get_len_arg(redir_s) + 1, sizeof(char));
-	len = __cpy_arg(tmp, redir_s);
-	i = 0;
-	j = 0;
-	filename = ft_calloc(len + 1, sizeof(char));
-	while (i < len)
-	{
-		if (tmp[i] == DOUBLE || tmp[i] == SINGLE)
-			i++;
-		else
-		{
-			filename[j] = tmp[i];
-			i++;
-			j++;
-		}
-	}
-	filename[j] = 0;
-	free(tmp);
-	return (filename);
+	__cpy_arg(tmp, redir_s);
+//	i = 0;
+//	j = 0;
+//	filename = ft_calloc(len + 1, sizeof(char));
+//	while (i < len)
+//	{
+//		if (tmp[i] == DOUBLE || tmp[i] == SINGLE)
+//			i++;
+//		else
+//		{
+//			filename[j] = tmp[i];
+//			i++;
+//			j++;
+//		}
+//	}
+//	filename[j] = 0;
+//	free(tmp);
+//	return (filename);
+	tmp = format_quotes_string(tmp);
+	return (tmp);
 }
 
 t_redirection	*__to_redir(char *redir_s)
