@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/21 17:57:47 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:27:56 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	{
 		if (exec.status == -1)
 			printf("minishell : command not found: %s\n", input);
-		get_exit_code(127);
 		free(input);
-		return (-1);
+		return (get_exit_code(127));
 	}
 	free(input);
 	exec.status = exec_single_cmd_execution(cmd, env, env_t, exec);

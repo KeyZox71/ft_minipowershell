@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 01:42:17 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:19:20 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:30:26 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ char	*get_path(char *path, char *cmd)
 	int		i;
 
 	if (!path)
+		free(cmd);
+	if (!path)
 		return (NULL);
 	path_dir = ft_split(path, ':');
+	if (!path_dir)
+		free(cmd);
 	if (!path_dir)
 		return (NULL);
 	i = 0;
