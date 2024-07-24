@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/24 18:12:44 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/24 18:53:31 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	copy_until_next(char *cmd, char quote, uint *i, uint *i_offset)
 	}
 	(*i_offset)++;
 }
+
 char	*format_quotes_string(char *cmd)
 {
 	uint	i;
