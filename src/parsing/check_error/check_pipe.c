@@ -6,10 +6,10 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 12:52:22 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/29 20:41:05 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/29 21:15:29 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+\
 #include "libft.h"
 #include "parsing.h"
 #include <stdbool.h>
@@ -35,11 +35,9 @@ bool	check_pipe(char *readline)
 	{
 		if (*tmp == '|' && is_inquote(readline, tmp - readline) == FALSE)
 		{
-			if (!*tmp)
-				return (send_error_parsing("No command after pipe"));
-			while (*tmp && !ft_isspace(*tmp))
+			while (tmp && *tmp && ft_isspace(*tmp))
 				tmp++;
-			if (!*tmp)
+			if (!tmp && !*tmp)
 				return (send_error_parsing("No command after pipe"));
 		}
 		tmp++;
