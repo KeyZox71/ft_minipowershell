@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_checks.c                                       :+:      :+:    :+:   */
+/*   check_wspace.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 13:30:27 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/29 19:17:47 by adjoly           ###   ########.fr       */
+/*   Created: 2024/07/29 19:18:19 by adjoly            #+#    #+#             */
+/*   Updated: 2024/07/29 19:31:02 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "error_msg.h"
-#include <stdio.h>
-#include <readline/history.h>
 
-bool	run_checks(char *rl)
+
+#include <stdio.h>
+bool	check_wspace(char *readline)
 {
-	if (!*rl)
-		return (true);
-	add_history(rl);
-	if (check_wspace(rl))
-		return (true);
-	if (check_syntax(rl))
-		return (true);
-	if (check_quote(rl))
-		return (true);
-	if (check_pipe(rl))
-		return (true);
+	while (*readline && ft_isspace(*readline))
+		readline++;
+	if (!*readline)
+		return (send_error_parsing("Only white space in line"));
 	return (false);
 }

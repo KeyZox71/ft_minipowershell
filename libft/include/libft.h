@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 23:06:24 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/08 14:45:20 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:23:16 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define LIBFT_H
 
+#include <sys/types.h> // for macos compilation
 # include <limits.h>
 # include <stdint.h>
 # include <stdlib.h>
@@ -34,6 +35,7 @@ int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isascii(int c);
 int			ft_isprint(int c);
+int			ft_isspace(int c);
 
 /* MEMORY */
 

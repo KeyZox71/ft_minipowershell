@@ -6,7 +6,7 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 07:21:18 by mmoussou          #+#    #+#              #
-#    Updated: 2024/06/03 15:42:56 by mmoussou         ###   ########.fr        #
+#    Updated: 2024/07/29 19:27:29 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRCS = 		 src/io/ft_putnbr_fd.c \
 			 src/char/ft_isprint.c \
 			 src/char/ft_isalpha.c \
 			 src/char/ft_isascii.c \
+			 src/char/ft_isspace.c \
 			 \
 			 src/stack/ft_stackadd_front.c \
 			 src/stack/ft_stackadd_back.c \
