@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:50:01 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/17 02:18:30 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:46:10 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	env_append(char *name, char *content, t_env *env)
 		if (!new_content)
 			return (-1);
 		ft_envadd_back(&env, ft_envnew(new_content, content));
-		return (-1);
+		return (0);
 	}
 	new_content = ft_calloc(1, ft_strlen(tmp_env->content)
 			+ ft_strlen(content) + 1);
@@ -55,7 +55,7 @@ int	env_edit(char *name, char *content, t_env *env)
 		if (!name_dup)
 			return (-1);
 		ft_envadd_back(&env, ft_envnew(name_dup, content));
-		return (-1);
+		return (0);
 	}
 	free(tmp_env->content);
 	tmp_env->content = content;

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:46:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/19 11:30:31 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:50:35 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exit_args_handler(char **argv, int ac, char **env_array, t_env *env)
 	}
 	return_value = atoi(argv[1]);
 	if (return_value == -1)
-		return_value += 255;
+		return_value += 256;
 	free_exit(env, env_array);
 	exit(get_exit_code(return_value));
 }
