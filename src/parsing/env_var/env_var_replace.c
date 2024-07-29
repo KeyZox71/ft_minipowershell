@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_replace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 14:26:26 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:06:11 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,13 @@ char	*__rep_quote(char *dollar)
 
 void	__cpy_dollar(char *tmp, size_t dollar_size, t_env *env, char **rl_dlrd)
 {
+	char	c;
 	char	*dollar;
 
-	dollar = __rep_quote(env_getn_value(tmp, env, dollar_size - 1));
+	c = tmp[dollar_size];
+	tmp[dollar_size] = 0;
+	dollar = __rep_quote(env_getn_value(tmp, env, dollar_size));
+	tmp[dollar_size] = c;
 	if (!dollar)
 	{
 		tmp += dollar_size;
