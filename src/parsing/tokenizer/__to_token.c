@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/29 19:32:38 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:07:22 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 	if (!redir->file_name)
 		return (i);
 	tmp = redir_s + i;
-	while (*++tmp && *tmp == ' ')
+	while (*++tmp && ft_isspace(*tmp))
 		i++;
 	i += __get_len_arg(tmp);
 	return (i);

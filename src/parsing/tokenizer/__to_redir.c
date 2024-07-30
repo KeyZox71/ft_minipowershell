@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:06:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/24 18:53:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:08:20 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_redirection	*__to_redir(char *redir_s)
 		redir_s += 2;
 	else
 		redir_s++;
-	while (*redir_s && *redir_s == ' ')
+	while (*redir_s && ft_isspace(*redir_s))
 		redir_s++;
 	redir->file_name = __redir_filename_cpy(redir_s);
 	return (redir);

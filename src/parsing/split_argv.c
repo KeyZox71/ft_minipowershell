@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:48:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/21 17:33:54 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:10:17 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	__get_len_arg(char *s)
 	tmp = s;
 	while (*tmp)
 	{
-		if (*tmp == ' ' && is_inquote(s, tmp - s) == FALSE)
+		if (ft_isspace(*tmp) && is_inquote(s, tmp - s) == FALSE)
 			break ;
 		tmp++;
 	}
@@ -46,7 +46,7 @@ size_t	__count_args(char *s)
 	i = 0;
 	while (*tmp)
 	{
-		if (*tmp == ' ')
+		if (ft_isspace(*tmp))
 			tmp++;
 		else
 		{
@@ -70,7 +70,7 @@ char	**split_argv(char *readline)
 	tmp_av = argv;
 	while (*tmp)
 	{
-		if (*tmp == ' ')
+		if (ft_isspace(*tmp))
 			tmp++;
 		else
 		{
