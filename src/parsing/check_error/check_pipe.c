@@ -6,10 +6,10 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 12:52:22 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/29 21:15:29 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/30 16:42:50 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-\
+
 #include "libft.h"
 #include "parsing.h"
 #include <stdbool.h>
@@ -37,6 +37,7 @@ bool	check_pipe(char *readline)
 		{
 			while (tmp && *tmp && ft_isspace(*tmp))
 				tmp++;
+			printf("%s\n", tmp);
 			if (!tmp && !*tmp)
 				return (send_error_parsing("No command after pipe"));
 		}
