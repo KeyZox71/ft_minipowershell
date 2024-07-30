@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 23:06:24 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/29 19:23:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:04:19 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define LIBFT_H
 
-#include <sys/types.h> // for macos compilation
+# include <sys/types.h> // for macos compilation
 # include <limits.h>
 # include <stdint.h>
 # include <stdlib.h>

@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/30 17:17:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:03:54 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 #include "minishell.h"
 #include <stdio.h>
 #include "libft.h"
+
+void	parsing_msg(t_cmd *cmd)
+{
+	if (cmd->infile == -1 || cmd->outfile == -1)
+		send_error_parsing(ERROR_NO_FILE);
+}
 
 t_cmd	*get_redir_fd(void *content, t_list *tmp)
 {
@@ -31,10 +37,9 @@ t_cmd	*get_redir_fd(void *content, t_list *tmp)
 	while (tmp)
 	{
 		open_redir((t_redirection *)tmp->content, cmd, sign);
-		if (cmd->infile >= -1 || cmd->outfile == -1)
+		if (cmd->infile <= -1 || cmd->outfile == -1)
 		{
-			if (cmd->infile == -1 || cmd->outfile == -1)
-				send_error_parsing(ERROR_NO_FILE);
+			parsing_msg(cmd);
 			free(cmd);
 			return (NULL);
 		}
