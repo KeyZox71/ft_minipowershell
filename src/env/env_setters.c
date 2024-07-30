@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:42:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/29 11:47:25 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/07/30 02:27:37 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_env	*env_init(char **env_d)
 		}
 		ft_envadd_back(&env, new);
 	}
-	env_edit(ft_strdup("PWD"), ft_strdup(ret_cwd()), env);
+	env_edit("PWD", ft_strdup(ret_cwd()), env);
 	return (env);
 }
 
