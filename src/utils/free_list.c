@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 20:10:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/01 17:40:10 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/01 19:15:44 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ void	free_token(void *token_v)
 	t_token	*token;
 
 	token = token_v;
-	free(token->argv);
-	ft_lstclear(&(token->redirection), free_redir);
-	free(token);
+	if (token->argv)
+		free(token->argv);
+	if (token->redirection)
+		ft_lstclear(&(token->redirection), free_redir);
+	if (token)
+		free(token);
 }
 
 void	free_cmd(void *content)

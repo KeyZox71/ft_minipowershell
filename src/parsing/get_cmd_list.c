@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:47:13 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/01 18:07:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/01 19:07:28 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_list	*get_cmd_list(t_list *list)
 	tmp = tmp->next;
 	while (tmp)
 	{
-		ft_lstadd_back(&cmd_list, make_lst(tmp));
+		ft_lstadd_back(&cmd_list, ft_lstnew(get_redir_fd(tmp->content, \
+							((t_token *)tmp->content)->redirection)));
 		if (!ft_lstlast(cmd_list)->content)
 		{
 			ft_lstclear(&cmd_list, &free_cmd);

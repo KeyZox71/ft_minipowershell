@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 21:44:04 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/01 17:49:16 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/01 19:56:12 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (lst && *lst && del)
 	{
 		tmp = (*lst)->next;
-		if ((*lst)->content)
-			ft_lstdelone(*lst, del);
+		ft_lstdelone(*lst, del);
 		*lst = tmp;
 	}
 }
