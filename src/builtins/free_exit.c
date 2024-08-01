@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:28:36 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 12:33:43 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/01 06:17:16 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	free_exit(t_env *env, char **env_array)
 	rl_clear_history();
 	ft_envclear(&env, free);
 	ft_lstclear(get_list(NULL), &free_cmd);
-	ft_free("a", &env_array);
+	if (env_array)
+		ft_free("a", &env_array);
 }

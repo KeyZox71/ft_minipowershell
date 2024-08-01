@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/29 11:59:39 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/01 06:10:04 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	int		fork_pid;
 	char	*input;
 
+	if (!cmd->cmd)
+		return (get_exit_code(0));
 	input = ft_strdup(cmd->cmd);
 	exec.pipe_fd[0] = pipe_fd[0];
 	exec.pipe_fd[1] = pipe_fd[1];
@@ -32,9 +34,8 @@ int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	{
 		if (exec.status == -1)
 			printf("minishell : command not found: %s\n", input);
-		get_exit_code(127);
 		free(input);
-		return (-1);
+		return (get_exit_code(127));
 	}
 	free(input);
 	fork_pid = fork();
