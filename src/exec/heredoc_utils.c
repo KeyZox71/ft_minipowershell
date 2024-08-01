@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 01:14:10 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/15 17:03:12 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/01 17:58:58 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	ft_lstclear_till_nxt(t_list **lst, void (*del)(void *))
 {
 	t_list	*tmp;
 
+	if (!lst || !del)
+		return ;
 	if (!(*lst)->next)
 	{
 		free(*lst);
 		return ;
 	}
-	if (!lst || !del)
-		return ;
 	while (lst && *lst && (*lst)->next && del)
 	{
 		tmp = (*lst)->next;

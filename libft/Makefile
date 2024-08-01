@@ -6,7 +6,7 @@
 #    By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 07:21:18 by mmoussou          #+#    #+#              #
-#    Updated: 2024/07/29 19:27:29 by adjoly           ###   ########.fr        #
+#    Updated: 2024/08/01 17:48:26 by adjoly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SHELL = bash
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -pipe -fPIE
+CFLAGS = -Wall -Werror -Wextra -pipe -fPIE -g
 
 INCLUDE = ./include
 
