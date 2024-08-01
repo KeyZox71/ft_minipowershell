@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/01 06:10:04 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:38:31 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 
 	if (!cmd->cmd)
 		return (get_exit_code(0));
+	ft_arrcpy(exec.pipe_fd, pipe_fd, 2);
 	input = ft_strdup(cmd->cmd);
-	exec.pipe_fd[0] = pipe_fd[0];
-	exec.pipe_fd[1] = pipe_fd[1];
 	exec.status = switch_cmd_path(cmd, env_t);
 	if (exec.status == -1 || !input || check_file(cmd->cmd, input))
 	{
@@ -106,7 +105,7 @@ t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 			((t_cmd *)(list_cmd->next->content))->infile = exec.pipe_fd[0];
 		exec.status = exec_fork_cmd(list_cmd->content, exec.env_array, \
 			env, exec.pipe_fd);
-		__close(list_cmd->content);
+		__close(list_cmd->content, exec.pipe_fd[0], exec.pipe_fd[1]);
 		if (exec.status != -1)
 			exec.i++;
 		list_cmd = list_cmd->next;
@@ -114,7 +113,7 @@ t_exec	exec_pipe(t_exec exec, t_list *list_cmd, t_env *env)
 	exec.status = exec_fork_cmd(list_cmd->content, exec.env_array, \
 		env, exec.pipe_fd);
 	__sig2(exec.status);
-	__close(list_cmd->content);
+	__close(list_cmd->content, exec.pipe_fd[0], exec.pipe_fd[1]);
 	return (exec);
 }
 

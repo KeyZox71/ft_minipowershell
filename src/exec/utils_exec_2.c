@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/16 15:49:01 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/01 16:38:54 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@ void	__wait(int i)
 	}
 }
 
-void	__close(void *content)
+void	__close(void *content, int fd1, int fd2)
 {
 	if (((t_cmd *)(content))->outfile != STDOUT_FILENO)
 		close(((t_cmd *)(content))->outfile);
 	if (((t_cmd *)(content))->infile != STDIN_FILENO)
 		close(((t_cmd *)(content))->infile);
+	if (fd1)
+		close(fd1);
+	if (fd2)
+		close(fd2);
 }
 
 int	send_error_exec(char *input)
@@ -35,4 +39,10 @@ int	send_error_exec(char *input)
 	printf("minishell : command not found: %s\n", input);
 	free(input);
 	return (-1);
+}
+
+void	ft_arrcpy(int *dst, int *src, int n)
+{
+	while (n--)
+		dst[n] = src[n];
 }

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/18 14:34:25 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:39:11 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int		is_in_builtins(char *cmd);
 char	*get_cmd_local_path(char *cmd, t_env *env);
 void	print_return_value(int return_code);
 void	__wait(int i);
-void	__close(void *content);
+void	__close(void *content, int fd1, int fd2);
 int		check_file(char *cmd, char *input);
 void	free_exec(t_env *env, char **env_array);
+void	ft_arrcpy(int *dst, int *src, int n);
 
 void	exec_cmd(t_cmd *cmd, char **env, t_env *env_t);
 void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec);
