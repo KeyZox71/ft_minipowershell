@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 12:52:22 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/31 14:46:19 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/04 13:45:18 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	check_pipe(char *readline)
 	{
 		if (*tmp == '|' && is_inquote(readline, tmp - readline) == FALSE)
 		{
-			if (*(tmp + 1) == '|')
+			if (!*(tmp + 1) || *(tmp + 1) == '|')
 				return (send_error_parsing("No command after pipe"));
 			tmp++;
 			while (*tmp && ft_isspace(*tmp))
