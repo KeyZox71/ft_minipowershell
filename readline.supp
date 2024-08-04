@@ -38,6 +38,14 @@
    fun:(below main)
 }
 {
+   </bin/clear>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/nix/store/znz0yrnzmfz6can2kng3anp5gkjrwf0y-ncurses-6.4/bin/clear
+   fun:(below main)
+}
+{
    </bin/cat>
    Memcheck:Leak
    ...
@@ -51,3 +59,11 @@
    obj:/usr/bin/ls
    fun:(below main)
 }
+{
+	</bin/ls>
+	Memcheck:Leak
+	...
+	obj:/nix/store/204ak4443zipfr2yi6y5wal05bck1qqg-coreutils-9.3/bin/coreutils
+	fun:(below main)
+}
+

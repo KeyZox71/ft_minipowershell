@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:05:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/30 19:07:22 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/04 12:52:25 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 #include <stdio.h>
 
 size_t	__get_len_arg(char *s);
+
+bool	check_argvcontent(char *argv)
+{
+	if (!argv)
+		return (false);
+	while (*argv && ft_isspace(*argv))
+		argv++;
+	if (!*argv)
+		return (true);
+	return (false);
+}
 
 size_t	__get_sizeof_redir(char *redir_s, t_redirection *redir)
 {
@@ -57,7 +68,13 @@ t_token	*__to_token(char *cmd)
 		else
 		{
 			token->argv = ft_strjoin_free(token->argv, ft_substr(tmp, 0, 1));
+			if (check_argvcontent(token->argv))
+			{
+				free(token->argv);
+				token->argv = NULL;
+			}
 		}
+
 		tmp++;
 	}
 	return (token);

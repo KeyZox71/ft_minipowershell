@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 20:10:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/01 19:15:44 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/04 16:58:07 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	free_cmd(void *content)
 	cmd = (t_cmd *)content;
 	if (!cmd)
 		return ;
-	if (cmd->infile != STDIN_FILENO && cmd->infile != -1)
+	if (cmd->infile > 1)
 		close(cmd->infile);
-	if (cmd->outfile != STDOUT_FILENO && cmd->outfile != -1)
+	if (cmd->outfile > 1)
 		close(cmd->outfile);
 	if (cmd->cmd)
 		free(cmd->cmd);

@@ -6,12 +6,13 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:13:50 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 13:12:38 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/04 16:16:59 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include "parsing.h"
+#include <stdio.h>
 
 t_list	*tokenizer(char *readline)
 {

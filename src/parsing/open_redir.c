@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:56:53 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/14 17:32:34 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/03 18:44:03 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 t_redir_sign	__close_unused_fd(t_cmd *cmd, t_redir_sign sign)
 {
-	if (cmd->outfile != 0 && sign >= 2)
+	if (cmd->outfile > 1 && sign >= 2)
 		close(cmd->outfile);
-	else if (cmd->infile != 0 && sign < 2)
+	else if (cmd->infile > 1 && sign < 2)
 		close(cmd->infile);
 	return (sign);
 }

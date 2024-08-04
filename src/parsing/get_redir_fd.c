@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:48:41 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/30 19:03:54 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/03 18:43:13 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ void	parsing_msg(t_cmd *cmd)
 		send_error_parsing(ERROR_NO_FILE);
 }
 
+t_cmd	*init_cmd(void)
+{
+	t_cmd	*cmd;
+
+	cmd = ft_calloc(sizeof(t_cmd), 1);
+	if (!cmd)
+		return (NULL);
+	cmd->infile = -2;
+	cmd->outfile = -2;
+	cmd->argv = NULL;
+	cmd->cmd = NULL;
+	return (cmd);
+}
+
 t_cmd	*get_redir_fd(void *content, t_list *tmp)
 {
 	t_redir_sign	sign[2];
@@ -31,7 +45,7 @@ t_cmd	*get_redir_fd(void *content, t_list *tmp)
 
 	sign[0] = INFILE;
 	sign[1] = OUTFILE;
-	cmd = ft_calloc(sizeof(t_cmd), 1);
+	cmd = init_cmd();
 	if (!cmd)
 		return (NULL);
 	while (tmp)
@@ -45,9 +59,9 @@ t_cmd	*get_redir_fd(void *content, t_list *tmp)
 		}
 		tmp = tmp->next;
 	}
-	if (sign[0] == INFILE)
+	if (sign[0] == INFILE || cmd->outfile == -1)
 		cmd->outfile = STDOUT_FILENO;
-	if (sign[1] == OUTFILE)
+	if (sign[1] == OUTFILE || cmd->infile == -1)
 		cmd->infile = STDIN_FILENO;
 	cmd = split_cmd(((t_token *)content)->argv, cmd);
 	return (cmd);
