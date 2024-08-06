@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 21:14:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/29 12:06:11 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:18:02 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ size_t	__add_dollar(t_env *env, char **rl_dollared, char *tmp)
 		free(exit_code);
 		return (2);
 	}
+	else if ((*tmp) == '$')
+		return (2);
+	else if (!(*tmp) || ft_isspace(*tmp))
+		return (1);
 	dollar_size = strlen_till_notalnum(tmp);
 	__cpy_dollar(tmp, dollar_size, env, rl_dollared);
 	return (dollar_size + 1);
@@ -102,6 +106,5 @@ char	*env_var_replace(char *readline, t_env *env)
 			tmp++;
 		}
 	}
-	free(readline);
 	return (rl_dollared);
 }

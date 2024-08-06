@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:50:52 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/24 18:53:31 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:02:58 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,14 @@ char	*format_quotes_string(char *cmd)
 	return (cmd);
 }
 
-int	format_quotes_cmd(t_cmd *cmd)
+void	format_quotes(char **content)
 {
-	uint	i;
+	char	**argv;
 
-	if (!cmd || !cmd->cmd)
-		return (0);
-	cmd->cmd = format_quotes_string(cmd->cmd);
-	i = 0;
-	while (cmd->argv[i])
+	argv = content;
+	while (argv && *argv)
 	{
-		cmd->argv[i] = format_quotes_string(cmd->argv[i]);
-		i++;
+		*argv = format_quotes_string(*argv);
+		argv++;
 	}
-	return (0);
-}
-
-int	format_quotes(t_list *list_cmd)
-{
-	if (!list_cmd)
-		return (0);
-	while (list_cmd)
-	{
-		if (format_quotes_cmd(list_cmd->content))
-			return (-1);
-		list_cmd = list_cmd->next;
-	}
-	return (0);
 }

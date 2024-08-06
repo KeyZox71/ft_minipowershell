@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/04 12:43:53 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:08:09 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,16 @@ int	free_end(char *rl, t_env *env_l, int exit_code, bool print)
 	return (get_exit_code(exit_code));
 }
 
-void	__exec(t_list *cmd_list, t_env *env_l)
-{
-	if (!cmd_list)
-		return ;
-	if (format_quotes(cmd_list))
-	{
-		ft_lstclear(get_list(NULL), &free_cmd);
-		return ;
-	}
-	get_list(&cmd_list);
-	if (check_redir(cmd_list))
-	{
-		ft_lstclear(get_list(NULL), &free_cmd);
-		return ;
-	}
-	exec_split_cmd(cmd_list, env_l);
-	ft_lstclear(&cmd_list, &free_cmd);
-}
-
 void	__parse(char *rl, t_env *env_l)
 {
-	t_list	*cmd_list;
-	t_list	*piped;
+	t_list	*token;
 
-	rl = env_var_replace(rl, env_l);
-	get_rl(&rl);
-	piped = tokenizer(rl);
-	get_list(&piped);
-	if (check_argv(piped))
-	{
-		free(rl);
-		ft_lstclear(&piped, &free_token);
+	token = tokenizer(rl, env_l);
+	if (!token)
 		return ;
-	}
-	cmd_list = get_cmd_list(piped);
-	free(rl);
-	ft_lstclear(&piped, &free_token);
-	__exec(cmd_list, env_l);
+	exec_split_cmd(token, env_l);
+	ft_lstclear(&token, free_cmd);
+	return ;
 }
 
 char	*__rl(t_env *env_l)

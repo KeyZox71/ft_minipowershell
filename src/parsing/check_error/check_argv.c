@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:34:19 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 17:15:01 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/05 16:34:01 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 #include "parsing.h"
 #include "error_msg.h"
 
-bool	check_file_name(t_list *redir)
-{
-	while (redir)
-	{
-		if (!((t_redirection *)redir->content)->file_name)
-			return (true);
-		redir = redir->next;
-	}
-	return (false);
-}
+//bool	check_file_name(t_list *redir)
+//{
+//	while (redir)
+//	{
+//		if (!((t_redirection *)redir->content)->file_name)
+//			return (true);
+//		redir = redir->next;
+//	}
+//	return (false);
+//}
 
-bool	check_argv(t_list *token)
-{
-	t_list	*tmp;
-
-	tmp = token;
-	while (tmp)
-	{
-		if (check_file_name(((t_token *)tmp->content)->redirection))
-			return (send_error_parsing(ERROR_NO_FILE));
-		tmp = tmp->next;
-	}
-	return (false);
-}
+//bool	check_argv(t_list *token)
+//{
+//	t_list	*tmp;
+//
+//	tmp = token;
+//	while (tmp)
+//	{
+//		if (check_file_name(((t_token *)tmp->content)->redirection))
+//			return (send_error_parsing(ERROR_NO_FILE));
+//		tmp = tmp->next;
+//	}
+//	return (false);
+//}
