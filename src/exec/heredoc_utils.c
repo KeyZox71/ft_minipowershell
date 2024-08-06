@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 01:14:10 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/01 17:58:58 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/06 15:18:19 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ void	__heredoc_sig(int code)
 {
 	(void)code;
 	ft_envclear(get_env(NULL), free);
-	ft_lstclear_till_nxt(get_list2(NULL), &free_cmd);
-	ft_lstclear(get_list(NULL), &free_token);
+	ft_lstclear(get_list(NULL), free);
+	ft_free("a", (char ***)get_void(NULL));
+	close(get_fd_heredoc(-1));
 	close(get_fd_heredoc(-1));
 	rl_clear_history();
-	free(*get_rl(NULL));
 	exit(130);
 }

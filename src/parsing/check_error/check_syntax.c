@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:40:13 by adjoly            #+#    #+#             */
-/*   Updated: 2024/06/30 13:54:53 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/06 16:51:48 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_if_file(char *readline)
 	{
 		while (*tmp && is_chevron(*tmp))
 			tmp++;
-		while (*tmp && !ft_isalnum(*tmp))
+		while (*tmp && ft_isspace(*tmp))
 			tmp++;
 		if (!*tmp)
 			return (true);

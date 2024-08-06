@@ -6,13 +6,12 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 11:59:34 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 13:01:49 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/05 16:28:43 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "error_msg.h"
-#include "tokenizer.h"
 #include <stdio.h>
 
 char	*go_to_nxt_quote(char *rl, t_quote quote_type)

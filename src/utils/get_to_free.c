@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:24:15 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/18 14:15:18 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/05 23:11:27 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ t_list	**get_list(t_list **list)
 	return (ret);
 }
 
-t_list	**get_list2(t_list **list)
+void	*get_void(void *in)
 {
-	static t_list	**ret;
+	static void	*ret;
 
-	if (list)
-		ret = list;
+	if (in)
+		ret = in;
 	return (ret);
 }
 

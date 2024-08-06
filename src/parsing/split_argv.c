@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:48:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/30 19:10:17 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:23:12 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,26 @@
 #include "parsing.h"
 #include <stdio.h>
 
+int	ft_ischevron(int c)
+{
+	return (c == '<' || c == '>');
+}
+
 size_t	__get_len_arg(char *s)
 {
 	char	*tmp;
 
 	tmp = s;
-	while (*tmp)
+	if (ft_ischevron(*tmp))
 	{
-		if (ft_isspace(*tmp) && is_inquote(s, tmp - s) == FALSE)
+		while (*tmp && ft_ischevron(*tmp))
+			tmp++;
+		return (tmp - s);
+	}
+	while (tmp && *tmp)
+	{
+		if ((ft_isspace(*tmp) || ft_ischevron(*tmp)) \
+				&& is_inquote(s, tmp - s) == FALSE)
 			break ;
 		tmp++;
 	}
@@ -64,8 +76,13 @@ char	**split_argv(char *readline)
 	char	*tmp;
 
 	tmp = readline;
-	if (!readline || !*readline)
+	if (!readline)
 		return (NULL);
+	if (!*readline)
+	{
+		free(readline);
+		return (NULL);
+	}
 	argv = ft_calloc(__count_args(readline) + 1, sizeof(char *));
 	tmp_av = argv;
 	while (*tmp)
@@ -80,5 +97,6 @@ char	**split_argv(char *readline)
 		}
 	}
 	*tmp_av = NULL;
+	free(readline);
 	return (argv);
 }

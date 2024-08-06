@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/01 16:39:11 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:00:05 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "env.h"
 # include "libft.h"
 # include "parsing.h"
-# include "tokenizer.h"
 
 typedef struct s_exec
 {
@@ -26,7 +25,7 @@ typedef struct s_exec
 	int		pipe_fd[2];
 }	t_exec;
 
-int		format_quotes(t_list *list_cmd);
+void	format_quotes(char **content);
 
 int		exec_single_cmd_execution(t_cmd *cmd, char **env,
 			t_env *env_t, t_exec exec);
@@ -52,7 +51,7 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec);
  *
  * @return (int)		fd of a file containing the user's input, or -1 on error
  */
-int		ft_heredoc(char *delimiter, t_cmd *cmd);
+int		ft_heredoc(char *delimiter);
 int		__open_fd_here(char *path, int mode);
 void	ft_lstclear_till_nxt(t_list **lst, void (*del)(void *));
 int		get_fd_heredoc(int in);

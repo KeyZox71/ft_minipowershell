@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/04 16:57:45 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/06 15:18:02 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,18 @@ static int	get_input(char *delimiter, int fd)
 	return (-(status == -1));
 }
 
-void	__forked(char *delimiter, int fd, t_cmd *cmd)
+void	__forked(char *delimiter, int fd)
 {
 	signal(SIGINT, &__heredoc_sig);
-	free(cmd);
 	get_input(delimiter, fd);
 	ft_envclear(get_env(NULL), free);
-	ft_lstclear_till_nxt(get_list2(NULL), &free_cmd);
-	ft_lstclear(get_list(NULL), &free_token);
-	free(*get_rl(NULL));
+	ft_lstclear(get_list(NULL), free);
+	ft_free("a", (char ***)get_void(NULL));
 	rl_clear_history();
 	close(fd);
 }
 
-int	__heredoc(char *delimiter, t_cmd *cmd)
+int	__heredoc(char *delimiter)
 {
 	int		fork_pid;
 	int		fd;
@@ -105,7 +103,7 @@ int	__heredoc(char *delimiter, t_cmd *cmd)
 	}
 	if (!fork_pid)
 	{
-		__forked(delimiter, fd, cmd);
+		__forked(delimiter, fd);
 		exit(0);
 	}
 	else
@@ -113,10 +111,10 @@ int	__heredoc(char *delimiter, t_cmd *cmd)
 	return (check_error(heredoc_ret, fd));
 }
 
-int	ft_heredoc(char *delimiter, t_cmd *cmd)
+int	ft_heredoc(char *delimiter)
 {
 	int	fd;
 
-	fd = __heredoc(delimiter, cmd);
+	fd = __heredoc(delimiter);
 	return (fd);
 }
