@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:19:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/06 17:25:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/10 17:47:07 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ t_list	*__get_redir(char **content)
 		{
 			tmp = ft_lstnew(__open_heredoc(*(content + 1)));
 			ft_lstadd_back(&list, tmp);
-			if (((t_redir *)(tmp->content))->sign == ERROR)
-			{
-				ft_lstclear(&list, free_redir);
-				return (NULL);
-			}
 		}
 		else if (sign != ERROR)
 			ft_lstadd_back(&list, ft_lstnew(__to_redir(*(content + 1), sign)));
@@ -83,6 +78,5 @@ t_cmd	*__to_cmd(char **content)
 	free(content);
 	cmd->cmd = ft_strdup(cmd->argv[0]);
 	ft_lstclear(&redir, free);
-	printcmd(cmd);
 	return (cmd);
 }

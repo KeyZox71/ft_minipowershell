@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/06 15:14:32 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/10 17:54:27 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef enum s_quote
  */
 size_t				strlen_till_char(char *s, int c);
 
+int					ft_ischevron(int c);
 bool				check_quote(char *readline);
 bool				check_syntax(char *readline);
 bool				check_redir(t_list *redir);

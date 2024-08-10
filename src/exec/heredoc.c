@@ -6,11 +6,13 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 09:19:39 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/06 15:18:02 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/10 12:42:44 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_list	**get_list2(t_list **list);
 
 /*
  * # mode
@@ -77,6 +79,7 @@ void	__forked(char *delimiter, int fd)
 	get_input(delimiter, fd);
 	ft_envclear(get_env(NULL), free);
 	ft_lstclear(get_list(NULL), free);
+	ft_lstclear(get_list2(NULL), free_cmd);
 	ft_free("a", (char ***)get_void(NULL));
 	rl_clear_history();
 	close(fd);

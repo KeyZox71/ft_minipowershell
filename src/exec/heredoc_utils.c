@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 01:14:10 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/06 15:18:19 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/10 12:43:36 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include "minishell.h"
+
+t_list	**get_list2(t_list **list);
 
 int	__open_fd_here(char *path, int mode)
 {
@@ -67,6 +69,7 @@ void	__heredoc_sig(int code)
 	(void)code;
 	ft_envclear(get_env(NULL), free);
 	ft_lstclear(get_list(NULL), free);
+	ft_lstclear(get_list2(NULL), free_cmd);
 	ft_free("a", (char ***)get_void(NULL));
 	close(get_fd_heredoc(-1));
 	close(get_fd_heredoc(-1));

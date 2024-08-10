@@ -6,18 +6,13 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:48:57 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/06 17:23:12 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/10 17:54:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parsing.h"
 #include <stdio.h>
-
-int	ft_ischevron(int c)
-{
-	return (c == '<' || c == '>');
-}
 
 size_t	__get_len_arg(char *s)
 {
@@ -69,21 +64,12 @@ size_t	__count_args(char *s)
 	return (i);
 }
 
-char	**split_argv(char *readline)
+char	**__split_argv(char *tmp)
 {
 	char	**argv;
 	char	**tmp_av;
-	char	*tmp;
 
-	tmp = readline;
-	if (!readline)
-		return (NULL);
-	if (!*readline)
-	{
-		free(readline);
-		return (NULL);
-	}
-	argv = ft_calloc(__count_args(readline) + 1, sizeof(char *));
+	argv = ft_calloc(__count_args(tmp) + 1, sizeof(char *));
 	tmp_av = argv;
 	while (*tmp)
 	{
@@ -97,6 +83,23 @@ char	**split_argv(char *readline)
 		}
 	}
 	*tmp_av = NULL;
+	return (argv);
+}
+
+char	**split_argv(char *readline)
+{
+	char	**argv;
+	char	*tmp;
+
+	if (!readline)
+		return (NULL);
+	if (!*readline)
+	{
+		free(readline);
+		return (NULL);
+	}
+	tmp = readline;
+	argv = __split_argv(tmp);
 	free(readline);
 	return (argv);
 }
