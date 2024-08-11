@@ -6,12 +6,14 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:28:36 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/01 06:17:16 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/11 11:58:17 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parsing.h"
+
+t_list	**get_list2(t_list **list);
 
 void	free_exit(t_env *env, char **env_array)
 {

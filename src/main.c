@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/10 13:16:30 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/11 11:58:12 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	__parse(char *rl, t_env *env_l)
 	token = tokenizer(rl, env_l);
 	if (!token)
 		return ;
+	get_list(&token);
 	exec_split_cmd(token, env_l);
 	ft_lstclear(&token, free_cmd);
 	return ;
