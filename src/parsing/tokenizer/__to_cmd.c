@@ -6,23 +6,11 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:19:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/10 17:47:07 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/12 16:28:08 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	printcmd(t_cmd *cmd){
-	printf("in = %d\n", cmd->infile);
-	printf("out = %d\n", cmd->outfile);
-	printf("cmd = %s\n", cmd->cmd);
-	char **tmp = cmd->argv;
-	while (tmp && *tmp)
-	{
-		printf("argv = %s\n", *tmp);
-		tmp++;
-	}
-}
 
 t_list	*__get_redir(char **content)
 {
