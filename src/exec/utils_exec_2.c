@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/01 16:38:54 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:16:43 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	__close(void *content, int fd1, int fd2)
 		close(((t_cmd *)(content))->outfile);
 	if (((t_cmd *)(content))->infile != STDIN_FILENO)
 		close(((t_cmd *)(content))->infile);
-	if (fd1)
+	if (fd1 != -1)
 		close(fd1);
-	if (fd2)
+	if (fd2 != -1)
 		close(fd2);
 }
 
