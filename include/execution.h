@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/13 16:35:17 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:39:43 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	free_exec(t_env *env, char **env_array);
 void	ft_arrcpy(int *dst, int *src, int n);
 
 int		close_cmd(t_cmd *cmd);
+
+char	**get_env_arr(char **env);
+void	sig_p(int code);
 
 void	exec_cmd(t_cmd *cmd, char **env, t_env *env_t);
 void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec);

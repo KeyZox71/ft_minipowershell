@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exit.c                                        :+:      :+:    :+:   */
+/*   sigpipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 12:28:36 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/13 17:30:02 by mmoussou         ###   ########.fr       */
+/*   Created: 2024/08/13 18:23:24 by mmoussou          #+#    #+#             */
+/*   Updated: 2024/08/13 18:40:19 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parsing.h"
+#include "builtins.h"
 
-t_list	**get_list2(t_list **list);
-
-void	free_exit(t_env *env, char **env_array)
+char	**get_env_arr(char **env)
 {
-	int	i;
+	static char	**ret;
 
-	i = 0;
-	while (i < 1024)
-	{
-		close(i);
-		i++;
-	}
-	rl_clear_history();
-	ft_envclear(&env, free);
-	ft_lstclear(get_list(NULL), &free_cmd);
-	if (env_array)
-		ft_free("a", &env_array);
+	if (env)
+		ret = env;
+	return (ret);
+}
+
+void	sig_p(int code)
+{
+	t_env	**env;
+
+	(void) code;
+	env = get_env(NULL);
+	free_exit(*env, get_env_arr(NULL));
+	exit(141);
 }
