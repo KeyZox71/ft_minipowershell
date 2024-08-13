@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:03:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/09 17:59:41 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:34:41 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	exec_cmd(t_cmd *cmd, char **env, t_env *env_t)
 
 void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
 {
+	int	i;
+
 	exec.status = dup2(cmd->infile, STDIN_FILENO);
 	if (cmd->infile != STDIN_FILENO)
 		close(cmd->infile);
@@ -58,7 +60,15 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
 	if (exec.pipe_fd[0] != -1)
 		close(exec.pipe_fd[1]);
 	if (exec.status != -1)
+	{
+		i = 3;
+		while (i < 1024)
+		{
+			close(i);
+			i++;
+		}
 		exec_cmd(cmd, env, env_t);
+	}
 }
 
 int	exec_single_cmd_execution(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)

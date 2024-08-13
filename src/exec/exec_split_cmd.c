@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/12 16:24:11 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:32:29 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	char	*input;
 
 	if (!cmd->cmd)
-		return (get_exit_code(0));
+		return (close_cmd(cmd));
 	ft_arrcpy(exec.pipe_fd, pipe_fd, 2);
 	input = ft_strdup(cmd->cmd);
 	exec.status = switch_cmd_path(cmd, env_t);
@@ -54,8 +54,7 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 
 	if (!cmd->cmd)
 	{
-		if (cmd->argv)
-			ft_free("a", &(cmd->argv));
+		free_cmd(cmd);
 		rl_clear_history();
 		get_exit_code(0);
 		return (0);

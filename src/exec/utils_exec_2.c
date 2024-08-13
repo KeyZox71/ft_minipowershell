@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 22:53:01 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/12 16:16:43 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:34:54 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,13 @@ void	ft_arrcpy(int *dst, int *src, int n)
 {
 	while (n--)
 		dst[n] = src[n];
+}
+
+int	close_cmd(t_cmd *cmd)
+{
+	if (cmd->infile != STDIN_FILENO)
+		close(cmd->infile);
+	if (cmd->outfile != STDOUT_FILENO)
+		close(cmd->outfile);
+	return (get_exit_code(0));
 }
