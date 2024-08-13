@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:19:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/12 16:28:08 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 13:40:20 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*__get_redir(char **content)
 		sign = __to_redir_sign(*content);
 		if (sign == HEREDOC)
 		{
-			tmp = ft_lstnew(__open_heredoc(*(content + 1)));
+			tmp = ft_lstnew(__open_heredoc(*(content + 1), list));
 			ft_lstadd_back(&list, tmp);
 		}
 		else if (sign != ERROR)

@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/10 17:54:27 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 13:45:37 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ t_list				*__split_pipe(char *readline);
 t_list				*tokenizer(char	*readline, t_env *env);	
 
 t_redir_sign		__to_redir_sign(char *redir_sign);
-t_redir				*__open_heredoc(char *filename);
+t_redir				*__open_heredoc(char *filename, t_list *list);
 t_redir				*__to_redir(char *filename, t_redir_sign sign);
 void				__get_fd(t_list *list, t_cmd *cmd);
 char				**__get_argv(char **content);

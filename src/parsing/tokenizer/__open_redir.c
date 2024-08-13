@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 23:31:09 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/06 15:29:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 13:43:08 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ t_redir_sign	__to_redir_sign(char *redir_sign)
 	return (ERROR);
 }
 
-t_redir	*__open_heredoc(char *filename)
+t_redir	*__open_heredoc(char *filename, t_list *list)
 {
 	int		fd;
 	t_redir	*redir;
 
 	if (!filename && !*filename)
 		return (NULL);
-	fd = ft_heredoc(filename);
+	fd = ft_heredoc(filename, list);
 	redir = ft_calloc(sizeof(t_redir), 1);
 	if (!redir)
 	{

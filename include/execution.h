@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:20:22 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/06 17:00:05 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 13:44:32 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec);
  *
  * @return (int)		fd of a file containing the user's input, or -1 on error
  */
-int		ft_heredoc(char *delimiter);
+int		ft_heredoc(char *delimiter, t_list *list);
 int		__open_fd_here(char *path, int mode);
 void	ft_lstclear_till_nxt(t_list **lst, void (*del)(void *));
 int		get_fd_heredoc(int in);
