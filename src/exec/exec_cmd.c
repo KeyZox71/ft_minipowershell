@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:03:31 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/13 16:34:41 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:06:23 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ void	__fork_single_cmd(t_cmd *cmd, char **env, t_env *env_t, t_exec exec)
 		close(exec.pipe_fd[1]);
 	if (exec.status != -1)
 	{
-		i = 3;
-		while (i < 1024)
+		if (is_in_builtins(cmd->cmd) == 1)
+			close(STDOUT_FILENO);
+		i = 2;
+		while (i++ < 1023)
 		{
 			close(i);
-			i++;
 		}
 		exec_cmd(cmd, env, env_t);
 	}
