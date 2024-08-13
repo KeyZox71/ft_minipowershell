@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:13:50 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/13 13:47:48 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 15:18:14 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_list	*tokenizer(char *readline, t_env *env)
 	t_list	*cmd;
 	t_list	*piped;
 	t_list	*tmp;
+	t_cmd	*ret;
 
 	(void)(env);
 	piped = __split_pipe(readline);
@@ -37,17 +38,18 @@ t_list	*tokenizer(char *readline, t_env *env)
 	get_list(&piped);
 	while (tmp)
 	{
-		ft_lstadd_back(&cmd,
-			ft_lstnew(__to_cmd(split_argv(env_var_replace(tmp->content,
-											env)))));
+		ret = __to_cmd(split_argv(env_var_replace(tmp->content, env)));
+		if (!ret)
+			return (clear_all(cmd, piped));
+		ft_lstadd_back(&cmd, ft_lstnew(ret));
 		if (!cmd)
 			return (clear_all(cmd, piped));
-		if (!ft_lstlast(cmd)->content)
-			return (clear_all(cmd, piped));
-		if (!cmd->next)
-			get_list2(&cmd);
 		if (((t_cmd *)ft_lstlast(cmd)->content)->infile == -2)
 			return (clear_all(cmd, piped));
+		//if (!ft_lstlast(cmd)->content)
+			//return (clear_all(cmd, piped));
+		if (!cmd->next)
+			get_list2(&cmd);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&piped, free);
