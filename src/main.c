@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:18:04 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/13 16:48:59 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:04:41 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	__parse(char *rl, t_env *env_l)
 		return ;
 	get_list(&token);
 	exec_split_cmd(token, env_l);
-	ft_lstclear(&token, free_cmd);
+	if (token)
+		ft_lstclear(&token, free_cmd);
 	return ;
 }
 
