@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:13:50 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/13 15:18:14 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 15:53:00 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,20 @@ t_list	*tokenizer(char *readline, t_env *env)
 		ret = __to_cmd(split_argv(env_var_replace(tmp->content, env)));
 		if (!ret)
 			return (clear_all(cmd, piped));
+		if (((t_cmd *)ret)->infile == -2)
+			return (clear_all(cmd, piped));
 		ft_lstadd_back(&cmd, ft_lstnew(ret));
 		if (!cmd)
 			return (clear_all(cmd, piped));
-		if (((t_cmd *)ft_lstlast(cmd)->content)->infile == -2)
-			return (clear_all(cmd, piped));
-		//if (!ft_lstlast(cmd)->content)
-			//return (clear_all(cmd, piped));
 		if (!cmd->next)
 			get_list2(&cmd);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&piped, free);
+	if (check_redir(cmd))
+	{
+		ft_lstclear(&cmd, free_cmd);
+		return (NULL);
+	}
 	return (cmd);
 }

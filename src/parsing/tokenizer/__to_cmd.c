@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:19:35 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/13 15:06:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 16:09:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_list	*__get_redir(char **content)
 		{
 			tmp = ft_lstnew(__open_heredoc(*(content + 1), list));
 			ft_lstadd_back(&list, tmp);
+			if (((t_redir *)tmp->content)->sign == ERROR)
+				return (list);
 		}
 		else if (sign != ERROR)
 			ft_lstadd_back(&list, ft_lstnew(__to_redir(*(content + 1), sign)));
@@ -39,6 +41,22 @@ void	*clear_all_cmd(char **content, t_list *redir)
 	ft_lstclear(&redir, free_redir);
 	ft_free("a", &content);
 	return (NULL);
+}
+
+t_cmd	*return_err_cmd(char **content, t_list *redir)
+{
+	t_cmd	*cmd;
+
+	cmd = ft_calloc(sizeof(t_cmd), 1);
+	if (!cmd)
+		return (clear_all_cmd(content, redir));
+	cmd->infile = -1;
+	cmd->outfile = -1;
+	cmd->cmd = NULL;
+	cmd->argv = NULL;
+	ft_free("a", &content);
+	ft_lstclear(&redir, free_redir);
+	return (cmd);
 }
 
 t_cmd	*__to_cmd(char **content)
@@ -56,8 +74,8 @@ t_cmd	*__to_cmd(char **content)
 	format_quotes(content);
 	get_void(&content);
 	redir = __get_redir(content);
-	if (check_redir(redir))
-		return (clear_all_cmd(content, redir));
+	if (check_redir_single(redir))
+		return (return_err_cmd(content, redir));
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
 		return (clear_all_cmd(content, redir));

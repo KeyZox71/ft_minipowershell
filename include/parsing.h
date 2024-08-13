@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:20:26 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/13 13:45:37 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/13 16:08:15 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ bool				check_syntax(char *readline);
 bool				check_redir(t_list *redir);
 bool				check_argv(t_list *token);
 bool				check_wspace(char *readline);
+bool				check_redir_single(t_list *list);
 /**
  * @brief				Take the readline output and check if all the pipe 
  *						a command after them
