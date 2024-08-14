@@ -6,12 +6,13 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:25:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/14 10:23:48 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:51:19 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include "builtins.h"
 
 int	is_in_builtins(char *cmd)
 {
@@ -84,6 +85,12 @@ int	switch_cmd_path(t_cmd *cmd, t_env *env)
 	else if (cmd->cmd[0] != '/')
 	{
 		path = env_get_value("PATH", env);
+		if (!path || !path[0])
+		{
+			if (path)
+				free(path);
+			path = ft_strdup(ret_cwd());
+		}
 		cmd->cmd = get_path(path, cmd->cmd);
 		free(path);
 	}
