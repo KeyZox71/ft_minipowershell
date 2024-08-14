@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:59:27 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/07/19 11:33:57 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/14 07:50:39 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,27 +81,28 @@ void	add_to_env(char *name, char *content, t_env *env)
 		ft_envadd_back(&env, ft_envnew(name, content));
 }
 
-int	check_export_input(char *input)
+int	check_export_input(char *s)
 {
 	int	i;
 
 	i = 0;
-	if ((!ft_isalpha(input[i]) && input[i] != '_') || input[i] == '=')
+	if ((!ft_isalpha(s[i]) && s[i] != '_') || s[i] == '=')
 	{
-		printf("minishell: export: '%s': not a valid identifier\n", input);
+		ft_printf_fd(2, "minishell: export: '%s': not a valid identifier\n", s);
 		return (get_exit_code(1));
 	}
 	i++;
-	while (input[i] && input[i] != '=')
+	while (s[i] && s[i] != '=')
 	{
-		if (!ft_isalnum(input[i]) && input[i] != '_')
+		if (!ft_isalnum(s[i]) && s[i] != '_')
 		{
-			if (input[i] == '+' && input[i + 1] == '=')
+			if (s[i] == '+' && s[i + 1] == '=')
 			{
 				i++;
 				continue ;
 			}
-			printf("minishell: export: '%s': not a valid identifier\n", input);
+			ft_printf_fd(2,
+				"minishell: export: '%s': not a valid identifier\n", s);
 			return (get_exit_code(1));
 		}
 		i++;

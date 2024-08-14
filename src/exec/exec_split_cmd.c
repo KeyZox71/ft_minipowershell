@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:55:06 by mmoussou          #+#    #+#             */
-/*   Updated: 2024/08/13 19:16:03 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/08/14 07:45:57 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ int	exec_fork_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	if (exec.status == -1 || !input || check_file(cmd->cmd, input))
 	{
 		if (exec.status == -1)
+			get_exit_code(127);
+		if (exec.status == -1)
 			printf("minishell : command not found: %s\n", input);
 		free(input);
-		return (get_exit_code(127));
+		return (-1);
 	}
 	free(input);
 	fork_pid = fork();
@@ -65,9 +67,11 @@ int	exec_single_cmd(t_cmd *cmd, char **env, t_env *env_t, int pipe_fd[2])
 	if (exec.status == -1 || !input || check_file(cmd->cmd, input))
 	{
 		if (exec.status == -1)
+			get_exit_code(127);
+		if (exec.status == -1)
 			printf("minishell : command not found: %s\n", input);
 		free(input);
-		return (get_exit_code(127));
+		return (-1);
 	}
 	free(input);
 	exec.status = exec_single_cmd_execution(cmd, env, env_t, exec);

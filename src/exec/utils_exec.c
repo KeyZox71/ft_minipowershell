@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:25:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/07/17 16:13:29 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/14 08:07:55 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	switch_cmd_path(t_cmd *cmd, t_env *env)
 {
 	char	*path;
 
-	if (is_in_builtins(cmd->cmd))
+	if (is_in_builtins(cmd->cmd) || !cmd->cmd || !cmd->cmd[0])
 		return (0);
 	if (cmd->cmd[0] == '.' && cmd->cmd[1] == '/')
 		cmd->cmd = get_cmd_local_path(cmd->cmd, env);
@@ -100,16 +100,23 @@ int	check_file(char *cmd, char *input)
 	if (is_in_builtins(cmd))
 		return (0);
 	status = stat(cmd, &entry);
-	if (status)
+	if (status || !cmd || !*cmd)
 	{
+		get_exit_code(127);
 		printf("minishell : command not found: %s\n", input);
 		return (1);
 	}
 	if (!S_ISDIR(entry.st_mode) && !access(cmd, X_OK))
 		return (0);
 	if (S_ISDIR(entry.st_mode))
+	{
+		get_exit_code(126);
 		printf("minishell : %s is a directory.\n", input);
+	}
 	else
+	{
+		get_exit_code(127);
 		printf("minishell : command not found: %s\n", input);
+	}
 	return (1);
 }
