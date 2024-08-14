@@ -6,7 +6,7 @@
 /*   By: mmoussou <mmoussou@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:25:18 by adjoly            #+#    #+#             */
-/*   Updated: 2024/08/14 08:07:55 by mmoussou         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:23:48 by mmoussou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	check_file(char *cmd, char *input)
 	if (status || !cmd || !*cmd)
 	{
 		get_exit_code(127);
-		printf("minishell : command not found: %s\n", input);
+		ft_printf_fd(2, "minishell : command not found: %s\n", input);
 		return (1);
 	}
 	if (!S_ISDIR(entry.st_mode) && !access(cmd, X_OK))
@@ -111,12 +111,12 @@ int	check_file(char *cmd, char *input)
 	if (S_ISDIR(entry.st_mode))
 	{
 		get_exit_code(126);
-		printf("minishell : %s is a directory.\n", input);
+		ft_printf_fd(2, "minishell : %s is a directory.\n", input);
 	}
 	else
 	{
 		get_exit_code(127);
-		printf("minishell : command not found: %s\n", input);
+		ft_printf_fd(2, "minishell : command not found: %s\n", input);
 	}
 	return (1);
 }
