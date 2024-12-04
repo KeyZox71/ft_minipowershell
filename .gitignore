@@ -1,11 +1,9 @@
 obj/
-minishell
 .direnv
-.envrc
-flake.nix
 compile_commands.json
 .cache
 libft/**/*.o
 libft/**/*.a
 src/main.c
 vgcore.*
+result
